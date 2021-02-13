@@ -1,0 +1,99 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
+import Dropdown from './Dropdown/Dropdown';
+import Aux from '../../hoc/Auxilary/Auxilary';
+import img1 from '../../assets/images/logo.png';
+import img2 from '../../assets/images/logo3.png';
+
+function Navbar() {
+  const [click, setClick] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
+
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
+
+  const onMouseEnter = () => {
+    if (window.innerWidth < 960) {
+      setDropdown(false);
+    } else {
+      setDropdown(true);
+    }
+  };
+
+  const onMouseLeave = () => {
+    if (window.innerWidth < 960) {
+      setDropdown(false);
+    } else {
+      setDropdown(false);
+    }
+  };
+
+
+
+
+  return (
+    <Aux>
+      <nav className='navbar'>
+        <div className='imgContainer'>
+          <img className="img1" src={img1} />
+          {/* <img className="img2" src={img2} /> */}
+        </div>
+
+        <div className='menu-icon' onClick={handleClick}>
+          <div className={click ? 'fas fa-times' : 'fas fa-bars'} />
+        </div>
+        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+          <li className='nav-item'>
+            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+              Home
+            </Link>
+          </li>
+          <li
+            className='nav-item'
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+          >
+            <Link
+              to='/profile'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Profile <icon className='fas fa-caret-down' />
+            </Link>
+            {dropdown && <Dropdown />}
+          </li>
+          <li className='nav-item'>
+            <Link
+              to='/products'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Products
+            </Link>
+          </li>
+          <li className='nav-item'>
+            <Link
+              to='/contact-us'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Contact Us
+            </Link>
+          </li>
+          <li className='nav-item'>
+            <Link
+              to='/sign-up'
+              className='nav-links-mobile'
+              onClick={closeMobileMenu}
+            >
+              Sign Up
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </Aux>
+  );
+}
+
+export default Navbar;
