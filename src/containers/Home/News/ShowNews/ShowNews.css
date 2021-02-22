@@ -1,0 +1,50 @@
+.card{
+
+    border: 1px solid #111;
+    max-width: 75vw;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.card p {
+    max-width: 70ch;
+}
+
+.card h4{
+    font-size: 1.2rem;
+}
+
+.img {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.card img{
+    width: 100%
+}
+
+a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: blue;
+}
+
+a:hover{
+    color: rgb(105, 105, 237);
+}
+
+button {
+    /* background: #e8f1f5; */
+    background: none;
+    border: none;
+}
+
+@media (min-width: 900px){
+    .card {
+        width: 1000px;
+        margin: 20px auto;
+    }
+}

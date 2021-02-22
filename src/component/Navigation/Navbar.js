@@ -55,7 +55,7 @@ function Navbar() {
             onMouseLeave={onMouseLeave}
           >
             <Link
-              to='/profile'
+              to='/profile/my-blogs'
               className='nav-links'
               onClick={closeMobileMenu}
             >
@@ -65,11 +65,11 @@ function Navbar() {
           </li>
           <li className='nav-item'>
             <Link
-              to='/products'
+              to='/blogs'
               className='nav-links'
               onClick={closeMobileMenu}
             >
-              Products
+              Blogs
             </Link>
           </li>
           <li className='nav-item'>

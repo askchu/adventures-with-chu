@@ -1,7 +1,20 @@
-.Card {
-    width: 400px;
-    height: 100%;
+.card {
+    width: 100%;
     border: 1px solid #111;
-    padding: 25px;
-    margin: 25px auto
+    margin: 25px auto;
+    border-radius: 10px;
 }
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttons button:nth-child(1){
+    margin-right: 10px;
+}
+
+.buttons button {
+    font-size: 15px;
+}
+

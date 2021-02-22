@@ -1,0 +1,89 @@
+.blog {
+    position: relative;
+    margin: 0 auto;
+    height: 100%;
+    padding-top: 60px;
+}
+
+.blog h5 {
+    font-size: 1.3rem;
+    text-align: center;
+    background: #e8f1f5;
+    border-radius: 2rem;
+}
+.posts{
+    padding: 10px;
+}
+.posts h5 {
+    margin-top: 0;
+}
+.profile {
+    position: relative;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.profile h5 {
+    margin-bottom: 10px;
+}
+.profile p {
+    font-weight: 500;
+}
+.profile p, button {
+    margin: 0;
+    font-size: 1.2rem;
+}
+.profile .pic {
+    background: pink;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+}
+.pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media (min-width: 900px){
+.blog {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 0.2fr;
+    grid-template-areas: 
+    "post profile"
+}
+.profile {
+    grid-area: profile;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid #111; */
+    height: 300px;
+    padding: 10px;
+    text-align: center;
+}
+.posts {
+    grid-area: post;
+}
+.posts h5 {
+    margin-top: 35px;
+}
+.profile h5 {
+    margin-top: 35px;
+    margin-bottom: 5px;
+}
+.profile p {
+    margin: 0;
+    /* padding-left: 6px; */
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.profile button {
+    text-align: center;
+    font-size: 1.1rem;
+    width: 100%;
+    padding-left: 0;
+}
+}

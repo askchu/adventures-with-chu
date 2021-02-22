@@ -8,7 +8,6 @@ class Blogging extends Component {
     render() {
         return (
             <Aux>
-                {/* <NewPost /> */}
                 <Posts />
             </Aux>
         )

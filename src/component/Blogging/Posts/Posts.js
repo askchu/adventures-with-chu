@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './Posts.css';
 import instance from '../../../axios-orders';
 import ShowPosts from '../ShowPosts/ShowPosts';
+import Aux from '../../../hoc/Auxilary/Auxilary';
 
 
 
@@ -61,18 +62,23 @@ class Posts extends Component {
     // }
 
     render() {
+
+
         const post = (
             this.state.posts.map(results => (
                 <ShowPosts key={results.id}
                     author={results.author}
                     date={results.date}
-                    content={results.content} />
+                    content={results.content}
+                    id={results.id}
+                />
             ))
         )
+
         return (
-            <div className={classes.Card}>
-                <div>
-                    <div>
+            <Aux>
+                <div className="blog">
+                    {/* <div>
                         <label>Author:</label>
                         <input type='text' value={this.state.author} onChange={(event) => this.setState({ author: event.target.value })} />
                     </div>
@@ -85,13 +91,22 @@ class Posts extends Component {
                     <button
                         onClick={this.newPostHandler}
                     >Add Post
-                    </button>
+                    </button> */}
+                    <div className='profile'>
+                        <h5>Profile</h5>
+                        <div className='pic'><img />I am img</div>
+                        <p>User: Alex Chu</p>
+                        <button>Account</button>
+                        <button>Following</button>
+                        <button>Settings</button>
+                    </div>
+                    <div className="posts">
+                        <h5>My Blogs</h5>
+                        {post}
+                    </div>
+
                 </div>
-                {post}
-
-
-            </div>
-
+            </Aux>
         )
     };
 }
