@@ -2,7 +2,7 @@ import React from 'react';
 import './ShowNews.css';
 
 const ShowNews = (props) => (
-    <div className="card">
+    <div className="news">
         <h4>{props.title}</h4>
         <p><strong>By: {props.author}</strong></p>
         <div className="img">

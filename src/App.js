@@ -6,6 +6,7 @@ import Navbar from './component/Navigation/Navbar';
 import './App.css';
 import Edit from './component/Blogging/Edit/Edit';
 import Add from './component/Blogging/Add/Add';
+import ShowBlog from './component/Blogging/ShowBlog/ShowBlog';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/profile/my-blogs/new" exact component={Add} />
-        <Route path="/profile/my-blogs/edit/:id" exact component={Edit} />
+        <Route path="/profile/my-blogs/:id/" exact component={ShowBlog} />
+        <Route path="/profile/my-blogs/:id/edit" exact component={Edit} />
         <Route path="/profile/my-blogs" component={Blog} />
       </Switch>
     </Router>

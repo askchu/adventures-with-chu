@@ -73,7 +73,7 @@ class Edit extends Component {
             url: `https://facebook-blog-app-default-rtdb.firebaseio.com/posts/${this.state.id}.json`,
             data: newPost
         }).then(response => {
-            this.props.history.push('/profile/my-blogs');
+            this.props.history.push(`/profile/my-blogs/${this.state.id}`);
         })
             .catch(err => console.log(err));
     }
@@ -82,7 +82,7 @@ class Edit extends Component {
         const newPost = {
             title: this.inputRef1.current.value,
             author: this.inputRef2.current.value,
-            date: this.inputRef3.current.value,
+            date: this.state.date,
             content: this.inputRef4.current.value
         }
         console.log(newPost)
@@ -92,7 +92,7 @@ class Edit extends Component {
 
     render() {
         // console.log(this.state.id);
-        // console.log(this.state.post);
+        console.log(this.state.date);
 
         const post = {
             ...this.state.post[0]
@@ -105,17 +105,12 @@ class Edit extends Component {
             <div className='container'>
                 <div className='title'>
                     <h1>Edit Page</h1>
-                    <button><a href="/profile/my-blogs">Back</a></button>
+                    <button><a href={`/profile/my-blogs/${this.state.id}`}>Back</a></button>
                     <button onClick={this.onDelete.bind(this)}>Delete <i className='garbage far fa-trash-alt'></i></button>
                 </div>
 
 
                 <div className='edit'>
-                    {/* <h1>Title: {this.state.title}</h1>
-                    <p>Author: {post.author}</p>
-                    <p>Date: {post.date}</p>
-                    <p>Content: {post.content}</p> */}
-
                     <form onSubmit={this.onSubmit.bind(this)}>
                         <div className='input-field'>
                             <label htmlFor='title'>Title:</label>
@@ -125,10 +120,11 @@ class Edit extends Component {
                             <label htmlFor='author'>Author:</label>
                             <input type='text' name='author' ref={this.inputRef2} value={this.state.author} onChange={this.inputChange} />
                         </div>
-                        <div className='input-field'>
+                        {/* <div className='input-field'>
                             <label htmlFor='date'>Date:</label>
-                            <input type='text' name='date' ref={this.inputRef3} value={time.toLocaleTimeString('en-US')} />
-                        </div>
+                            <input type='text' name='date' ref={this.inputRef3} value={time.toLocaleTimeString('en-US')}
+                                onChange={this.inputChange} />
+                        </div> */}
                         <div className='input-field'>
                             <label htmlFor='content'>Content:</label>
                             <textarea rows="4" name='content' ref={this.inputRef4} value={this.state.content} onChange={this.inputChange} />

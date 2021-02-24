@@ -16,7 +16,20 @@ export class Add extends Component {
         console.log('constructor');
     }
 
+    componentDidMount() {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        const date = new Date()
+        const month = monthNames[date.getMonth()];
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+        const output = month + ' ' + day + ', ' + year;
+        // console.log(output);
+        this.setState({ date: output });
+    }
+
     newPostHandler = () => {
+        console.log(this.state.date);
         // alert("Add new post!");
         let post = {
             title: this.state.title,
@@ -24,6 +37,7 @@ export class Add extends Component {
             date: this.state.date,
             content: this.state.content
         }
+        console.log(post);
         instance.post('/posts.json', post)
             .then(response => {
                 console.log(response)
@@ -38,16 +52,8 @@ export class Add extends Component {
 
 
     render() {
+        // console.log(this.state.date);
 
-        // console.log(output);
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
-        const date = new Date()
-        const month = monthNames[date.getMonth()];
-        const day = String(date.getDate()).padStart(2, '0');
-        const year = date.getFullYear();
-        const output = month + ' ' + day + ', ' + year;
-        console.log(output);
 
         return (
             <div className='container'>
@@ -57,7 +63,7 @@ export class Add extends Component {
                 </div>
 
 
-                <div className='edit'>
+                <div className='form'>
                     <div className='input-field'>
                         <label>Title:</label>
                         <input type='text' value={this.state.title} onChange={(event) => this.setState({ title: event.target.value })} />
@@ -66,13 +72,14 @@ export class Add extends Component {
                         <label>Author:</label>
                         <input type='text' value={this.state.author} onChange={(event) => this.setState({ author: event.target.value })} />
                     </div>
-                    <div className='input-field'>
+                    {/* <div className='input-field'>
                         <label>Date:</label>
-                        <input type='text' value={output}
+                        <input type='text'
+                            value={output}
                             onChange={(event) => this.setState({ date: output })}
                         // onChange={(event) => this.setState({ date: event.target.value })}
                         />
-                    </div>
+                    </div> */}
                     <div className='input-field'><label>Content</label>
                         <textarea rows="4" value={this.state.content} onChange={(event) => this.setState({ content: event.target.value })} />
                     </div>

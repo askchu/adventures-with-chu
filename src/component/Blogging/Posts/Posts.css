@@ -18,9 +18,7 @@
     margin-top: 0;
     margin-bottom: 10px;
 }
-.posts a{
-    /* background:#e8f1f5; */
-}
+
 .icon {
     display: flex;
     justify-content: flex-end;
@@ -67,6 +65,15 @@
     justify-content: center;
     align-items: center;
 }
+
+#blogs{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-rows: 1fr;
+    padding: 20px;
+}
+
+
 @media (min-width: 900px){
 .blog {
     display: grid;
@@ -109,4 +116,12 @@
     width: 100%;
     padding-left: 0;
 }
+#blogs{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 10px;
+
+}
+
 }

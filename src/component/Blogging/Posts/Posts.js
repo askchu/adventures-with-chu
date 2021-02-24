@@ -93,24 +93,9 @@ class Posts extends Component {
                         <div className='icon'>
                             <a href='/profile/my-blogs/new'>New Blog<i className="fas fa-plus"></i></a>
                         </div>
-
-
-                        {/* <div>
-                            <label>Author:</label>
-                            <input type='text' value={this.state.author} onChange={(event) => this.setState({ author: event.target.value })} />
+                        <div id="blogs">
+                            {post}
                         </div>
-                        <div><label>Date:</label>
-                            <input type='text' value={this.state.date} onChange={(event) => this.setState({ date: event.target.value })} />
-                        </div>
-                        <div><label>Content</label>
-                            <textarea rows="4" value={this.state.content} onChange={(event) => this.setState({ content: event.target.value })} />
-                        </div>
-                        <button
-                            onClick={this.newPostHandler}
-                        >Add Post
-                    </button> */}
-
-                        {post}
                     </div>
 
                 </div>

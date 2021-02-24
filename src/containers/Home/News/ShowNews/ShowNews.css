@@ -1,4 +1,4 @@
-.card{
+.news{
 
     border: 1px solid #111;
     max-width: 75vw;
@@ -9,11 +9,11 @@
     text-align: left;
 }
 
-.card p {
+.news p {
     max-width: 70ch;
 }
 
-.card h4{
+.news h4{
     font-size: 1.2rem;
 }
 
@@ -22,7 +22,7 @@
     margin: 0 auto;
 }
 
-.card img{
+.news img{
     width: 100%
 }
 
@@ -43,7 +43,7 @@ button {
 }
 
 @media (min-width: 900px){
-    .card {
+    .news {
         width: 1000px;
         margin: 20px auto;
     }
