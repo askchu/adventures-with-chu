@@ -4,7 +4,8 @@ import Home from './containers/Home/Home';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Navbar from './component/Navigation/Navbar';
 import './App.css';
-import Edit from './containers/Blog/Edit/Edit';
+import Edit from './component/Blogging/Edit/Edit';
+import Add from './component/Blogging/Add/Add';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/profile/my-blogs/new" exact component={Add} />
         <Route path="/profile/my-blogs/edit/:id" exact component={Edit} />
         <Route path="/profile/my-blogs" component={Blog} />
       </Switch>
@@ -20,4 +22,3 @@ function App() {
 }
 
 export default App;
-

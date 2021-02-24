@@ -59,7 +59,7 @@ function Navbar() {
               className='nav-links'
               onClick={closeMobileMenu}
             >
-              Profile <icon className='fas fa-caret-down' />
+              Profile <i className='fas fa-caret-down' />
             </Link>
             {dropdown && <Dropdown />}
           </li>

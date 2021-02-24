@@ -16,7 +16,24 @@
 }
 .posts h5 {
     margin-top: 0;
+    margin-bottom: 10px;
 }
+.posts a{
+    /* background:#e8f1f5; */
+}
+.icon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    /* margin-bottom: 10px; */
+    /* padding-right: 2px; */
+}
+.fas {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .profile {
     position: relative;
     height: 100%;
@@ -30,10 +47,13 @@
 }
 .profile p {
     font-weight: 500;
-}
-.profile p, button {
     margin: 0;
     font-size: 1.2rem;
+}
+.profile button {
+    margin: 0;
+    font-size: 1.2rem;
+    background: white;
 }
 .profile .pic {
     background: pink;
@@ -63,6 +83,9 @@
     height: 300px;
     padding: 10px;
     text-align: center;
+}
+.title{
+    margin-top: 35px;
 }
 .posts {
     grid-area: post;

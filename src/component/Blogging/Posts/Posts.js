@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Posts.css';
+import './Posts.css';
 import instance from '../../../axios-orders';
 import ShowPosts from '../ShowPosts/ShowPosts';
 import Aux from '../../../hoc/Auxilary/Auxilary';
@@ -10,9 +10,9 @@ class Posts extends Component {
     constructor(props) {
         super();
         this.state = {
-            author: '',
-            date: '',
-            content: '',
+            // author: '',
+            // date: '',
+            // content: '',
             posts: [],
             submitted: false
         }
@@ -67,6 +67,7 @@ class Posts extends Component {
         const post = (
             this.state.posts.map(results => (
                 <ShowPosts key={results.id}
+                    title={results.title}
                     author={results.author}
                     date={results.date}
                     content={results.content}
@@ -78,20 +79,7 @@ class Posts extends Component {
         return (
             <Aux>
                 <div className="blog">
-                    {/* <div>
-                        <label>Author:</label>
-                        <input type='text' value={this.state.author} onChange={(event) => this.setState({ author: event.target.value })} />
-                    </div>
-                    <div><label>Date:</label>
-                        <input type='text' value={this.state.date} onChange={(event) => this.setState({ date: event.target.value })} />
-                    </div>
-                    <div><label>Content</label>
-                        <textarea rows="4" value={this.state.content} onChange={(event) => this.setState({ content: event.target.value })} />
-                    </div>
-                    <button
-                        onClick={this.newPostHandler}
-                    >Add Post
-                    </button> */}
+
                     <div className='profile'>
                         <h5>Profile</h5>
                         <div className='pic'><img />I am img</div>
@@ -102,6 +90,26 @@ class Posts extends Component {
                     </div>
                     <div className="posts">
                         <h5>My Blogs</h5>
+                        <div className='icon'>
+                            <a href='/profile/my-blogs/new'>New Blog<i className="fas fa-plus"></i></a>
+                        </div>
+
+
+                        {/* <div>
+                            <label>Author:</label>
+                            <input type='text' value={this.state.author} onChange={(event) => this.setState({ author: event.target.value })} />
+                        </div>
+                        <div><label>Date:</label>
+                            <input type='text' value={this.state.date} onChange={(event) => this.setState({ date: event.target.value })} />
+                        </div>
+                        <div><label>Content</label>
+                            <textarea rows="4" value={this.state.content} onChange={(event) => this.setState({ content: event.target.value })} />
+                        </div>
+                        <button
+                            onClick={this.newPostHandler}
+                        >Add Post
+                    </button> */}
+
                         {post}
                     </div>
 

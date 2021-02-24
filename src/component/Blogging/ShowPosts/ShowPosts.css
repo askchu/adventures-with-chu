@@ -5,6 +5,7 @@
     border-radius: 10px;
 }
 
+
 .buttons {
     display: flex;
     justify-content: flex-end;
@@ -18,3 +19,18 @@
     font-size: 15px;
 }
 
+.buttons a {
+    background: rgb(121, 223, 121);
+    border-radius: 2rem;
+    color: white;
+    padding: 5px;
+}
+
+h4{
+    margin-bottom: 0;
+}
+
+p:nth-of-type(1){
+    margin-top: 0;
+    font-weight: 600;
+}

@@ -1,15 +1,14 @@
 import React from 'react';
-import Edit from '../../../containers/Blog/Edit/Edit';
 import './ShowPosts.css';
 
 const ShowPosts = (props) => (
     <div className='card'>
-        <p>Author: {props.author}</p>
+        <h2>Title: {props.title}</h2>
+        <h4>Author: {props.author}</h4>
         <p>Date: {props.date}</p>
-        <p>Content: {props.content}</p>
+        {/* <p>Content: {props.content}</p> */}
         <div className="buttons">
-            <button><a href={`my-blogs/edit/${props.id}`}>Edit</a></button>
-            <button><a>Delete</a></button>
+            <button><a href={`my-blogs/edit/${props.id}`}>Edit <i className="far fa-edit"></i></a></button>
         </div>
     </div>
 )
