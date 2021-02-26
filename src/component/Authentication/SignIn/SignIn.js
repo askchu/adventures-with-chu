@@ -19,7 +19,7 @@ class SignIn extends Component {
         return (
             <div className='container'>
 
-                <div className='register'>
+                <div className='signIn'>
                     <figure>
                         <img src={img} alt={"adventures with chu"} />
                     </figure>
@@ -49,8 +49,8 @@ class SignIn extends Component {
                     // onClick={this.newPostHandler}
                     >Log In
                     </button>
-                    <div className='signUp'>
-                        <p>Don't have an account? <span><a>Sign Up</a></span></p>
+                    <div className='register'>
+                        <p>Don't have an account? <span><a href='/sign-up'>Sign Up</a></span></p>
                     </div>
                 </div>
             </div>

@@ -11,15 +11,17 @@
 
 /* #e8f1f5 */
 
-.signIn{
-    background: linear-gradient(35deg, #7ec6f5, #f4fafc 85%);
+.signUp{
+    background: linear-gradient(35deg, #7ec6f5, #f4fafc 95%);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 50vw;
     max-width: 300px;
-    margin: 80px auto;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
     border: 1px solid rgb(208, 206, 206);
     border-radius: 1rem;
     box-shadow: 6px 10px 20px 1px rgb(208, 206, 206);
@@ -35,21 +37,25 @@ figure img{
     width: 100%;
 }
 
-.input{
+form{
+    width: 100%;
+}
+
+.input-form{
     width: 100%;
     display: flex;
     flex-direction: column;
     padding-top: 20px;
 }
 
-.input label{
-    font-size: 1.2rem;
+.input-form label{
+    font-size: 1rem;
     color: rgb(255, 255, 255);
     font-weight: 600;
     text-shadow: 0.5px 0.5px 4px rgb(123, 123, 123);
 }
 
-.input input{
+.input-form input{
     margin-top: 10px;
     border-radius: 2rem;
     padding: 10px;
@@ -81,20 +87,20 @@ figure img{
     text-shadow: 0.2px 0.8px 1.5px rgb(100, 99, 99);
 }
 
-.register{
-    padding-top: 5px;
+.login{
+    /* padding-top: 5px; */
     width: 100%;
     text-align: right;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     /* color: #127fc7; */
     color: white;
 }
 
-.register p{
+.login p{
        text-shadow: 0.5px 0.5px 4px rgb(123, 123, 123);
 }
 
-.register a{
+.login a{
     padding-left: 5px;
     color: rgb(34, 155, 235); 
     /* color: #f4fafc; */
@@ -102,6 +108,6 @@ figure img{
     text-shadow: none;
 }
 
-.register a:hover{
+.login a:hover{
     cursor: pointer;
 }

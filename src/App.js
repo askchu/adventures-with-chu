@@ -8,6 +8,7 @@ import Edit from './component/Blogging/Edit/Edit';
 import Add from './component/Blogging/Add/Add';
 import ShowBlog from './component/Blogging/ShowBlog/ShowBlog';
 import Auth from './containers/Auth/Auth';
+import SignUp from './component/Authentication/SignUp/SignUp';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/sign-in" exact component={Auth} />
+        <Route path="/sign-up" exact component={SignUp} />
         <Route path="/profile/my-blogs/new" exact component={Add} />
         <Route path="/profile/my-blogs/:id/" exact component={ShowBlog} />
         <Route path="/profile/my-blogs/:id/edit" component={Edit} />
