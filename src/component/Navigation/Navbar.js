@@ -72,6 +72,7 @@ function Navbar() {
               Blogs
             </Link>
           </li>
+
           <li className='nav-item'>
             <Link
               to='/contact-us'
@@ -83,11 +84,21 @@ function Navbar() {
           </li>
           <li className='nav-item'>
             <Link
-              to='/sign-up'
+              to='/sign-in'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Sign In
+            </Link>
+          </li>
+
+          <li className='nav-item'>
+            <Link
+              to='/sign-in'
               className='nav-links-mobile'
               onClick={closeMobileMenu}
             >
-              Sign Up
+              Sign In
             </Link>
           </li>
         </ul>

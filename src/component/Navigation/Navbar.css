@@ -45,7 +45,7 @@
 
 .nav-menu {
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(6, auto);
   grid-gap: 10px;
   list-style: none;
   text-align: center;
@@ -62,11 +62,11 @@
 }
 
 .nav-links {
-  width: 10;
   color: #004a7c;
   text-decoration: none;
   padding: 0.5rem 0.5rem;
 }
+
 
 .nav-links:hover {
   background-color: #fafafa;
@@ -85,6 +85,7 @@
 .menu-icon {
   display: none;
 }
+
 
 @media (max-width: 960px) {
   .navbar{
@@ -136,7 +137,10 @@
     border-radius: 2rem;
     padding: 0px;
   }
-
+  
+  ul li:nth-of-type(5){
+  display: none;
+  }
   .imgContainer {
     margin: 0;
     width: 100%;
