@@ -1,27 +1,42 @@
 .news{
-
     border: 1px solid #111;
+    background-size: cover;
+    background-repeat: no-repeat;
     max-width: 75vw;
-    padding: 10px;
+    height: 100%;
+    padding: 20px;
     margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
+    color: #fff;
 }
 
 .news p {
     max-width: 70ch;
+    color: black;
 }
 
 .news h4{
     font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 3px #111;
+    /* text-align: center; */
 }
 
 .img {
+    display: none;
     max-width: 450px;
     margin: 0 auto;
 }
+.summary{
+    background-color: rgba(238, 238, 238, 0.7);
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 1rem;
 
+}
 .news img{
     width: 100%
 }
@@ -29,11 +44,13 @@
 a {
     text-decoration: none;
     font-size: .9rem;
-    color: blue;
+    color: rgb(4, 106, 189);
+    text-shadow: none;
+    font-weight: 700;
 }
 
 a:hover{
-    color: rgb(105, 105, 237);
+    color: rgb(17, 78, 209);
 }
 
 button {
@@ -47,6 +64,9 @@ button {
         width: 600px;
         margin: 20px auto;
         text-align: center;
+    }
+    .img{
+        display: flex;
     }
  
 }

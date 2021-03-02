@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown/Dropdown';
 import Aux from '../../hoc/Auxilary/Auxilary';
-import img1 from '../../assets/images/logo.png';
+import img1 from '../../assets/images/logo1.png';
 import img2 from '../../assets/images/logo3.png';
 
 function Navbar() {
@@ -86,16 +86,6 @@ function Navbar() {
             <Link
               to='/sign-in'
               className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Sign In
-            </Link>
-          </li>
-
-          <li className='nav-item'>
-            <Link
-              to='/sign-in'
-              className='nav-links-mobile'
               onClick={closeMobileMenu}
             >
               Sign In
