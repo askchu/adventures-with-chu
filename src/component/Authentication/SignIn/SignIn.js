@@ -45,7 +45,7 @@ class SignIn extends Component {
                         <input type='password' value={this.state.password} onChange={(event) => this.setState({ password: event.target.value })} />
                     </div>
 
-                    <button id='signInButton'
+                    <button className='button'
                     // onClick={this.newPostHandler}
                     >Log In
                     </button>

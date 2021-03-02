@@ -93,7 +93,7 @@ class Posts extends Component {
                         <div className='icon'>
                             <a href='/profile/my-blogs/new'>New Blog<i className="fas fa-plus"></i></a>
                         </div>
-                        <div id="blogs">
+                        <div className="blogs">
                             {post}
                         </div>
                     </div>

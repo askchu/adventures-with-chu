@@ -2,7 +2,7 @@ import React from 'react';
 import './ShowPosts.css';
 
 const ShowPosts = (props) => (
-    <div id="container">
+    <div className="cardContainer">
         <a href={`my-blogs/${props.id}/`}>
             <div className='card'>
                 <h2>{props.title}</h2>

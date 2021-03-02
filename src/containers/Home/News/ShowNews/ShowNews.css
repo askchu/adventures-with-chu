@@ -28,7 +28,7 @@
 
 a {
     text-decoration: none;
-    font-size: 1rem;
+    font-size: .9rem;
     color: blue;
 }
 
@@ -44,7 +44,9 @@ button {
 
 @media (min-width: 900px){
     .news {
-        width: 1000px;
+        width: 600px;
         margin: 20px auto;
+        text-align: center;
     }
+ 
 }

@@ -64,11 +64,12 @@ form{
     outline: none;
 }
 
+.input-form input:focus,
 .input input:focus{
     border: 1px solid rgb(179, 175, 175);
 }
 
-#signInButton{
+.button{
     margin-top: 20px;
    /* background-color: rgba(0,149,246,.3);  */
    background-color: rgba(3, 145, 240, 0.474); 
@@ -81,7 +82,7 @@ form{
     outline: none;
 }
 
-#signInButton:hover{
+.button:hover{
     cursor: pointer;
     background-color: rgba(112, 186, 235, 0.645); 
     text-shadow: 0.2px 0.8px 1.5px rgb(100, 99, 99);
