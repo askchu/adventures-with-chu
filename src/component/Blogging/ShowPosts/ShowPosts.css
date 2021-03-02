@@ -1,4 +1,7 @@
 .card {
+    background-color: #e8f1f5;
+    /* background-color: #c0e5f3; */
+
     width: 100%;
     border: 1px solid #111;
     border-radius: 10px;
@@ -11,8 +14,8 @@
 }
 
 .card:hover{
-    background: #e8f1f5;
-    color: #158ad8;
+    background: #bae2f3;
+    color: #004a7c;
 }
 
 .buttons {
@@ -32,7 +35,7 @@
 .buttons a {
     background: rgb(121, 223, 121);
     border-radius: 2rem;
-    color: white;
+    color: rgb(61, 60, 60);
     padding: 5px;
 }
 h2{

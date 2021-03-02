@@ -80,9 +80,9 @@ class Home extends Component {
                             <div className='featuredBlogs'>
                                 {post}
                             </div>
-                            <picture>
+                            {/* <picture>
                                 <img src={img2} alt={"adventures with chu"} />
-                            </picture>
+                            </picture> */}
                         </div >
                     </div>
 
