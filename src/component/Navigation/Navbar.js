@@ -55,13 +55,15 @@ function Navbar() {
             onMouseLeave={onMouseLeave}
           >
             <Link
-              to='/profile/my-blogs'
+              // to='/profile/my-blogs'
+              to='/profile'
               className='nav-links'
               onClick={closeMobileMenu}
             >
-              Profile <i className='fas fa-caret-down' />
+              Profile
+              {/* <i className='fas fa-caret-down' /> */}
             </Link>
-            {dropdown && <Dropdown />}
+            {/* {dropdown && <Dropdown />} */}
           </li>
           <li className='nav-item'>
             <Link
@@ -69,7 +71,7 @@ function Navbar() {
               className='nav-links'
               onClick={closeMobileMenu}
             >
-              Blogs
+              Browse
             </Link>
           </li>
 
@@ -89,6 +91,15 @@ function Navbar() {
               onClick={closeMobileMenu}
             >
               Sign In
+            </Link>
+          </li>
+          <li className='nav-item'>
+            <Link
+              to='/sign-up'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Register
             </Link>
           </li>
         </ul>

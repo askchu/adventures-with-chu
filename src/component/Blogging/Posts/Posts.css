@@ -2,7 +2,8 @@
     position: relative;
     margin: 0 auto;
     height: 100%;
-    padding-top: 60px;
+    top: 100px;
+    /* padding-top: 60px; */
 }
 
 .blog h5 {
@@ -10,6 +11,7 @@
     text-align: center;
     background: #e8f1f5;
     border-radius: 2rem;
+    margin-top: 10px;
 }
 .posts{
     padding: 10px;

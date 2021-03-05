@@ -1,5 +1,5 @@
 .container{
-    padding-top: 80px;
+    padding-top: 100px;
     padding-left: 30px;
     padding-right: 30px;
     height: 90vh;
@@ -46,6 +46,10 @@ form{
     display: flex;
     flex-direction: column;
     padding-top: 20px;
+}
+
+.input-form:first-child{
+    padding-top: 0;
 }
 
 .input-form label{

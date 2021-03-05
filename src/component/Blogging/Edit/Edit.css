@@ -26,7 +26,7 @@ button:nth-child(2){
     margin-right: 10px;
     padding: 6px;
 }
-button:nth-child(3){
+/* button:nth-child(3){
     background: orange;
     color: white;
     border-radius: 2rem;
@@ -36,7 +36,7 @@ button:nth-child(3){
 }
 button:nth-child(3):hover{
     background: rgb(243, 1, 1);
-}
+} */
 .garbage {
     color: rgb(245, 225, 108);
 }

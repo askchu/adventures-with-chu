@@ -1,5 +1,5 @@
 .dropdown-menu {
-  background: #e8f1f5;
+  background: linear-gradient(35deg, #81d6f2, #4ab1f5 );
   width: 150px;
   height: 120px;
   position: absolute;
@@ -12,7 +12,7 @@
 }
 
 .dropdown-menu li {
-  background: #e8f1f5;
+  /* background: #e8f1f5; */
   cursor: pointer;
 }
 
@@ -32,7 +32,7 @@
   height: 100%;
   width: 80%;
   text-decoration: none;
-  color: #004a7c;
+  color: #fff;
   padding: 16px;
 }
 
