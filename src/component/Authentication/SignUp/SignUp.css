@@ -112,3 +112,15 @@ form{
 .login a:hover{
     cursor: pointer;
 }
+
+.error {
+    width: 100%;
+    background-color: rgb(250, 134, 134);
+    color: rgb(247, 27, 27);
+    padding: 10px;
+    border-radius: .5rem;
+}
+.error h4 {
+    padding: 10px;
+    margin: 0;
+}
