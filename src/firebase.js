@@ -15,12 +15,6 @@ const app = firebase.initializeApp({
     storageBucket: REACT_APP_STORAGE_BUCKET,
     messagingSenderId: REACT_APP_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_ID
-    // apiKey: "AIzaSyBA0tULZMZ3wL0-mVXxOLpfb4zGa3G5acM",
-    // authDomain: "auth-production-90d68.firebaseapp.com",
-    // projectId: "auth-production-90d68",
-    // storageBucket: "auth-production-90d68.appspot.com",
-    // messagingSenderId: "83876496888",
-    // appId: "1:83876496888:web:7471c0781bc281ee7c020d"
 })
 
 
