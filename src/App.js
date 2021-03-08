@@ -12,6 +12,7 @@ import { AuthProvider } from './component/Authentication/AuthContext/AuthContext
 import SignIn from './component/Authentication/SignIn/SignIn';
 import Dashboard from './containers/Dashboard/Dashboard';
 import PrivateRoutes from './component/Authentication/PrivateRoutes/PrivateRoutes';
+import ForgotPw from './component/Authentication/ForgotPw/ForgotPw';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/sign-in" exact component={SignIn} />
           <Route path="/sign-up" exact component={SignUp} />
+          <Route path='/forgot-password' component={ForgotPw} />
           <PrivateRoutes path="/profile" exact component={Dashboard} />
           <Route path="/profile/my-blogs/new" exact component={Add} />
           <Route path="/profile/my-blogs/:id/" exact component={ShowBlog} />

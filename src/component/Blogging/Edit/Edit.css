@@ -20,12 +20,12 @@ button a {
     padding: 20px;
     font-size: 19.2px;
 }
-button:nth-child(2){
+/* button:nth-child(2){
     background: lightblue;
     border-radius: 2rem;
     margin-right: 10px;
     padding: 6px;
-}
+} */
 /* button:nth-child(3){
     background: orange;
     color: white;

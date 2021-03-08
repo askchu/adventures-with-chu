@@ -135,6 +135,11 @@ export default function SignIn() {
                         <a href='/sign-up'>Sign Up</a>
                     </span></p>
                 </div>
+                <div className='login'>
+                    <p>Forgot password? <span>
+                        <a href='/forgot-password'>Reset Password</a>
+                    </span></p>
+                </div>
             </div>
         </div>
     )
