@@ -5,6 +5,8 @@ import Dropdown from './Dropdown/Dropdown';
 import Aux from '../../hoc/Auxilary/Auxilary';
 import img1 from '../../assets/images/logo1.png';
 import img2 from '../../assets/images/logo3.png';
+import { useAuth } from '../../component/Authentication/AuthContext/AuthContext';
+import { render } from '@testing-library/react';
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -12,6 +14,9 @@ function Navbar() {
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+
+  const { currentUser } = useAuth();
+
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -28,7 +33,6 @@ function Navbar() {
       setDropdown(false);
     }
   };
-
 
 
 
@@ -93,7 +97,7 @@ function Navbar() {
               Sign In
             </Link>
           </li>
-          <li className='nav-item'>
+          {/* <li className='nav-item'>
             <Link
               to='/sign-up'
               className='nav-links'
@@ -101,7 +105,7 @@ function Navbar() {
             >
               Register
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </Aux>

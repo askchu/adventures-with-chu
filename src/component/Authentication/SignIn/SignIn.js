@@ -132,7 +132,7 @@ export default function SignIn() {
                 </form>
                 <div className='login'>
                     <p>Don't have an account? <span>
-                        <a href='/profile'>Sign Up</a>
+                        <a href='/sign-up'>Sign Up</a>
                     </span></p>
                 </div>
             </div>

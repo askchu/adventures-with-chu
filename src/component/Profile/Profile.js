@@ -3,11 +3,22 @@ import './Profile.css';
 import { useAuth } from '../../component/Authentication/AuthContext/AuthContext';
 import img2 from '../../assets/images/img2.jpg';
 import cloud from '../../assets/images/clouds.jpg';
+import { useHistory } from 'react-router-dom';
 
 export default function Profile() {
     const [error, setError] = useState('');
-    const { currentUser } = useAuth();
+    const { currentUser, logout } = useAuth();
+    const { history } = useHistory();
 
+    async function handleLogout() {
+        setError('');
+        try {
+            await logout()
+            history.pushState('/sign-in')
+        } catch {
+            setError('Failed to log out')
+        }
+    }
 
     return (
         <div>
@@ -22,7 +33,7 @@ export default function Profile() {
                     <h1>Profile (Name) </h1>
                     <p className='email'><strong>Email: </strong>{currentUser.email}</p>
                     <a className='profile-update' href='/update-profile'>Update Profile</a>
-                    <button className='logOut'>Log out</button>
+                    <button className='logOut' onClick={handleLogout}>Log out</button>
                 </div>
             </div>
         </div>
