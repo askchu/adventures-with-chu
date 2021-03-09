@@ -20,6 +20,17 @@ export default function Profile() {
         }
     }
 
+    console.log(currentUser);
+
+    let display = (
+        <h1>(Profile Name)</h1>
+    )
+    if (currentUser.displayName) {
+        display = (
+            <h1>{currentUser.displayName}</h1>
+        )
+    }
+
     return (
         <div>
             <div className='profile-page'>
@@ -30,7 +41,7 @@ export default function Profile() {
                     <img src={img2} />
                 </picture>
                 <div className='user-details'>
-                    <h1>Profile (Name) </h1>
+                    {display}
                     <p className='email'><strong>Email: </strong>{currentUser.email}</p>
                     <a className='profile-update' href='/update-profile'>Update Profile</a>
                     <button className='logOut' onClick={handleLogout}>Log out</button>

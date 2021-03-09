@@ -34,7 +34,98 @@ function Navbar() {
     }
   };
 
+  let navlinks = (
+    <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+      <li className='nav-item'>
+        <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+          Home
+            </Link>
+      </li>
+      <li className='nav-item'>
+        <Link
+          to='/blogs'
+          className='nav-links'
+          onClick={closeMobileMenu}
+        >
+          Browse
+            </Link>
+      </li>
 
+      <li className='nav-item'>
+        <Link
+          to='/contact-us'
+          className='nav-links'
+          onClick={closeMobileMenu}
+        >
+          Contact Us
+            </Link>
+      </li>
+      <li className='nav-item'>
+        <Link
+          to='/sign-in'
+          className='nav-links'
+          onClick={closeMobileMenu}
+        >
+          Sign In
+            </Link>
+      </li>
+    </ul>
+  )
+  if (currentUser) {
+    navlinks = (
+      <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+        <li className='nav-item'>
+          <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+            Home
+            </Link>
+        </li>
+        <li
+          className='nav-item'
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
+          <Link
+            // to='/profile/my-blogs'
+            to='/profile'
+            className='nav-links'
+            onClick={closeMobileMenu}
+          >
+            Profile
+              {/* <i className='fas fa-caret-down' /> */}
+          </Link>
+          {/* {dropdown && <Dropdown />} */}
+        </li>
+        <li className='nav-item'>
+          <Link
+            to='/blogs'
+            className='nav-links'
+            onClick={closeMobileMenu}
+          >
+            Browse
+            </Link>
+        </li>
+
+        <li className='nav-item'>
+          <Link
+            to='/contact-us'
+            className='nav-links'
+            onClick={closeMobileMenu}
+          >
+            Contact Us
+            </Link>
+        </li>
+        <li className='nav-item'>
+          <Link
+            to='/sign-in'
+            className='nav-links'
+            onClick={closeMobileMenu}
+          >
+            Sign In
+            </Link>
+        </li>
+      </ul>
+    )
+  }
 
   return (
     <Aux>
@@ -47,66 +138,7 @@ function Navbar() {
         <div className='menu-icon' onClick={handleClick}>
           <div className={click ? 'fas fa-times' : 'fas fa-bars'} />
         </div>
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li className='nav-item'>
-            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-              Home
-            </Link>
-          </li>
-          <li
-            className='nav-item'
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-          >
-            <Link
-              // to='/profile/my-blogs'
-              to='/profile'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Profile
-              {/* <i className='fas fa-caret-down' /> */}
-            </Link>
-            {/* {dropdown && <Dropdown />} */}
-          </li>
-          <li className='nav-item'>
-            <Link
-              to='/blogs'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Browse
-            </Link>
-          </li>
-
-          <li className='nav-item'>
-            <Link
-              to='/contact-us'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Contact Us
-            </Link>
-          </li>
-          <li className='nav-item'>
-            <Link
-              to='/sign-in'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Sign In
-            </Link>
-          </li>
-          {/* <li className='nav-item'>
-            <Link
-              to='/sign-up'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Register
-            </Link>
-          </li> */}
-        </ul>
+        {navlinks}
       </nav>
     </Aux>
   );

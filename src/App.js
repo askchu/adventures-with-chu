@@ -13,6 +13,7 @@ import SignIn from './component/Authentication/SignIn/SignIn';
 import Dashboard from './containers/Dashboard/Dashboard';
 import PrivateRoutes from './component/Authentication/PrivateRoutes/PrivateRoutes';
 import ForgotPw from './component/Authentication/ForgotPw/ForgotPw';
+import UpdateProfile from './component/Profile/UpdateProfile/UpdateProfile';
 
 function App() {
   return (
@@ -24,9 +25,10 @@ function App() {
           <Route path="/sign-in" exact component={SignIn} />
           <Route path="/sign-up" exact component={SignUp} />
           <Route path='/forgot-password' component={ForgotPw} />
+          <Route path='/update-profile' component={UpdateProfile} />
           <PrivateRoutes path="/profile" exact component={Dashboard} />
           <Route path="/profile/my-blogs/new" exact component={Add} />
-          <Route path="/profile/my-blogs/:id/" exact component={ShowBlog} />
+          <Route path="/my-blogs/:id/" exact component={ShowBlog} />
           <Route path="/profile/my-blogs/:id/edit" component={Edit} />
           <Route path="/profile/my-blogs" component={Blog} />
         </Switch>

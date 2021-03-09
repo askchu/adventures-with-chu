@@ -1,21 +1,21 @@
 .card {
-    /* background-color: #e8f1f5; */
-    /* background-color: #c0e5f3; */
-
+    background-color: #fff;
     width: 100%;
     border: 1px solid #111;
     border-radius: 10px;
-    color: #005691;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    /* color: #005691; */
+    color: #111;
+    text-align: center;
     margin-top: 10px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+    box-shadow: 4px 4px 5px #eeee;
 }
 
 .card:hover{
-    background: #bae2f3;
-    color: #004a7c;
+    background: #fff;
+    opacity: 1;
+    box-shadow: 2px 8px 8px rgba(177, 176, 176, 0.933);
 }
 
 .buttons {
@@ -57,13 +57,16 @@ p:nth-of-type(1){
     background: white;
     font-weight: 400;
 }
+.card p:nth-of-type(2) {
+    width: 20ch;
+    margin: 10px auto;
+}
 
 .cardContainer{
-    display: flex;
-    /* justify-content: center; */
     width: 100%;
+    /* justify-content: center; */
     max-width: 350px;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 .cardContainer a{
     width: 100%;
@@ -72,9 +75,15 @@ p:nth-of-type(1){
 
 @media (min-width: 900px){
     .card{
-        margin: 5px auto;
+        margin: 0 auto;
+        width: 100%;
     }
     .cardContainer{
-        margin-bottom: 0;
+        /* max-width: 30px; */
+        min-width: 200px;
+        max-width: 300px;
+        height: 100%;
+        /* margin: 0 auto; */
     }
+
 }

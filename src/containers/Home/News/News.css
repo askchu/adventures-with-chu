@@ -1,3 +1,8 @@
-.news {
+/* .news {
     margin: 0 auto;
+} */
+
+.worldNews{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }

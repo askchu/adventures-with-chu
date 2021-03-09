@@ -57,7 +57,7 @@ class News extends Component {
             ))
         )
         return (
-            <div>
+            <div className="worldNews">
                 {news}
             </div>
         )

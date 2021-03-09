@@ -10,11 +10,14 @@
     margin-right: auto;
     text-align: left;
     color: #fff;
+    border-radius: 2rem;
 }
 
 .news p {
     max-width: 70ch;
-    color: black;
+    color: #111;
+    text-shadow: 2px 2px 3px #eeee;
+    font-size: 1.2rem;
 }
 
 .news h4{
@@ -60,13 +63,6 @@ button {
 }
 
 @media (min-width: 900px){
-    .news {
-        width: 600px;
-        margin: 20px auto;
-        text-align: center;
-    }
-    .img{
-        display: flex;
-    }
+
  
 }

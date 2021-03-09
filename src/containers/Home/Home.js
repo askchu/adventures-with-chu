@@ -6,6 +6,7 @@ import img3 from '../../assets/images/img3.png';
 import News from './News/News';
 import instance from '../../axios-orders';
 import ShowPosts from '../../component/Blogging/ShowPosts/ShowPosts';
+import Footer from '../../component/Navigation/Footer/Footer';
 
 class Home extends Component {
     constructor(props) {
@@ -26,9 +27,8 @@ class Home extends Component {
     getData = () => {
         instance.get('/posts.json')
             .then(response => {
-                console.log(response.data)
-
-                console.log(response.data)
+                // console.log(response.data)
+                // console.log(response.data)
 
                 const results = [];
 
@@ -80,24 +80,25 @@ class Home extends Component {
                             </picture> */}
                         </div >
 
-                        <div className='description'>
-                            <h3>Having troubles planning where to go next?</h3>
-                            <p>No worries! Come check out other blogs and their recommendations. If not, check our recommended lists and start from there!</p>
-                            <img src={img3} alt={"picture of 3 people and the world"} />
-                        </div>
-                        {/* <picture className="img">
-                            <img src={img2} alt={"adventures with chu"} />
-                        </picture> */}
-
+                        {/* <div className='description'>
+                            <h3>Having troubles thinking of what to blog?</h3>
+                            <p>No worries! Come browse other blogs for inspirations.</p>
+                            <picture>
+                                <img src={img3} alt={"picture of 3 people and the world"} />
+                            </picture>
+                        </div> */}
                     </div>
 
 
                     <div className="new">
                         <h3>What's Happening Around the World</h3>
-                        <News />
+                        <div className='worldNews'>
+                            <News />
+                        </div>
                     </div>
                 </main >
 
+                <Footer />
             </div >
         )
     }

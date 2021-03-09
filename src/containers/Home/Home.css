@@ -36,62 +36,51 @@
     margin-left: 20px;
     border-radius: 1rem;
 }
-
 .welcome{
-    padding: 0 20px;
+    padding: 20px;
 }
-.welcome h3 {
-    margin-top: 40px;
-    text-align: center;
-    background: #e8f1f5;
-    /* color: #2b78ac; */
-    font-size: 1.8rem;
-    border-radius: 2rem;
-    padding: 5px;
-}
-.intro{
-   
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 10px;
+.welcome h3{
+    /* padding-left: 20px; */
+    font-size: 2rem;
+    text-shadow: 1px 2px 4px #eee;
+    font-weight: 500;
+    color: #111;
 }
 
-.featured{
-    margin-top: 20px;
-}
-.featured h3{
+.featured h3 {
+    width: 50%;
+    /* background-color: rgba(238, 238, 238, 0.5); */
     margin-top: 0;
+    margin-bottom: 20px;
+    /* color: #fff; */
 }
-.description{
-
+.description {
+    /* background-color: #eeee; */
+    background-image: url(../../assets/images/back2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #111;
+    text-shadow: 1px 2px 1px #eee;
+    font-size: 1.2rem;
+}
+.description picture{
     display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
+    justify-content: center;
     width: 100%;
-    max-width: 65ch;
-    margin: 0 auto;
+    height: 100%;
+}
+.description picture img{
+    width: 50%;
+    height: 100%;
+    border-radius: 2rem;
+    opacity: 0.9;
+}
 
-}
-.description h3{
-    width: 100%;
-}
-.description h4{
-    width: 100%;
-    text-align: left;
-}
-.description p {
-    width: 100%;
-    text-align: left;
-    margin-bottom: 0;
-}
-.description img{
-    width: 100%;
-    max-width: 250px;
-    margin-top: 20px;
-    /* border-radius: 50%;
-    box-shadow: 1px 2px 3px 4px rgb(143, 143, 143); */
-}
 
 @media (min-width: 900px){
     .logo{
@@ -104,34 +93,9 @@
         margin: 0 auto;
         text-align: center;
     }
-    .welcome{
-        display: grid;
-        margin-top: 40px;
-        grid-template-columns: 1fr;
-        grid-gap: 25px;
-    }
-    .welcome h3{
-        margin-top: 0;
-    }
-    .intro{
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .featured{
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: .1fr 1fr;
-        /* grid-gap: 10px; */
-        grid-template-areas: 
-        'h3'
-        'featuredBlogs';
-    }
-    .featuredH3{
-        grid-area: h3;
-    }
     .featuredBlogs{
-        grid-area: featuredBlogs;
-        z-index: 10;
+        display: grid;
+        grid-template-columns: repeat(4, .5fr);
+        grid-gap: 10px;
     }
-
-  
 }

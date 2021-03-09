@@ -18,7 +18,7 @@ export default function ForgotPw() {
             setError('');
             setLoading(true);
             await resetPassword(emailRef.current.value)
-            setMessage('Check your inbox for further instructions');
+            setMessage('Check your inbox/junk for further instructions');
         } catch (e) {
             setError(`Failed to reset password, ${e}`);
         }
@@ -33,6 +33,7 @@ export default function ForgotPw() {
                     <img src={img} alt={"adventures with chu"} />
                 </figure>
                 {error && <Error message={error} />}
+                {message && <Error message={message} />}
                 <form onSubmit={submitHandler}>
                     <div className='input-form'>
                         <label>Email Address</label>

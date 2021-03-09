@@ -30,6 +30,18 @@ export function AuthProvider({ children }) {
         return auth.sendPasswordResetEmail(email)
     }
 
+    function updateProfile(displayName, email, password) {
+        return currentUser.updateProfile({
+            displayName: displayName,
+            // photoURL: photo,
+            email: email,
+            password: password
+        }).then(console.log('update successful'))
+            .catch(e => {
+                console.log(e);
+            })
+    }
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user);
@@ -45,7 +57,8 @@ export function AuthProvider({ children }) {
         register,
         login,
         logout,
-        resetPassword
+        resetPassword,
+        updateProfile
     }
 
     return (
