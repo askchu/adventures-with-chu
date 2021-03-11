@@ -7,6 +7,8 @@ import News from './News/News';
 import instance from '../../axios-orders';
 import ShowPosts from '../../component/Blogging/ShowPosts/ShowPosts';
 import Footer from '../../component/Navigation/Footer/Footer';
+import { Link } from 'react-router-dom';
+import Auxilary from '../../hoc/Auxilary/Auxilary';
 
 class Home extends Component {
     constructor(props) {
@@ -58,7 +60,7 @@ class Home extends Component {
         )
 
         return (
-            <div className='home'>
+            <div className='container'>
                 <div className='logo'>
                     {/* <img src={img} alt={"logo that says - adventures with chu"} /> */}
                     <div className='brief'>
@@ -69,6 +71,7 @@ class Home extends Component {
                 </div>
 
                 <main className='welcome'>
+
                     <div className='intro'>
                         <div className='featured'>
                             <h3 className="featuredH3">Featured Blogs</h3>
@@ -79,7 +82,9 @@ class Home extends Component {
                                 <img src={img2} alt={"adventures with chu"} />
                             </picture> */}
                         </div >
-
+                        <div className='underline'>
+                            <div className='shadow'></div>
+                        </div>
                         {/* <div className='description'>
                             <h3>Having troubles thinking of what to blog?</h3>
                             <p>No worries! Come browse other blogs for inspirations.</p>
@@ -88,13 +93,18 @@ class Home extends Component {
                             </picture>
                         </div> */}
                     </div>
-
-
+                    <div className='logo2'>
+                        <div className='brief2'>
+                            <h1>Come check other blogs!</h1>
+                            <button><Link to='/browse'>Browse</Link></button>
+                        </div>
+                    </div>
+                    <div className='underline'>
+                        <div className='shadow'></div>
+                    </div>
                     <div className="new">
                         <h3>What's Happening Around the World</h3>
-                        <div className='worldNews'>
-                            <News />
-                        </div>
+                        <News />
                     </div>
                 </main >
 

@@ -5,6 +5,8 @@ import { useAuth } from '../../Authentication/AuthContext/AuthContext';
 import { Link, useHistory } from "react-router-dom";
 import instance from '../../../axios-orders';
 import Error from '../../Authentication/Error/Error';
+import firebase, { storage } from '../../../firebase';
+// import firebase from '../../../firebase';
 
 export default function UpdateProfile() {
 
@@ -17,26 +19,30 @@ export default function UpdateProfile() {
     const { currentUser, updateProfile } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState(null);
     const history = useHistory();
 
     async function submitHandler(e) {
         e.preventDefault();
         console.log(emailRef.current.value);
         console.log(passwordRef.current.value);
+        console.log(image);
         if (passwordRef.current.value !== passwordConfirmedRef.current.value) {
             return setError('Passwords do not match');
         }
         try {
             setError('');
             setLoading(true);
-            await updateProfile(nameRef.current.value, emailRef.current.value, passwordRef.current.value)
-            console.log(imageRef);
-            const image = imageRef.current.value;
-            await instance.post('/pictures', image)
-                .then(response => {
-                    console.log(response)
+
+            const storage = firebase.storage().ref(`${currentUser.uid}/profilePic/${image.name}`)
+            const uploadPic = storage.put(image);
+            uploadPic.on(firebase.storage.TaskEvent.STATE_CHANGED,
+                () => {
+                    let downloadURL = uploadPic.snapshot.downloadURL
+                    console.log('Picture has been uploaded');
                 })
-                .catch(error => console.log(error));
+            await updateProfile(nameRef.current.value, image.name, emailRef.current.value, passwordRef.current.value)
+
             console.log('Account updated...')
             history.push("/profile");
         } catch (e) {
@@ -45,6 +51,22 @@ export default function UpdateProfile() {
         setLoading(false);
     }
 
+
+    const handleChange = (e) => {
+        const types = ['image/png', 'image/jpeg'];
+        let selected = e.target.files[0];
+
+        if (selected && types.includes(selected.type)) {
+            setImage(selected);
+            setError('');
+        } else {
+            setImage(null);
+            setError('Please select an image file (png or jpeg)');
+        }
+    }
+
+    // console.log('image: ', image);
+    // console.log(currentUser.uid);
 
     return (
         <div className='container'>
@@ -65,9 +87,11 @@ export default function UpdateProfile() {
                         <input type='text' ref={nameRef} />
                     </div>
                     <div className='input-form'>
-                        <label>Picture:</label>
-                        <input type='file' accept="image/png, image/jpeg" ref={imageRef} />
+                        <label>Profile Picture:</label>
+                        <input type='file' accept="image/png, image/jpeg" onChange={handleChange} ref={imageRef} />
+                        {image && <div>{image.name}</div>}
                     </div>
+
                     <div className='input-form'>
                         <label>Email Address</label>
                         <input type='email' ref={emailRef} defaultValue={currentUser.email} />

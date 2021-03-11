@@ -1,8 +1,6 @@
-/* .news {
-    margin: 0 auto;
-} */
 
-.worldNews{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+@media (min-width: 900px){
+    .worldNews{
+        display: flex;
+    }
 }

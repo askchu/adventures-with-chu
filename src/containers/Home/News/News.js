@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import ShowNews from './ShowNews/ShowNews';
+import './News.css'
 
 class News extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ class News extends Component {
             ))
         )
         return (
-            <div className="worldNews">
+            <div className='worldNews'>
                 {news}
             </div>
         )

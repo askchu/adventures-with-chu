@@ -1,15 +1,14 @@
 .news{
-    border: 1px solid #111;
-    background-size: cover;
-    background-repeat: no-repeat;
-    max-width: 75vw;
-    height: 100%;
+    /* border: 1px solid #111; */
+    /* background-size: cover;
+    background-repeat: no-repeat; */
+    min-width: 200px;
+    max-width: 500px;
     padding: 20px;
-    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
-    color: #fff;
+    color: #111;
     border-radius: 2rem;
 }
 
@@ -23,20 +22,28 @@
 .news h4{
     font-size: 1.2rem;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 3px #111;
+    text-shadow: 3px 3px 3px #eee;
     /* text-align: center; */
 }
-
+.news h5{
+    margin-top: 0;
+    font-size: 1rem;
+}
+/* 
 .img {
     display: none;
     max-width: 450px;
     margin: 0 auto;
+} */
+.newsPic{
+    min-height: 250px;
+    width: 100%;
 }
 .summary{
-    background-color: rgba(238, 238, 238, 0.7);
+    /* background-color: rgba(238, 238, 238, 0.7); */
     padding: 15px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    /* margin-top: 20px; */
+    /* margin-bottom: 10px; */
     border-radius: 1rem;
 
 }
@@ -52,9 +59,6 @@ a {
     font-weight: 700;
 }
 
-a:hover{
-    color: rgb(17, 78, 209);
-}
 
 button {
     /* background: #e8f1f5; */
@@ -63,6 +67,5 @@ button {
 }
 
 @media (min-width: 900px){
-
- 
+   
 }

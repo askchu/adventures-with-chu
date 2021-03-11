@@ -9,13 +9,13 @@
     margin-top: 10px;
     margin-bottom: 20px;
     opacity: 0.9;
-    box-shadow: 4px 4px 5px #eeee;
+    box-shadow: 2px 8px 8px rgba(177, 176, 176, 0.933);
 }
 
 .card:hover{
     background: #fff;
     opacity: 1;
-    box-shadow: 2px 8px 8px rgba(177, 176, 176, 0.933);
+    box-shadow: 4px 8px 8px rgba(124, 124, 124, 0.933);
 }
 
 .buttons {
@@ -46,7 +46,7 @@ h4{
     margin-bottom: 0;
 }
 
-p:nth-of-type(1){
+.date {
     margin-top: 0;
     font-weight: 600;
 }
@@ -57,9 +57,12 @@ p:nth-of-type(1){
     background: white;
     font-weight: 400;
 }
-.card p:nth-of-type(2) {
-    width: 20ch;
+.content{
+    width: 30ch;
     margin: 10px auto;
+}
+.content span {
+    color: blue;
 }
 
 .cardContainer{
@@ -73,6 +76,7 @@ p:nth-of-type(1){
     height: 50%;
 }
 
+
 @media (min-width: 900px){
     .card{
         margin: 0 auto;
@@ -84,6 +88,9 @@ p:nth-of-type(1){
         max-width: 300px;
         height: 100%;
         /* margin: 0 auto; */
+    }
+    .content{
+        width: 22ch;
     }
 
 }

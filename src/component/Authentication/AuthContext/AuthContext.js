@@ -30,10 +30,10 @@ export function AuthProvider({ children }) {
         return auth.sendPasswordResetEmail(email)
     }
 
-    function updateProfile(displayName, email, password) {
+    function updateProfile(displayName, photoName, email, password) {
         return currentUser.updateProfile({
             displayName: displayName,
-            // photoURL: photo,
+            photoURL: photoName,
             email: email,
             password: password
         }).then(console.log('update successful'))

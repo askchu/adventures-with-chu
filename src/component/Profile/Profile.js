@@ -4,6 +4,7 @@ import { useAuth } from '../../component/Authentication/AuthContext/AuthContext'
 import img2 from '../../assets/images/img2.jpg';
 import cloud from '../../assets/images/clouds.jpg';
 import { useHistory } from 'react-router-dom';
+import firebase, { storage } from '../../firebase';
 
 export default function Profile() {
     const [error, setError] = useState('');
