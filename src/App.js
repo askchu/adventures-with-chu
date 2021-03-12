@@ -15,6 +15,8 @@ import PrivateRoutes from './component/Authentication/PrivateRoutes/PrivateRoute
 import ForgotPw from './component/Authentication/ForgotPw/ForgotPw';
 import UpdateProfile from './component/Profile/UpdateProfile/UpdateProfile';
 import BrowseBlog from './containers/BrowseBlog/BrowseBlog';
+import ProfileGallery from './component/Profile/ProfileGallery/ProfileGallery';
+import SavedPosts from './component/Profile/SavedPosts/SavedPosts';
 
 function App() {
   return (
@@ -27,8 +29,10 @@ function App() {
           <Route path="/sign-in" exact component={SignIn} />
           <Route path="/sign-up" exact component={SignUp} />
           <Route path='/forgot-password' component={ForgotPw} />
-          <Route path='/update-profile' component={UpdateProfile} />
-          <PrivateRoutes path="/profile" exact component={Dashboard} />
+          <Route path='/edit-profile' component={UpdateProfile} />
+          <PrivateRoutes path="/profile-blogs" exact component={Dashboard} />
+          <PrivateRoutes path="/profile-gallery" exact component={ProfileGallery} />
+          <PrivateRoutes path="/profile-saved" exact component={SavedPosts} />
           <Route path="/profile/my-blogs/new" exact component={Add} />
           <Route path="/my-blogs/:id/" exact component={ShowBlog} />
           <Route path="/profile/my-blogs/:id/edit" component={Edit} />
@@ -38,5 +42,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

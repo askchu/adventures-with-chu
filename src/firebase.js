@@ -17,7 +17,7 @@ const firebaseConfig = {
     projectId: REACT_APP_PROJECT_ID,
     storageBucket: REACT_APP_STORAGE_BUCKET,
     messagingSenderId: REACT_APP_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_ID
+    appId: REACT_APP_ID
 }
 
 // Initialize Firebase

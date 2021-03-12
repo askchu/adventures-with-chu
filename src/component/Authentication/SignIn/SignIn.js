@@ -82,7 +82,7 @@ export default function SignIn() {
             setError('');
             setLoading(true);
             await login(emailRef.current.value, passwordRef.current.value)
-            history.push("/profile");
+            history.push("/profile-blogs");
             console.log('Account logged in...')
         } catch (e) {
             setError(`Failed to sign in, ${e}`);

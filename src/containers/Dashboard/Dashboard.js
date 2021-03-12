@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Profile from '../../component/Profile/Profile'
+import ProfileBlogs from '../../component/Profile/ProfileBlogs/ProfileBlogs';
 
 export class Dashboard extends Component {
     render() {
         return (
             <div className='container'>
-                <Profile />
+                <ProfileBlogs />
             </div>
         )
     }
