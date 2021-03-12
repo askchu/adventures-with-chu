@@ -29,6 +29,7 @@ export default function SignUp() {
             setLoading(true);
             await register(emailRef.current.value, passwordRef.current.value)
             console.log('Account created...')
+            history.push("/profile");
         } catch (e) {
             setError(`Failed to create an account, ${e}`);
         }

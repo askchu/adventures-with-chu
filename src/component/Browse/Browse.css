@@ -1,0 +1,31 @@
+.search{
+    background-color: #eee;
+    padding: 10px 10px;
+    width: 100%;
+    font-size: 1.5rem;
+}
+.search input{
+    width: 100%;
+    margin: 0 10px;
+    height: 30px;
+    font-size: 1.2rem;
+    padding-left: 20px;
+}
+.search button{
+    font-size: 1.5rem;
+}
+.browseForm{
+    display: flex;
+    justify-content: space-evenly;
+}
+.browseInput{
+    display: flex;
+    width: 100%;
+}
+.browseForm button{
+    margin-bottom: 0;
+    background: linear-gradient(35deg, #81d6f2, #4ab1f5 );
+    color: #fff;
+    border-radius: .5rem;
+    outline: none;
+}

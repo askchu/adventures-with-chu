@@ -60,7 +60,7 @@ class Home extends Component {
         )
 
         return (
-            <div className='container'>
+            <div className='home'>
                 <div className='logo'>
                     {/* <img src={img} alt={"logo that says - adventures with chu"} /> */}
                     <div className='brief'>
@@ -70,7 +70,7 @@ class Home extends Component {
                     </div>
                 </div>
 
-                <main className='welcome'>
+                <main className='containers welcome'>
 
                     <div className='intro'>
                         <div className='featured'>

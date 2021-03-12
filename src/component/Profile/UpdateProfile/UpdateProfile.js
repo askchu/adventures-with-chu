@@ -1,19 +1,15 @@
 import React, { useRef, useState } from 'react'
 import img from '../../../assets/images/logo3.png';
 import { useAuth } from '../../Authentication/AuthContext/AuthContext';
-// import Error from '../../Authentication/Error/Error';
 import { Link, useHistory } from "react-router-dom";
-import instance from '../../../axios-orders';
 import Error from '../../Authentication/Error/Error';
 import firebase, { storage } from '../../../firebase';
-// import firebase from '../../../firebase';
 
 export default function UpdateProfile() {
 
     const nameRef = useRef();
     const imageRef = useRef();
     const emailRef = useRef();
-    // const usernameRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmedRef = useRef();
     const { currentUser, updateProfile } = useAuth();
@@ -24,15 +20,20 @@ export default function UpdateProfile() {
 
     async function submitHandler(e) {
         e.preventDefault();
-        console.log(emailRef.current.value);
-        console.log(passwordRef.current.value);
-        console.log(image);
+
+        console.log(nameRef.current.value);
+        // console.log(emailRef.current.value);
+        // console.log(passwordRef.current.value);
+        // console.log(image);
         if (passwordRef.current.value !== passwordConfirmedRef.current.value) {
             return setError('Passwords do not match');
         }
         try {
             setError('');
             setLoading(true);
+            await updateProfile(nameRef.current.value, emailRef.current.value, passwordRef.current.value
+            )
+            history.push("/profile");
 
             const storage = firebase.storage().ref(`${currentUser.uid}/profilePic/${image.name}`)
             const uploadPic = storage.put(image);
@@ -41,10 +42,8 @@ export default function UpdateProfile() {
                     let downloadURL = uploadPic.snapshot.downloadURL
                     console.log('Picture has been uploaded');
                 })
-            await updateProfile(nameRef.current.value, image.name, emailRef.current.value, passwordRef.current.value)
 
             console.log('Account updated...')
-            history.push("/profile");
         } catch (e) {
             setError(`Failed to update account, ${e}`);
         }
@@ -96,10 +95,6 @@ export default function UpdateProfile() {
                         <label>Email Address</label>
                         <input type='email' ref={emailRef} defaultValue={currentUser.email} />
                     </div>
-                    {/* <div className='input-form'>
-                        <label>Username:</label>
-                        <input type='text' required ref={usernameRef} autoComplete='off' />
-                    </div> */}
                     <div className='input-form'>
                         <label>Password</label>
                         <input type='password' ref={passwordRef} minLength="6" autoComplete='off' placeholder="Leave blank to keep original" />

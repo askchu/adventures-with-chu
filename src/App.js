@@ -14,6 +14,7 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import PrivateRoutes from './component/Authentication/PrivateRoutes/PrivateRoutes';
 import ForgotPw from './component/Authentication/ForgotPw/ForgotPw';
 import UpdateProfile from './component/Profile/UpdateProfile/UpdateProfile';
+import BrowseBlog from './containers/BrowseBlog/BrowseBlog';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/browse" component={BrowseBlog} />
           <Route path="/sign-in" exact component={SignIn} />
           <Route path="/sign-up" exact component={SignUp} />
           <Route path='/forgot-password' component={ForgotPw} />
