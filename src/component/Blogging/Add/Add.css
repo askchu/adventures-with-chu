@@ -1,17 +1,81 @@
-.container button a{
-    color: white;
+button a {
+    color: #fff;
 }
 
-.form{
-    padding-top: 35px;
+.title button{
+    background: linear-gradient(35deg, #10b9f1, #4ab1f5 );
+    border-radius: .5rem;
+}
+
+
+.newBlog{
     border: 1px solid #111;
-    padding-left: 25px;
-    padding-right: 25px;
+    /* width: 100%; */
+    min-width: 200px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.newBlog label {
+    font-size: 1.5rem;
+}
+.newBlog-input{
+    text-align: center;
+    width: 100%;
+}
+.newBlog-input input {
+    background-color: #eee;
+    display: block;
+    width: 50%;
+    margin: 10px auto;
+    padding: 5px 0;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-radius: 0.5rem;
 }
 
-.form textarea{
-    display: block;
+
+.newBlog-input:nth-of-type(1), 
+.newBlog-input:nth-of-type(2) 
+{
+    margin-bottom: 20px;
+}
+
+
+.newBlog-input textarea{
+    display: flex;
+    background-color: rgba(243, 243, 243, 0.933);
+    color: #111;
+    box-sizing: border-box;
+    border: 1px solid rgb(237, 233, 233);
     width: 100%;
     height: 35vh;
+    padding: 20px;
     margin-top: 10px;
+    font-size: 1.5rem;
+    outline: none;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+}
+
+.newBlog-post{
+    margin: 0 auto;
+    width: 50%;
+}
+
+.newBlog-post button {
+    font-size: 1.3rem;
+    width: 100%;
+    padding: 5px 0;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    border-radius: .5rem;
+}
+
+.errors{
+    background-color: rgb(250, 134, 134);
+    color: rgb(247, 27, 27);
+    padding: 10px;
+    border-radius: .5rem;
 }

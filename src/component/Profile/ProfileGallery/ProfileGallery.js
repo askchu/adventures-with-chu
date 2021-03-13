@@ -5,7 +5,9 @@ export default function ProfileGallery() {
     return (
         <div className='container'>
             <Profile />
-            <p>I am a gallery</p>
+            <div className='containers'>
+                <p>I am a gallery</p>
+            </div>
         </div>
     )
 }

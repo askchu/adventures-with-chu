@@ -33,7 +33,7 @@ export default function UpdateProfile() {
             setLoading(true);
             await updateProfile(nameRef.current.value, emailRef.current.value, passwordRef.current.value
             )
-            history.push("/profile");
+            history.push("/profile-blogs");
 
             const storage = firebase.storage().ref(`${currentUser.uid}/profilePic/${image.name}`)
             const uploadPic = storage.put(image);
@@ -74,7 +74,7 @@ export default function UpdateProfile() {
                 <figure>
                     <img src={img} alt={"adventures with chu"} />
                 </figure>
-                <h1>Update Profile</h1>
+                <h1>Edit Profile</h1>
                 {/* {JSON.stringify(currentUser.email)} */}
                 {/* {JSON.stringify(currentUser.email)} */}
                 {/* {currentUser && currentUser.email} */}
@@ -85,11 +85,11 @@ export default function UpdateProfile() {
                         <label>Profile Name:</label>
                         <input type='text' ref={nameRef} />
                     </div>
-                    <div className='input-form'>
+                    {/* <div className='input-form'>
                         <label>Profile Picture:</label>
                         <input type='file' accept="image/png, image/jpeg" onChange={handleChange} ref={imageRef} />
                         {image && <div>{image.name}</div>}
-                    </div>
+                    </div> */}
 
                     <div className='input-form'>
                         <label>Email Address</label>
@@ -106,11 +106,11 @@ export default function UpdateProfile() {
 
                     <button disabled={loading} type='submit' className='button'
                     // onClick={this.newPostHandler}
-                    >Update Profile
+                    >Update
                     </button>
                 </form>
                 <div className='login'>
-                    <p><span><a href='/profile'>Cancel</a></span></p>
+                    <p><span><a href='/profile-blogs'>Cancel</a></span></p>
                 </div>
             </div>
         </div>

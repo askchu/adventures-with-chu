@@ -86,7 +86,7 @@ function Navbar() {
         >
           <Link
             // to='/profile/my-blogs'
-            to='/profile'
+            to='/profile-blogs'
             className='nav-links'
             onClick={closeMobileMenu}
           >
@@ -114,7 +114,7 @@ function Navbar() {
             Contact Us
             </Link>
         </li>
-        <li className='nav-item'>
+        {/* <li className='nav-item'>
           <Link
             to='/profile'
             className='nav-links'
@@ -122,7 +122,7 @@ function Navbar() {
           >
             Log Out
             </Link>
-        </li>
+        </li> */}
       </ul>
     )
   }

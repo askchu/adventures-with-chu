@@ -44,6 +44,7 @@ export default function SignUp() {
                 <figure>
                     <img src={img} alt={"adventures with chu"} />
                 </figure>
+                <h1>Register</h1>
                 {/* {JSON.stringify(currentUser.email)} */}
                 {/* {JSON.stringify(currentUser.email)} */}
                 {/* {currentUser && currentUser.email} */}

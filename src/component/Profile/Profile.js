@@ -43,6 +43,9 @@ export default function Profile() {
                         <img src={img2} />
                     </picture>
                 </div>
+                {/* <div className='newPost'>
+                    <button>New Post <i class="fas fa-plus"></i></button>
+                </div> */}
                 <div className='user-details'>
                     <div className='display'>
                         {display}

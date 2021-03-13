@@ -5,7 +5,9 @@ export default function SavedPosts() {
     return (
         <div className='container'>
             <Profile />
-            <p>I am a saved post</p>
+            <div className='containers'>
+                <p>I am a saved post</p>
+            </div>
         </div>
     )
 }

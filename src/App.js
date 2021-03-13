@@ -33,7 +33,7 @@ function App() {
           <PrivateRoutes path="/profile-blogs" exact component={Dashboard} />
           <PrivateRoutes path="/profile-gallery" exact component={ProfileGallery} />
           <PrivateRoutes path="/profile-saved" exact component={SavedPosts} />
-          <Route path="/profile/my-blogs/new" exact component={Add} />
+          <Route path="/profile-blogs-new" exact component={Add} />
           <Route path="/my-blogs/:id/" exact component={ShowBlog} />
           <Route path="/profile/my-blogs/:id/edit" component={Edit} />
           <Route path="/profile/my-blogs" component={Blog} />
