@@ -64,6 +64,8 @@ export default function UpdateProfile() {
         }
     }
 
+
+
     // console.log('image: ', image);
     // console.log(currentUser.uid);
 

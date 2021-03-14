@@ -81,19 +81,24 @@
 // export default Add
 
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import './Add.css';
 import { useAuth } from '../../Authentication/AuthContext/AuthContext';
 import { useHistory } from 'react-router-dom';
 import ProgressBar from '../../ProgressBar/ProgressBar';
+import ImageGrid from '../ImageGrid/ImageGrid';
 
 
 export default function Add() {
+    const titleRef = useRef();
+    const contentRef = useRef();
     const { currentUser, updateProfile } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState(null);
     const history = useHistory();
+
+
 
 
     const handleChange = (e) => {
@@ -111,6 +116,7 @@ export default function Add() {
 
     console.log(currentUser);
 
+
     return (
         <div className='container'>
             <div className='containers'></div>
@@ -121,17 +127,21 @@ export default function Add() {
             <form className='newBlog'>
                 <div className='newBlog-input'>
                     <label>Title </label>
-                    <input type='text'></input>
+                    <input type='text' ref={titleRef} autoFocus />
                 </div>
                 <div className='newBlog-input'>
                     <label>Images </label>
-                    <input type='file' onChange={handleChange}></input>
+                    <div className='inputFile'>
+                        <input type='file' onChange={handleChange} />
+                        <span><i class="fas fa-plus"></i></span>
+                    </div>
                     <div className='output'>
                         {error && <div className='errors'>{error}</div>}
                         {file && file.name}
-                        {file && <ProgressBar />}
+                        {file && <ProgressBar file={file} setFile={setFile} />}
                     </div>
                 </div>
+                <ImageGrid />
                 <div className='newBlog-input'>
                     <label>Content </label>
                     <textarea rows='20' cols='100' placeholder='Start writing here...'></textarea>
