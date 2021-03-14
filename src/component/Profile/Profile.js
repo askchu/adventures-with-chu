@@ -22,7 +22,7 @@ export default function Profile() {
         }
     }
 
-    // console.log(currentUser);
+    // console.log(currentUser.uid);
 
     let display = (
         <h1>(Profile Name)</h1>

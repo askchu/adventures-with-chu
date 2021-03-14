@@ -27,11 +27,11 @@ button a {
     display: block;
     width: 50%;
     margin: 10px auto;
-    padding: 5px 0;
+    /* padding: 5px 0; */
     text-align: center;
     outline: none;
     border: none;
-    border-radius: 0.5rem;
+    /* border-radius: 0.7rem; */
 }
 
 .newBlog-input input:nth-of-type(1){
@@ -44,27 +44,36 @@ button a {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 5px auto;
+    width: 30px;
+    height: 30px;
+    background: lightcoral;
+    /* padding: 1px; */
+    border-radius: 100%;
+}
+.inputFile:hover{
+    /* cursor: pointer; */
+    background: rgb(250, 22, 22);
 }
 .inputFile span{
     position: absolute;
-    width: 30px;
-    border-radius: .5rem;
-    background: lightcoral;
-    padding: 5px;
+    width: 100%;
+    /* border-radius: .5rem; */
+    /* background: lightcoral; */
+    /* padding: 5px; */
     color: #fff;
 }
 
 .inputFile input{
+    width: 100%;
+    height: 100%;
     /* width: 30px; */
     z-index: 2;
-    font-size: 1px;
-    /* opacity: 0; */
-    background: lightcoral;
-    padding: 5px;
+    font-size: .5px;
+    opacity: 0;
+    /* padding: 5px; */
 }
-.inputFile input:hover{
-    cursor: pointer;
-}
+
 
 .newBlog-input:nth-of-type(1), 
 .newBlog-input:nth-of-type(2) 

@@ -4,6 +4,7 @@ import { firestore } from '../firebase';
 const useFirestore = (collection) => {
     const [docs, setDocs] = useState([]);
 
+
     useEffect(() => {
         const unsub = firestore.collection(collection)
             .orderBy('createdAt', 'desc')
