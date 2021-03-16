@@ -24,6 +24,7 @@ const useStorage = (file) => {
         const year = date.getFullYear();
         const output = year + '/' + month + '/' + day;
 
+
         storageRef.put(file).on('state_changed', (snap) => {
             let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
             setProgress(percentage);
@@ -38,13 +39,15 @@ const useStorage = (file) => {
             const info = {
                 imageUrl: url
             }
-            instance.post(`/${currentUser.uid}/images/${output}.json`, info)
+            await instance.post(`/${currentUser.uid}/images/${output}.json`, info)
                 .then(response => {
                     // console.log(response)
                     console.log('img uploaded to firebase DB')
                 })
                 .catch(err => console.log(err));
         })
+
+
     }, [file]);
 
     return { progress, url, error }

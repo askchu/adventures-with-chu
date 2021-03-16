@@ -81,7 +81,7 @@
 // export default Add
 
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './Add.css';
 import { useAuth } from '../../Authentication/AuthContext/AuthContext';
 import { useHistory } from 'react-router-dom';
@@ -89,8 +89,15 @@ import ProgressBar from '../../ProgressBar/ProgressBar';
 import ImageGrid from '../ImageGrid/ImageGrid';
 import useFirestore from '../../../hooks/useFirestore';
 import ShowImages from './ShowImages/ShowImages';
+import instance from '../../../axios-orders';
+import { isCompositeComponent } from 'react-dom/test-utils';
+import GetData from './GetData/GetData';
+
+
+
 
 export default function Add() {
+    const inputRef = useRef();
     const titleRef = useRef();
     const contentRef = useRef();
     const { currentUser, updateProfile } = useAuth();
@@ -100,26 +107,16 @@ export default function Add() {
     const { docs } = useFirestore(currentUser.uid);
     const history = useHistory();
 
-    console.log(docs.length);
 
 
-    const newPostHandler = () => {
-        let post = {
-            title: titleRef.current.value,
-            content: contentRef.current.value,
-        }
-    }
-
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"];
-    const date = new Date()
-    const month = monthNames[date.getMonth()];
-    const day = String(date.getDate()).padStart(2, '0');
-    const year = date.getFullYear();
-    const output = year + '/' + month + '/' + day;
+    const [info, setInfo] = useState([]);
+    const [count, setCount] = useState([]);
 
 
-    // console.log(output);
+    // Grabs images from new blog page
+    const { datas } = GetData(docs);
+    console.log(datas);
+
 
     const handleChange = (e) => {
         const types = ['image/png', 'image/jpeg'];
@@ -133,8 +130,58 @@ export default function Add() {
             setError('Please select an image file (png or jpeg)');
         }
     }
-    const [imgUrl, setImgUrl] = useState([]);
 
+
+    useEffect(async () => {
+
+        console.log(count);
+        await instance.get(`/${currentUser.uid}/count.json`)
+            .then(response => {
+                console.log(response.data)
+                let res = []
+                for (let key in response.data) {
+                    res.push({
+                        ...response.data[key],
+                        id: key
+                    })
+                }
+                setCount(res);
+            })
+            .catch(err => console.log(err));
+    }, [])
+
+
+    console.log(count);
+    // console.log(count[0].id);
+    // console.log(count);
+    // console.log(count[0].count);
+    // const turnTo = parseInt(count[0].count);
+    // console.log('this is the number of count: ' + turnTo);
+
+    const editPost = (newCount) => {
+
+        const countId = count[0].id
+
+        instance.request({
+            method: 'put',
+            url: `/${currentUser.uid}/count/${countId}.json`,
+            data: newCount
+        }).then(response => {
+            this.props.history.push(`/profile-blogs`);
+        })
+            .catch(err => console.log(err));
+    }
+
+
+    const submitPostHandler = (event) => {
+        // const newCount = `${setCount(count + 1)}`;
+        // editPost(newCount)
+
+        // setCount(count[0].count = )
+
+        event.preventDefault();
+        // history.push('/profile-blogs');
+    }
 
 
     return (
@@ -151,7 +198,7 @@ export default function Add() {
                 <div className='newBlog-input'>
                     <label>Images </label>
                     <div className='inputFile'>
-                        <input type='file' onChange={handleChange} />
+                        <input type='file' onChange={handleChange} ref={inputRef} />
                         <span><i class="fas fa-plus"></i></span>
                     </div>
                     <div className='output'>
@@ -161,14 +208,19 @@ export default function Add() {
                     </div>
                 </div>
                 {/* <ImageGrid /> */}
-                <ShowImages change={file} />
+                {/* <ShowImages userId={user} /> */}
+                {datas && datas.map(urls => (
+                    <li key={urls.id}><strong>{urls.id}</strong>: {urls.imageUrl}</li>
+                ))}
                 <div className='newBlog-input'>
                     <label>Content </label>
                     <textarea rows='20' cols='100' placeholder='Start writing here...'></textarea>
                 </div>
                 <div className='newBlog-post'>
-                    <button disabled={loading} type='submit'
-                    // onClick={this.newPostHandler}
+                    <button
+                        // disabled={loading}
+                        type='submit'
+                    // onClick={submitPostHandler}
                     >Post
                 </button>
                 </div>

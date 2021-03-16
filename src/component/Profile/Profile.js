@@ -6,6 +6,7 @@ import cloud from '../../assets/images/clouds.jpg';
 import { useHistory, Link } from 'react-router-dom';
 import firebase, { storage } from '../../firebase';
 import Blog from '../../containers/Blog/Blog';
+import Add from '../Blogging/Add/Add';
 
 export default function Profile() {
     const [error, setError] = useState('');
@@ -32,6 +33,7 @@ export default function Profile() {
             <h1>{currentUser.displayName}</h1>
         )
     }
+
 
     return (
         <div className='containers'>
