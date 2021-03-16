@@ -11,7 +11,6 @@ export default function ProfileBlogs() {
     // const [count, setCount] = useState(1);
     const { currentUser } = useAuth();
 
-    // FIXME: grab all data instead of each letter
     const { info } = GetCount();
     console.log(info);
     // console.log(count.count);

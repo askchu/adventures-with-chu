@@ -3,7 +3,7 @@ import { useAuth } from '../../../Authentication/AuthContext/AuthContext';
 import instance from '../../../../axios-orders';
 
 
-export default function GetData(file) {
+export default function GetData(file, id) {
     const [datas, setData] = useState(null);
     const { currentUser } = useAuth();
 
@@ -18,14 +18,17 @@ export default function GetData(file) {
 
 
     useEffect(async () => {
+        console.log(`id is: ${id}` + ' from GetData page')
         console.log('grabs data from GetData page')
-        await instance.get(`/${currentUser.uid}/images/${output}.json`)
+        await instance.get(`/${currentUser.uid}/images/${output}/${id}.json`)
             .then(response => {
+                console.log(response);
                 const results = [];
                 for (let key in response.data) {
+                    console.log(key);
                     results.push({
                         ...response.data[key],
-                        id: key
+                        id: key,
                     })
                 }
                 setData(results);

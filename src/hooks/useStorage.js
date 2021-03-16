@@ -3,18 +3,20 @@ import { storage, firestore, timestamp } from '../firebase';
 import { useAuth } from '../component/Authentication/AuthContext/AuthContext';
 import instance from '../axios-orders';
 
-const useStorage = (file) => {
+const useStorage = (file, id) => {
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState(null);
     const [url, setUrl] = useState(null);
     const { currentUser } = useAuth();
 
-    const id = currentUser.uid;
+
+    const userId = currentUser.uid;
     // useEffect is going to run everytime the [file] changes
     useEffect(() => {
         // references
+        console.log(id + ' from useStorage.js')
         const storageRef = storage.ref(file.name);
-        const collectionRef = firestore.collection(id)
+        const collectionRef = firestore.collection(userId)
         // const collectionRef = firestore.collection('images')
         const monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
@@ -39,7 +41,7 @@ const useStorage = (file) => {
             const info = {
                 imageUrl: url
             }
-            await instance.post(`/${currentUser.uid}/images/${output}.json`, info)
+            await instance.post(`/${currentUser.uid}/images/${output}/${id}.json`, info)
                 .then(response => {
                     // console.log(response)
                     console.log('img uploaded to firebase DB')

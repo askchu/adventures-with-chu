@@ -88,10 +88,11 @@ import { useHistory } from 'react-router-dom';
 import ProgressBar from '../../ProgressBar/ProgressBar';
 import ImageGrid from '../ImageGrid/ImageGrid';
 import useFirestore from '../../../hooks/useFirestore';
-import ShowImages from './ShowImages/ShowImages';
 import instance from '../../../axios-orders';
 import { isCompositeComponent } from 'react-dom/test-utils';
 import GetData from './GetData/GetData';
+import ShowCurrentImages from './ShowCurrentImages/ShowCurrentImages';
+import Modal from '../ImageGrid/Modal/Modal';
 
 
 
@@ -111,20 +112,31 @@ export default function Add() {
 
     const [info, setInfo] = useState([]);
     const [count, setCount] = useState([]);
+    const [id, setId] = useState('');
+    const [selectedImg, setSelectedImg] = useState(null);
 
+    console.log(id);
 
     // Grabs images from new blog page
-    const { datas } = GetData(docs);
+    const { datas } = GetData(docs, count.id);
     console.log(datas);
+
 
 
     const handleChange = (e) => {
         const types = ['image/png', 'image/jpeg'];
         let selected = e.target.files[0];
+        let countArrayNumber = 0
 
+        if (count.length > 1) {
+            countArrayNumber = count.length - 1;
+        }
+        console.log(countArrayNumber);
         if (selected && types.includes(selected.type)) {
             setFile(selected);
+            setId(count.id);
             setError('');
+
         } else {
             setFile(null);
             setError('Please select an image file (png or jpeg)');
@@ -138,6 +150,7 @@ export default function Add() {
         await instance.get(`/${currentUser.uid}/count.json`)
             .then(response => {
                 console.log(response.data)
+                console.log(response.data.length)
                 let res = []
                 for (let key in response.data) {
                     res.push({
@@ -145,18 +158,22 @@ export default function Add() {
                         id: key
                     })
                 }
-                setCount(res);
+                console.log(res.length);
+                let arrayNum = 0;
+
+                if (res.length > 1) {
+                    arrayNum = res.length - 1;
+                }
+                setCount(res[arrayNum]);
             })
             .catch(err => console.log(err));
     }, [])
 
 
     console.log(count);
-    // console.log(count[0].id);
-    // console.log(count);
-    // console.log(count[0].count);
-    // const turnTo = parseInt(count[0].count);
-    // console.log('this is the number of count: ' + turnTo);
+    // const key = dataId[0]
+    // console.log(key.id);
+
 
     const editPost = (newCount) => {
 
@@ -204,14 +221,17 @@ export default function Add() {
                     <div className='output'>
                         {error && <div className='errors'>{error}</div>}
                         {file && file.name}
-                        {file && <ProgressBar file={file} setFile={setFile} />}
+                        {file && <ProgressBar file={file} setFile={setFile} id={id} setId={setId} />}
                     </div>
                 </div>
                 {/* <ImageGrid /> */}
                 {/* <ShowImages userId={user} /> */}
-                {datas && datas.map(urls => (
+                {/* {datas && datas.map(urls => (
                     <li key={urls.id}><strong>{urls.id}</strong>: {urls.imageUrl}</li>
-                ))}
+                ))} */}
+                <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} />
+                {selectedImg &&
+                    <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />}
                 <div className='newBlog-input'>
                     <label>Content </label>
                     <textarea rows='20' cols='100' placeholder='Start writing here...'></textarea>
@@ -220,7 +240,7 @@ export default function Add() {
                     <button
                         // disabled={loading}
                         type='submit'
-                    // onClick={submitPostHandler}
+                        onClick={submitPostHandler}
                     >Post
                 </button>
                 </div>
