@@ -3,7 +3,7 @@ import { useAuth } from '../../../Authentication/AuthContext/AuthContext';
 import instance from '../../../../axios-orders';
 
 
-export default function GetData(file, id) {
+export default function GetData(file, id, savedDescription) {
     const [datas, setData] = useState(null);
     const { currentUser } = useAuth();
 
@@ -26,7 +26,7 @@ export default function GetData(file, id) {
                 const results = [];
                 for (let key in response.data) {
                     console.log(key);
-                    results.push({
+                    results.unshift({
                         ...response.data[key],
                         id: key,
                     })
@@ -35,7 +35,7 @@ export default function GetData(file, id) {
             })
             .catch(err => console.log(err));
 
-    }, [file]);
+    }, [file, savedDescription]);
 
     return { datas };
 }

@@ -53,7 +53,7 @@ export default function ProfileBlogs() {
             }>
                 <Link to='profile-blogs-new'>
                     <p onClick={addCount} style={{ fontSize: "1.5rem" }}>Create your first blog!</p>
-                    <i class="fas fa-plus" style={{ marginBottom: '20px', fontSize: '1.2rem' }}></i>
+                    <i className="fas fa-plus" style={{ marginBottom: '20px', fontSize: '1.2rem' }}></i>
                 </Link>
             </div >
         )

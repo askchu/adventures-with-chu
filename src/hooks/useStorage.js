@@ -39,11 +39,12 @@ const useStorage = (file, id) => {
             setUrl(url);
             // add instance post here of url & createdAt
             const info = {
-                imageUrl: url
+                imageUrl: url,
+                description: ''
             }
             await instance.post(`/${currentUser.uid}/images/${output}/${id}.json`, info)
                 .then(response => {
-                    // console.log(response)
+                    console.log(response)
                     console.log('img uploaded to firebase DB')
                 })
                 .catch(err => console.log(err));

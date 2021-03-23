@@ -93,6 +93,7 @@ import { isCompositeComponent } from 'react-dom/test-utils';
 import GetData from './GetData/GetData';
 import ShowCurrentImages from './ShowCurrentImages/ShowCurrentImages';
 import Modal from '../ImageGrid/Modal/Modal';
+import ModalDescription from './ModalDescription/ModalDescription';
 
 
 
@@ -114,11 +115,14 @@ export default function Add() {
     const [count, setCount] = useState([]);
     const [id, setId] = useState('');
     const [selectedImg, setSelectedImg] = useState(null);
+    const [selectedId, setSelectedId] = useState(null);
+    const [selectedDescription, setSelectedDescription] = useState(null);
+    const [savedDescription, setSavedDescription] = useState(null);
 
     console.log(id);
 
     // Grabs images from new blog page
-    const { datas } = GetData(docs, count.id);
+    const { datas } = GetData(docs, count.id, savedDescription);
     console.log(datas);
 
 
@@ -139,13 +143,13 @@ export default function Add() {
 
         } else {
             setFile(null);
+            setId('');
             setError('Please select an image file (png or jpeg)');
         }
     }
 
 
-    useEffect(async () => {
-
+    const grabCount = async () => {
         console.log(count);
         await instance.get(`/${currentUser.uid}/count.json`)
             .then(response => {
@@ -167,6 +171,15 @@ export default function Add() {
                 setCount(res[arrayNum]);
             })
             .catch(err => console.log(err));
+    }
+
+
+
+    useEffect(async () => {
+
+        console.log(count);
+        grabCount();
+
     }, [])
 
 
@@ -200,6 +213,9 @@ export default function Add() {
         // history.push('/profile-blogs');
     }
 
+    console.log(selectedImg);
+    console.log(selectedId);
+    console.log(`this is savedDescription from Add Page ${savedDescription}`)
 
     return (
         <div className='container'>
@@ -216,7 +232,7 @@ export default function Add() {
                     <label>Images </label>
                     <div className='inputFile'>
                         <input type='file' onChange={handleChange} ref={inputRef} />
-                        <span><i class="fas fa-plus"></i></span>
+                        <span><i className="fas fa-plus"></i></span>
                     </div>
                     <div className='output'>
                         {error && <div className='errors'>{error}</div>}
@@ -224,14 +240,16 @@ export default function Add() {
                         {file && <ProgressBar file={file} setFile={setFile} id={id} setId={setId} />}
                     </div>
                 </div>
-                {/* <ImageGrid /> */}
-                {/* <ShowImages userId={user} /> */}
-                {/* {datas && datas.map(urls => (
-                    <li key={urls.id}><strong>{urls.id}</strong>: {urls.imageUrl}</li>
-                ))} */}
-                <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} />
+
+                <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} setSelectedId={setSelectedId} setSelectedDescription={setSelectedDescription} />
                 {selectedImg &&
-                    <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />}
+                    <ModalDescription
+                        selectedImg={selectedImg} setSelectedImg={setSelectedImg}
+                        selectedId={selectedId}
+                        setSelectedId={setSelectedId}
+                        selectedDescription={selectedDescription} setSelectedDescription={setSelectedDescription}
+                        count={count.id}
+                        savedDescription={setSavedDescription} />}
                 <div className='newBlog-input'>
                     <label>Content </label>
                     <textarea rows='20' cols='100' placeholder='Start writing here...'></textarea>

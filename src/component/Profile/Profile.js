@@ -71,13 +71,13 @@ export default function Profile() {
                 <div className='userContent'>
                     <div className='tags'>
                         <p>
-                            <Link to='profile-blogs'><i class="fas fa-scroll"></i>Blogs</Link>
+                            <Link to='profile-blogs'><i className="fas fa-scroll"></i>Blogs</Link>
                         </p>
                         <p>
-                            <Link to='profile-gallery'><i class="far fa-image"></i>Gallery</Link>
+                            <Link to='profile-gallery'><i className="far fa-image"></i>Gallery</Link>
                         </p>
                         <p>
-                            <Link to='profile-saved'><i class="far fa-bookmark"></i>Saved</Link>
+                            <Link to='profile-saved'><i className="far fa-bookmark"></i>Saved</Link>
                         </p>
                     </div>
                 </div>

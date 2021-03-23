@@ -47,13 +47,14 @@ button a {
     margin: 5px auto;
     width: 30px;
     height: 30px;
-    background: lightcoral;
+    background: linear-gradient(35deg, #10b9f1, #4ab1f5 );
     /* padding: 1px; */
     border-radius: 100%;
 }
 .inputFile:hover{
     /* cursor: pointer; */
-    background: rgb(250, 22, 22);
+    /* background: rgb(250, 22, 22); */
+    background: linear-gradient(35deg, #00b6f3, #1c97e9 );
 }
 .inputFile span{
     position: absolute;
