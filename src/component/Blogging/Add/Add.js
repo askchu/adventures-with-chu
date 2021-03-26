@@ -118,11 +118,12 @@ export default function Add() {
     const [selectedId, setSelectedId] = useState(null);
     const [selectedDescription, setSelectedDescription] = useState(null);
     const [savedDescription, setSavedDescription] = useState(null);
+    const [deletedImage, setDeletedImage] = useState(null);
 
     console.log(id);
 
     // Grabs images from new blog page
-    const { datas } = GetData(docs, count.id, savedDescription);
+    const { datas } = GetData(docs, count.id, savedDescription, deletedImage);
     console.log(datas);
 
 
@@ -174,12 +175,10 @@ export default function Add() {
     }
 
 
-
     useEffect(async () => {
 
         console.log(count);
         grabCount();
-
     }, [])
 
 
@@ -204,11 +203,6 @@ export default function Add() {
 
 
     const submitPostHandler = (event) => {
-        // const newCount = `${setCount(count + 1)}`;
-        // editPost(newCount)
-
-        // setCount(count[0].count = )
-
         event.preventDefault();
         // history.push('/profile-blogs');
     }
@@ -218,7 +212,7 @@ export default function Add() {
     console.log(`this is savedDescription from Add Page ${savedDescription}`)
 
     return (
-        <div className='container'>
+        <div className='container-add'>
             <div className='title'>
                 <h1>New Blog</h1>
                 <button><a href="/profile-blogs">Back</a></button>
@@ -234,6 +228,7 @@ export default function Add() {
                         <input type='file' onChange={handleChange} ref={inputRef} />
                         <span><i className="fas fa-plus"></i></span>
                     </div>
+                    <h4>Click on any image to edit and add a description</h4>
                     <div className='output'>
                         {error && <div className='errors'>{error}</div>}
                         {file && file.name}
@@ -249,7 +244,10 @@ export default function Add() {
                         setSelectedId={setSelectedId}
                         selectedDescription={selectedDescription} setSelectedDescription={setSelectedDescription}
                         count={count.id}
-                        savedDescription={setSavedDescription} />}
+                        savedDescription={setSavedDescription}
+                        deletedImage={setDeletedImage}
+                    />}
+                {/* <h4>Add a description to any images by clicking on the image</h4> */}
                 <div className='newBlog-input'>
                     <label>Content </label>
                     <textarea rows='20' cols='100' placeholder='Start writing here...'></textarea>

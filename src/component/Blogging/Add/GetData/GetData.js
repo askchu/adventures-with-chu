@@ -3,7 +3,7 @@ import { useAuth } from '../../../Authentication/AuthContext/AuthContext';
 import instance from '../../../../axios-orders';
 
 
-export default function GetData(file, id, savedDescription) {
+export default function GetData(file, id, savedDescription, deletedImage) {
     const [datas, setData] = useState(null);
     const { currentUser } = useAuth();
 
@@ -35,7 +35,7 @@ export default function GetData(file, id, savedDescription) {
             })
             .catch(err => console.log(err));
 
-    }, [file, savedDescription]);
+    }, [file, savedDescription, deletedImage]);
 
     return { datas };
 }

@@ -2,16 +2,24 @@ import React, { useRef } from 'react'
 import instance from '../../../../axios-orders';
 import { useAuth } from '../../../Authentication/AuthContext/AuthContext';
 import { useHistory } from 'react-router-dom'
+import axios from 'axios';
 
 export default function ModalDescription({
     selectedImg, setSelectedImg,
     selectedId, setSelectedId,
     selectedDescription, setSelectedDescription,
-    count, savedDescription }) {
+    count, savedDescription, deletedImage }) {
     const { currentUser } = useAuth();
     const textRef = useRef();
     const history = useHistory();
 
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    const date = new Date()
+    const month = monthNames[date.getMonth()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    const output = year + '/' + month + '/' + day;
 
     const handleClick = (e) => {
         if (e.target.classList.contains('backdrop2')) {
@@ -25,15 +33,6 @@ export default function ModalDescription({
     console.log(selectedId);
 
     const addDescription = (data) => {
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
-        const date = new Date()
-        const month = monthNames[date.getMonth()];
-        const day = String(date.getDate()).padStart(2, '0');
-        const year = date.getFullYear();
-        const output = year + '/' + month + '/' + day;
-
-
         instance.request({
             method: 'put',
             url: `/${currentUser.uid}/images/${output}/${count}/${selectedId}.json`,
@@ -61,6 +60,24 @@ export default function ModalDescription({
         console.log(`saved description of ${data.description}`);
     }
 
+
+    const deleteImage = (e) => {
+        instance.request({
+            method: 'delete',
+            url: `/${currentUser.uid}/images/${output}/${count}/${selectedId}.json`
+            // data: data
+        }).then(response => {
+            console.log(response);
+            console.log(`${selectedId} image is deleted`);
+            deletedImage(`${selectedId} deleted`)
+        })
+            .catch(err => console.log(err));
+
+        setSelectedImg(null);
+        e.preventDefault();
+    }
+
+
     return (
         <div className='container'>
             <div className='backdrop2' onClick={handleClick}>
@@ -70,6 +87,7 @@ export default function ModalDescription({
                         <label>Description</label>
                         {/* {selectedId} */}
                         <textarea ref={textRef} placeholder={selectedDescription} />
+                        <button className='delete' onClick={deleteImage}>Delete</button>
                         <button onClick={saveData}>Save</button>
                     </div>
                 </div>

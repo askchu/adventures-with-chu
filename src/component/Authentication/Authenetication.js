@@ -7,7 +7,7 @@ class Authenetication extends Component {
     render() {
         return (
             <AuthProvider>
-                <SignUp />
+                {/* <SignUp /> */}
             </AuthProvider>
         )
     }
