@@ -4,12 +4,19 @@ import { Link } from 'react-router-dom';
 import GetCount from '../../Blogging/Add/GetCount/GetCount';
 import instance from '../../../axios-orders';
 import { useAuth } from '../../Authentication/AuthContext/AuthContext';
+import Posts from '../../Blogging/Posts/Posts';
+import Aux from '../../../hoc/Auxilary/Auxilary';
 
 
 export default function ProfileBlogs() {
 
     // const [count, setCount] = useState(1);
     const { currentUser } = useAuth();
+    const [drafts, setDrafts] = useState([]);
+    const [posts, setPosts] = useState([]);
+
+    console.log(drafts);
+
 
     const { info } = GetCount();
     console.log(info);
@@ -18,26 +25,15 @@ export default function ProfileBlogs() {
     const addCount = () => {
         console.log(info[0].count)
         console.log(info[0].name)
-
-        // const newCount = {
-        //     count: 2
-        // }
-
-        // instance.request({
-        //     method: 'put',
-        //     url: `/${currentUser.uid}/count/${info}.json`,
-        //     data: newCount
-        // }).then(response => {
-        //     console.log(response);
-        // })
-        //     .catch(err => console.log(err));
     }
 
     // console.log(count);
 
-    let blog = [];
-    if (blog.length === 0) {
-        blog = (
+    console.log(drafts.length);
+
+    let createBlog = [];
+    if (drafts.length === 0) {
+        createBlog = (
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -57,39 +53,51 @@ export default function ProfileBlogs() {
                 </Link>
             </div >
         )
+    } else {
+        createBlog = (
+            <Aux>
+                <div className='newPost'>
+                    <button>
+                        <Link to='profile-blogs-new'>
+                            <i class="fas fa-plus"></i>
+                        </Link>
+                    </button>
+                </div>
+                <div className='blogs'>
+                    <div><h3>Drafts ({drafts.length})</h3></div>
+                    <div><h3>Blogs ({posts.length})</h3></div>
+                </div>
+            </Aux>
+        )
     }
 
 
 
 
-    // useEffect(async () => {
-    //     await instance.get(`/${currentUser.uid}/count.json`)
-    //         .then(response => {
-    //             console.log(response.data)
-    //             let res = []
-    //             for (let key in response.data) {
-    //                 res.push({
-    //                     ...response.data[key],
-    //                     id: key
-    //                 })
-    //             }
-    //             setCount(res);
-    //         })
-    //         .catch(err => console.log(err));
-    // }, [])
+    useEffect(async (info) => {
+        await instance.get(`/${currentUser.uid}/drafts.json`)
+            .then(response => {
+                console.log(response.data)
+                const results = [];
+                for (let key in response.data) {
+                    results.unshift({
+                        ...response.data[key],
+                        id: key
+                        // title: key.title,
+                        // description: key.description,
+                        // imageUrl: key.imageUrl
+                    })
+                }
+                setDrafts(results);
+            })
+            .catch(err => console.log(err));
+    }, [info])
 
     return (
         <div>
             <Profile />
             <div className='containers'>
-                {/* <div className='newPost'>
-                    <button>
-                        <Link to='profile-blogs-new'>
-                            New Blog <i class="fas fa-plus"></i>
-                        </Link>
-                    </button>
-                </div> */}
-                {blog}
+                {createBlog}
             </div>
         </div>
     )

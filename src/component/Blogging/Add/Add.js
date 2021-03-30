@@ -150,6 +150,26 @@ export default function Add() {
     }
 
 
+    const images = datas;
+    console.log(images);
+
+    const saveDraft = () => {
+        const post = {
+            title: titleRef.current.value,
+            content: contentRef.current.value,
+            images: images
+        }
+        // console.log(post);
+        instance.post(`/${currentUser.uid}/drafts.json`, post)
+            .then(response => {
+                console.log(response)
+                // console.log(response.data)
+            })
+            .catch(error => console.log(error));
+        console.log('saved to drafts');
+        history.push('/profile-blogs');
+    }
+
     const grabCount = async () => {
         console.log(count);
         await instance.get(`/${currentUser.uid}/count.json`)
@@ -176,7 +196,6 @@ export default function Add() {
 
 
     useEffect(async () => {
-
         console.log(count);
         grabCount();
     }, [])
@@ -204,6 +223,7 @@ export default function Add() {
 
     const submitPostHandler = (event) => {
         event.preventDefault();
+        console.log('post submitted')
         // history.push('/profile-blogs');
     }
 
@@ -215,12 +235,13 @@ export default function Add() {
         <div className='container-add'>
             <div className='title'>
                 <h1>New Blog</h1>
-                <button><a href="/profile-blogs">Back</a></button>
+                <button onClick={saveDraft}>Back</button>
             </div>
             <form className='newBlog'>
                 <div className='newBlog-input'>
                     <label>Title </label>
-                    <input type='text' ref={titleRef} autoFocus />
+                    <input type='text' ref={titleRef} />
+                    {/* autoFocus: focuses on the input as soon as user arrives on page */}
                 </div>
                 <div className='newBlog-input'>
                     <label>Images </label>
@@ -250,7 +271,7 @@ export default function Add() {
                 {/* <h4>Add a description to any images by clicking on the image</h4> */}
                 <div className='newBlog-input'>
                     <label>Content </label>
-                    <textarea rows='20' cols='100' placeholder='Start writing here...'></textarea>
+                    <textarea rows='20' cols='100' placeholder='Start writing here...' ref={contentRef}></textarea>
                 </div>
                 <div className='newBlog-post'>
                     <button
