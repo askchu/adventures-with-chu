@@ -185,6 +185,16 @@ export default function Add() {
 
         })
             .catch(err => console.log(err));
+        instance.request({
+            method: 'delete',
+            url: `/${currentUser.uid}/count/${count.id}.json`
+            // data: data
+        }).then(response => {
+            console.log(response);
+            console.log(`${count.id} count file is deleted`);
+
+        })
+            .catch(err => console.log(err));
         console.log('saved to drafts');
         history.push('/profile-blogs');
     }
