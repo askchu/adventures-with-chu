@@ -71,9 +71,6 @@ export default function ProfileBlogs() {
         )
     }
 
-
-
-
     useEffect(async (info) => {
         await instance.get(`/${currentUser.uid}/drafts.json`)
             .then(response => {

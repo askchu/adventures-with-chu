@@ -104,14 +104,14 @@ export default function Add() {
     const contentRef = useRef();
     const { currentUser, updateProfile } = useAuth();
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [file, setFile] = useState(null);
     const { docs } = useFirestore(currentUser.uid);
     const history = useHistory();
 
 
 
-    const [info, setInfo] = useState([]);
+    // const [info, setInfo] = useState([]);
     const [count, setCount] = useState([]);
     const [id, setId] = useState('');
     const [selectedImg, setSelectedImg] = useState(null);
@@ -153,6 +153,15 @@ export default function Add() {
     const images = datas;
     console.log(images);
 
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    const date = new Date()
+    const month = monthNames[date.getMonth()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    const output = year + '/' + month + '/' + day;
+
     const saveDraft = () => {
         const post = {
             title: titleRef.current.value,
@@ -166,6 +175,16 @@ export default function Add() {
                 // console.log(response.data)
             })
             .catch(error => console.log(error));
+        instance.request({
+            method: 'delete',
+            url: `/${currentUser.uid}/images/${output}/${count.id}.json`
+            // data: data
+        }).then(response => {
+            console.log(response);
+            console.log(`${count.id} image file is deleted`);
+
+        })
+            .catch(err => console.log(err));
         console.log('saved to drafts');
         history.push('/profile-blogs');
     }
