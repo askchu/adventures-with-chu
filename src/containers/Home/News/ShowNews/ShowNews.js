@@ -13,6 +13,15 @@ export default function ShowNews(props) {
         )
     }
 
+    let author = (
+        <h5>By: {props.author}</h5>
+    )
+    if (props.author == null) {
+        author = (
+            <h5>By: Unknown</h5>
+        )
+    }
+
     return (
         <div className="news"
         >
@@ -24,7 +33,8 @@ export default function ShowNews(props) {
             </div>
 
             <div className='summary'>
-                <h5>By: {props.author}</h5>
+                {/* <h5>By: {props.author}</h5> */}
+                {author}
                 <h4>{props.title}</h4>
                 {content}
             </div>
