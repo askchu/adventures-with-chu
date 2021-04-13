@@ -11,10 +11,10 @@
 .title h1{
     margin-bottom: 10px;
 }
-button {
+.title button {
     margin-bottom: 10px;
 }
-button a {
+.title button a {
     text-decoration: none;
     /* color: white; */
     padding: 20px;
@@ -46,9 +46,6 @@ button:nth-child(3):hover{
     border: 1px solid #111;
 }
 
-form{
-    /* padding: 10px; */
-}
 .input-field{
     margin-top: 5px;
 }

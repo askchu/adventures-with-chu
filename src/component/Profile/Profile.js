@@ -56,8 +56,8 @@ export default function Profile() {
                     </div>
                     <div className='count'>
                         <p>Posts: 0</p>
-                        <p className='followers'>Followers: 99</p>
-                        <p className='following'>Following: 124</p>
+                        <p className='followers'>Followers: 0</p>
+                        <p className='following'>Following: 0</p>
                     </div>
                 </div>
                 <div className='links'>

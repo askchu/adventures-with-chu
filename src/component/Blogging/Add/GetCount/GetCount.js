@@ -23,23 +23,6 @@ export default function GetCount() {
             .catch(error => console.log(error));
     }
 
-    // const grabData = async () => {
-    //     await instance.get(`/${currentUser.uid}/count.json`)
-    //         .then(response => {
-    //             console.log(response.data)
-    //             let res = []
-    //             for (let key in response.data) {
-    //                 res.push({
-    //                     ...response.data[key],
-    //                     id: key
-    //                 })
-    //             }
-    //             setCountId(res);
-    //         })
-    //         .catch(err => console.log(err));
-    // }
-
-
     useEffect(() => {
         const number = {
             count: `${count}`
