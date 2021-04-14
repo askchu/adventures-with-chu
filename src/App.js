@@ -4,8 +4,8 @@ import Home from './containers/Home/Home';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Navbar from './component/Navigation/Navbar';
 import './App.css';
-import Edit from './component/Blogging/Edit/Edit';
 import Add from './component/Blogging/Add/Add';
+import Edit from './component/Blogging/Add/Edit';
 import ShowBlog from './component/Blogging/ShowBlog/ShowBlog';
 import SignUp from './component/Authentication/SignUp/SignUp';
 import { AuthProvider } from './component/Authentication/AuthContext/AuthContext';
@@ -36,11 +36,10 @@ function App() {
           <PrivateRoutes path="/profile-blogs-new" exact component={Add} />
 
           {/* TODO: add edit page */}
-
+          <PrivateRoutes path="/profile-blogs/:id/edit" exact component={Edit} />
 
           {/* NOTE: Links work in progress */}
           <Route path="/my-blogs/:id/" exact component={ShowBlog} />
-          <Route path="/profile/my-blogs/:id/edit" component={Edit} />
           <Route path="/profile/my-blogs" component={Blog} />
         </Switch>
       </AuthProvider>

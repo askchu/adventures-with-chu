@@ -7,15 +7,20 @@
 button a {
     color: #fff;
 }
-
+.title {
+    text-align: center;
+}
+.title h1{
+    margin-bottom: 10px;
+}
 .title button{
     background: linear-gradient(35deg, #10b9f1, #4ab1f5 );
     border-radius: .5rem;
     color: #fff;
     padding: 10px;
     font-size: 1.2rem;
+    margin-bottom: 20px;
 }
-
 
 .newBlog{
     border: 1px solid #111;

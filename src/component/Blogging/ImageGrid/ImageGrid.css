@@ -73,11 +73,11 @@
 }
 
 .backdrop .options{
-    width: 50%;
+    width: 75%;
     z-index: 99;
     background: linear-gradient(35deg, #10b9f1, #4ab1f5 );
     margin: 200px auto 0 auto;
-    padding: 10px 0;
+    padding: 20px 0;
     text-align: center;
     border-radius: 10px;
     box-shadow: 1px 2px 3px #111;
@@ -170,6 +170,11 @@
 }
 
 @media (min-width: 900px){
+.backdrop .options{
+    width: 40%;
+    max-width: 500px;
+}
+
  .backdrop2 .content{
     width: 500px;
 }

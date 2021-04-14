@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
-import './Add.css';
+import './Add.css'
 import { useAuth } from '../../Authentication/AuthContext/AuthContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import ProgressBar from '../../ProgressBar/ProgressBar';
 import useFirestore from '../../../hooks/useFirestore';
 import instance from '../../../axios-orders';
@@ -12,7 +12,7 @@ import ModalDescription from './ModalDescription/ModalDescription';
 
 
 
-export default function Add() {
+export default function Edit() {
     const inputRef = useRef();
     const titleRef = useRef();
     const contentRef = useRef();
@@ -33,11 +33,14 @@ export default function Add() {
     const [savedDescription, setSavedDescription] = useState(null);
     const [deletedImage, setDeletedImage] = useState(null);
     const [saveDrafts, setSaveDrafts] = useState(false);
+    const { id } = useParams();
+    // console.log(id);
 
-
+    // TODO: Grab images from /userId/draft data instead
     // Grabs images from /userId/images database
     const { datas } = GetData(docs, count.id, savedDescription, deletedImage);
-    console.log(datas);
+
+    // console.log(datas);
 
 
 
@@ -64,7 +67,7 @@ export default function Add() {
 
 
     const images = datas;
-    console.log(images);
+    // console.log(images);
 
 
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -75,16 +78,41 @@ export default function Add() {
     const year = date.getFullYear();
     const output = year + '/' + month + '/' + day;
 
+
+
+
+
+
     const saveDraft = () => {
+        let titleValue = ''
+        if (draftData[0].title || titleRef.current.value !== titleValue) {
+            if (draftData[0].title !== titleRef.current.value) {
+                titleValue = titleRef.current.value;
+            }
+            if (titleRef.current.value === '') {
+                titleValue = draftData[0].title;
+            }
+        }
+
+        let contentValue = ''
+        if (draftData[0].content || contentRef.current.value !== contentValue) {
+            if (draftData[0].content !== contentRef.current.value) {
+                contentValue = contentRef.current.value;
+            }
+            if (contentRef.current.value === '') {
+                contentValue = draftData[0].content;
+            }
+        }
+
         const post = {
-            title: titleRef.current.value,
-            content: contentRef.current.value,
+            title: titleValue,
+            content: contentValue,
             images: images
         }
         // console.log(post);
 
         // create db in drafts
-        instance.post(`/${currentUser.uid}/drafts.json`, post)
+        instance.put(`/${currentUser.uid}/drafts/${id}.json`, post)
             .then(response => {
                 console.log(response)
                 // console.log(response.data)
@@ -120,19 +148,18 @@ export default function Add() {
     }
 
     const noSave = () => {
-        console.log('not saved to drafts');
+        // Deletes draft
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/images/${output}/${count.id}.json`
-            // data: data
+            url: `/${currentUser.uid}/drafts/${id}.json`
         }).then(response => {
             console.log(response);
-            console.log(`${count.id} image file is deleted`);
+            console.log(`draft ${id} deleted`)
 
         })
             .catch(err => console.log(err));
 
-        // Delete Count
+        // // Delete Count
         instance.request({
             method: 'delete',
             url: `/${currentUser.uid}/count/${count.id}.json`
@@ -177,7 +204,7 @@ export default function Add() {
 
 
 
-    const grabCount = async () => {
+    const grabCountData = async () => {
         console.log(count);
         await instance.get(`/${currentUser.uid}/count.json`)
             .then(response => {
@@ -201,15 +228,36 @@ export default function Add() {
             .catch(err => console.log(err));
     }
 
+    const [draftData, setDraftData] = useState([]);
+    const [titlePlaceholder, setTitlePlaceholder] = useState('');
+    const [contentPlaceholder, setContentPlaceholder] = useState('');
+
+    const grabDraftData = async () => {
+        await instance.get(`/${currentUser.uid}/drafts/${id}.json`)
+            .then(response => {
+                console.log(response)
+                let res = []
+                res.push({
+                    content: response.data.content,
+                    title: response.data.title,
+                    images: response.data.images
+                })
+                setDraftData(res)
+                setTitlePlaceholder(response.data.title)
+                setContentPlaceholder(response.data.content)
+            }).catch(err => console.log(err));
+    }
+    // console.log(draftData);
+
 
     useEffect(async () => {
         window.scrollTo(0, 0)
-        console.log(count);
-        grabCount();
+        grabCountData();
+        grabDraftData();
     }, [])
 
 
-    console.log(count);
+    // console.log(count);
     // const key = dataId[0]
     // console.log(key.id);
 
@@ -235,23 +283,19 @@ export default function Add() {
         // history.push('/profile-blogs');
     }
 
-    console.log(selectedImg);
-    console.log(selectedId);
-    console.log(`this is savedDescription from Add Page ${savedDescription}`)
 
 
-    console.log(saveDrafts);
     return (
         <div className='container-add'>
             <div className='title'>
-                <h1>New Blog</h1>
+                <h1>Edit Draft #{id}</h1>
                 <button onClick={requestToDraft}>Back</button>
-
+                <button onClick={requestToDraft}>Delete</button>
             </div>
             <form className='newBlog'>
                 <div className='newBlog-input'>
                     <label>Title </label>
-                    <input type='text' ref={titleRef} />
+                    <input type='text' ref={titleRef} value={titlePlaceholder} onChange={event => setTitlePlaceholder(event.target.value)} />
                     {/* autoFocus: focuses on the input as soon as user arrives on page */}
                 </div>
                 <div className='newBlog-input'>
@@ -282,7 +326,7 @@ export default function Add() {
                 {/* <h4>Add a description to any images by clicking on the image</h4> */}
                 <div className='newBlog-input'>
                     <label>Content </label>
-                    <textarea rows='20' cols='100' placeholder='Start writing here...' ref={contentRef}></textarea>
+                    <textarea rows='20' cols='100' value={contentPlaceholder} ref={contentRef} onChange={event => setContentPlaceholder(event.target.value)}></textarea>
                 </div>
                 <div className='newBlog-post'>
                     <button

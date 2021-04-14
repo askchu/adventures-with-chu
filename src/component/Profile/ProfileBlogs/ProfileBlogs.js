@@ -48,12 +48,11 @@ export default function ProfileBlogs() {
 
 
     const { info } = GetCount();
-    console.log(info);
 
 
     const addCount = () => {
-        console.log(info[0].count)
-        console.log(info[0].name)
+        // console.log(info[0].count)
+        // console.log(info[0].name)
     }
 
     // console.log(count);
@@ -72,18 +71,19 @@ export default function ProfileBlogs() {
 
     draftList = (
         drafts.map((savedDraft) => {
+            const link = `/profile-blogs/${savedDraft.id}/edit`
             if (savedDraft.title == '') {
                 // grabs the index in the array
                 const count = indexOfDrafts.indexOf(savedDraft.id) + 1;
                 draftTitle = (
-                    <Link to='#'>
+                    <Link to={link}>
                         {/* prints out the number in the index */}
                         Draft #{count}
                     </Link>
                 )
             } else {
                 draftTitle = (
-                    <Link to='#'>
+                    <Link to={link}>
                         {savedDraft.title}
                     </Link>
                 )
@@ -128,7 +128,7 @@ export default function ProfileBlogs() {
             <Aux>
                 <div className='mainTabs'>
                     <div className='newPost'>
-                        <button>
+                        <button onClick={addCount}>
                             <Link to='profile-blogs-new'>
                                 <i className="fas fa-plus"></i>
                             </Link>
@@ -147,6 +147,8 @@ export default function ProfileBlogs() {
     }
 
     useEffect(async (info) => {
+        // resets scrollbar back to the top
+        window.scrollTo(0, 0)
         await instance.get(`/${currentUser.uid}/drafts.json`)
             .then(response => {
                 console.log(response.data)
@@ -164,6 +166,7 @@ export default function ProfileBlogs() {
             })
             .catch(err => console.log(err));
     }, [info])
+    // [info]
 
     return (
         <div>
