@@ -36,6 +36,7 @@ export default function Add() {
     const [selectedDescription, setSelectedDescription] = useState(null);
     const [savedDescription, setSavedDescription] = useState(null);
     const [deletedImage, setDeletedImage] = useState(null);
+    const [saveDrafts, setSaveDrafts] = useState(false);
 
     console.log(id);
 
@@ -86,12 +87,16 @@ export default function Add() {
             images: images
         }
         // console.log(post);
+
+        // create db in drafts
         instance.post(`/${currentUser.uid}/drafts.json`, post)
             .then(response => {
                 console.log(response)
                 // console.log(response.data)
             })
             .catch(error => console.log(error));
+
+        // Delete images path
         instance.request({
             method: 'delete',
             url: `/${currentUser.uid}/images/${output}/${count.id}.json`
@@ -102,6 +107,8 @@ export default function Add() {
 
         })
             .catch(err => console.log(err));
+
+        // Delete Count
         instance.request({
             method: 'delete',
             url: `/${currentUser.uid}/count/${count.id}.json`
@@ -112,9 +119,46 @@ export default function Add() {
 
         })
             .catch(err => console.log(err));
+
         console.log('saved to drafts');
         history.push('/profile-blogs');
     }
+
+    const noSave = () => {
+        console.log('not saved to drafts');
+        history.push('/profile-blogs');
+    }
+
+    const handleClick = (e) => {
+        if (e.target.classList.contains('backdrop')) {
+            setSaveDrafts(false);
+        }
+    }
+
+    let options = [];
+    if (saveDrafts === true) {
+        options = (
+            <div className='container' >
+                <div className='backdrop' onClick={handleClick}>
+                    <div className='options'>
+                        <h2>Save to Drafts?</h2>
+                        <div className='actions'>
+                            <button onClick={saveDraft}>Yes</button>
+                            <button onClick={noSave}>No</button>
+                        </div>
+                    </div>
+                </div>
+            </div >
+        )
+    }
+
+
+
+    const requestToDraft = () => {
+        setSaveDrafts(true);
+    }
+
+
 
     const grabCount = async () => {
         console.log(count);
@@ -177,11 +221,14 @@ export default function Add() {
     console.log(selectedId);
     console.log(`this is savedDescription from Add Page ${savedDescription}`)
 
+
+    console.log(saveDrafts);
     return (
         <div className='container-add'>
             <div className='title'>
                 <h1>New Blog</h1>
-                <button onClick={saveDraft}>Back</button>
+                <button onClick={requestToDraft}>Back</button>
+
             </div>
             <form className='newBlog'>
                 <div className='newBlog-input'>
@@ -228,6 +275,7 @@ export default function Add() {
                 </button>
                 </div>
             </form>
+            {options}
         </div>
     )
 }

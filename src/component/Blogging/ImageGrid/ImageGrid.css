@@ -26,6 +26,9 @@
     top: 0;
     left: 0;
 }
+.img-wrap:hover{
+    cursor: pointer;
+}
 
 .img-wrap div {
     position: relative;
@@ -68,6 +71,42 @@
     box-shadow: 3px 5px 7px rgba(0,0,0,0.5);
     border: 3px solid #fff;
 }
+
+.backdrop .options{
+    width: 50%;
+    z-index: 99;
+    background: linear-gradient(35deg, #10b9f1, #4ab1f5 );
+    margin: 200px auto 0 auto;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 1px 2px 3px #111;
+}
+.options h2 {
+    margin: 5px auto;
+    color: #fff;
+}
+.options .actions {
+    display: flex;
+    background: none;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: 0 auto;
+    padding: 5px;
+}
+.options .actions button{
+    width: 100px;
+    padding: 5px;
+    border-radius: 2em;
+    font-size: 1.2rem;
+}
+.options .actions button:hover{
+    cursor: pointer;
+    background: rgb(248, 248, 248);
+    box-shadow: 1px 2px 3px #111;
+}
+
+
 
 /* Modal Style - ShowCurrentImage*/
 .backdrop2 {
