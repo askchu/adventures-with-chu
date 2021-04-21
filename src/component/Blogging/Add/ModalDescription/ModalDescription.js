@@ -8,7 +8,7 @@ export default function ModalDescription({
     selectedImg, setSelectedImg,
     selectedId, setSelectedId,
     selectedDescription, setSelectedDescription,
-    count, savedDescription, deletedImage }) {
+    count, savedDescription, deletedImage, deletedImageUrl }) {
     const { currentUser } = useAuth();
     const textRef = useRef();
     const history = useHistory();
@@ -64,7 +64,7 @@ export default function ModalDescription({
     const deleteImage = (e) => {
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/images/${output}/${count}/${selectedId}.json`
+            url: deletedImageUrl
             // data: data
         }).then(response => {
             console.log(response);

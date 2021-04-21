@@ -241,6 +241,12 @@ export default function Add() {
 
 
     console.log(saveDrafts);
+
+
+    // deleted image URL
+    const deleteUrl = `/${currentUser.uid}/images/${output}/${count.id}/${selectedId}.json`;
+    console.log(deleteUrl);
+
     return (
         <div className='container-add'>
             <div className='title'>
@@ -278,6 +284,7 @@ export default function Add() {
                         count={count.id}
                         savedDescription={setSavedDescription}
                         deletedImage={setDeletedImage}
+                        deletedImageUrl={deleteUrl}
                     />}
                 {/* <h4>Add a description to any images by clicking on the image</h4> */}
                 <div className='newBlog-input'>

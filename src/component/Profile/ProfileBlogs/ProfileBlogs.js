@@ -14,25 +14,6 @@ export default function ProfileBlogs() {
     const [drafts, setDrafts] = useState([]);
     const [posts, setPosts] = useState([]);
 
-    // const { data } = GrabDraftData;
-    // console.log(data);
-
-    // const onMouseClick = () => {
-    //     if (window.innerWidth < 960) {
-    //         setDropdown(false);
-    //     } else {
-    //         setDropdown(true);
-    //     }
-    // };
-
-    // const onMouseLeave = () => {
-    //     if (window.innerWidth < 960) {
-    //         setDropdown(false);
-    //     } else {
-    //         setDropdown(false);
-    //     }
-    // };
-
     console.log(dropdown);
     const onMouseClick = () => {
         if (dropdown == true) {

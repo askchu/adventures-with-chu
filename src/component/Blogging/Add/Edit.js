@@ -35,10 +35,11 @@ export default function Edit() {
     const [saveDrafts, setSaveDrafts] = useState(false);
     const { id } = useParams();
     // console.log(id);
+    const [draftData, setDraftData] = useState([]);
 
     // TODO: Grab images from /userId/draft data instead
     // Grabs images from /userId/images database
-    const { datas } = GetData(docs, count.id, savedDescription, deletedImage);
+    const { datas } = GetData(docs, count.id, savedDescription, deletedImage, id);
 
     // console.log(datas);
 
@@ -66,7 +67,6 @@ export default function Edit() {
     }
 
 
-    const images = datas;
     // console.log(images);
 
 
@@ -89,7 +89,7 @@ export default function Edit() {
             if (draftData[0].title !== titleRef.current.value) {
                 titleValue = titleRef.current.value;
             }
-            if (titleRef.current.value === '') {
+            if (draftData[0].title === titleRef.current.value) {
                 titleValue = draftData[0].title;
             }
         }
@@ -104,20 +104,84 @@ export default function Edit() {
             }
         }
 
-        const post = {
-            title: titleValue,
-            content: contentValue,
-            images: images
-        }
-        // console.log(post);
 
-        // create db in drafts
-        instance.put(`/${currentUser.uid}/drafts/${id}.json`, post)
-            .then(response => {
-                console.log(response)
-                // console.log(response.data)
+        let images = datas;
+        // images = datas;
+        // if (imageDraft) {
+        //     console.log(imageDraft.length)
+        //     for (let i = 0; i < imageDraft.length; i++) {
+        //         let results = []
+        //         results.push({
+        //             description: imageDraft[i].description,
+        //             id: imageDraft[i].id,
+        //             imageUrl: imageDraft[i].imageUrl
+        //         })
+        //         console.log(results);
+        //         images.push(results);
+        //     }
+        // }
+        if (datas && !imageDraft) {
+            console.log(images);
+            const post = {
+                title: titleValue,
+                content: contentValue,
+                images: images
+            }
+
+            // create db in drafts
+            instance.put(`/${currentUser.uid}/drafts/${id}.json`, post)
+                .then(response => {
+                    console.log(response)
+                    // console.log(response.data)
+                })
+                .catch(error => console.log(error));
+        }
+
+
+        let image = []
+        if (imageDraft && !datas) {
+            imageDraft.forEach(element => {
+                image.push({
+                    description: element.description,
+                    id: element.id,
+                    imageUrl: element.imageUrl
+                })
+                console.log(image);
             })
-            .catch(error => console.log(error));
+            instance.put(`/${currentUser.uid}/drafts/${id}/images.json`, image)
+                .then(response => {
+                    console.log(response)
+                    // console.log(response.data)
+                })
+                .catch(error => console.log(error));
+        }
+
+        if (imageDraft && datas) {
+            imageDraft.forEach(element => {
+                image.push({
+                    description: element.description,
+                    id: element.id,
+                    imageUrl: element.imageUrl
+                })
+            })
+            datas.forEach(element => {
+                image.push({
+                    description: element.description,
+                    id: element.id,
+                    imageUrl: element.imageUrl
+                })
+            })
+            console.log(image);
+            instance.put(`/${currentUser.uid}/drafts/${id}/images.json`, image)
+                .then(response => {
+                    console.log(response)
+                    // console.log(response.data)
+                })
+                .catch(error => console.log(error));
+        }
+
+
+
 
         // Delete images path
         instance.request({
@@ -228,9 +292,12 @@ export default function Edit() {
             .catch(err => console.log(err));
     }
 
-    const [draftData, setDraftData] = useState([]);
     const [titlePlaceholder, setTitlePlaceholder] = useState('');
     const [contentPlaceholder, setContentPlaceholder] = useState('');
+    const [imageDraft, setImageDraft] = useState([])
+    console.log(imageDraft);
+
+
 
     const grabDraftData = async () => {
         await instance.get(`/${currentUser.uid}/drafts/${id}.json`)
@@ -243,18 +310,29 @@ export default function Edit() {
                     images: response.data.images
                 })
                 setDraftData(res)
-                setTitlePlaceholder(response.data.title)
-                setContentPlaceholder(response.data.content)
+                setImageDraft(response.data.images);
+                setTitlePlaceholder(response.data.title);
+                setContentPlaceholder(response.data.content);
             }).catch(err => console.log(err));
     }
-    // console.log(draftData);
+    // let draftImages = [];
 
+    // if (imageDraft == undefined) {
+    //     console.log('no images from this draft')
+    // } else {
+    //     console.log(imageDraft.length);
+    //     draftImages.push(imageDraft);
+    //     draftImages.push(datas);
 
-    useEffect(async () => {
+    // }
+
+    // console.log(draftImages);
+
+    useEffect(async (deletedImage) => {
         window.scrollTo(0, 0)
         grabCountData();
         grabDraftData();
-    }, [])
+    }, [deletedImage])
 
 
     // console.log(count);
@@ -282,6 +360,37 @@ export default function Edit() {
         console.log('post submitted')
         // history.push('/profile-blogs');
     }
+    console.log(datas);
+
+
+    // Delete Image URL
+
+    let deleteUrl = '';
+
+    if (imageDraft) {
+
+        console.log(selectedId);
+
+        function search(idKey, myArray) {
+            for (var i = 0; i < myArray.length; i++) {
+                if (myArray[i].id === idKey) {
+                    // return myArray[i];
+                    return myArray.indexOf(myArray[i]);
+                }
+            }
+        }
+
+        const searchIndex = search(selectedId, imageDraft)
+        console.log(searchIndex);
+        deleteUrl = `/${currentUser.uid}/drafts/${id}/images/${searchIndex}.json`;
+        console.log(deleteUrl);
+    }
+    // if (datas) {
+    //     deleteUrl = `/${currentUser.uid}/images/${output}/${count.id}/${selectedId}.json`;
+    //     console.log(deleteUrl);
+    // }
+    console.log(deleteUrl);
+
 
 
 
@@ -312,7 +421,7 @@ export default function Edit() {
                     </div>
                 </div>
 
-                <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} setSelectedId={setSelectedId} setSelectedDescription={setSelectedDescription} />
+                <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} setSelectedId={setSelectedId} setSelectedDescription={setSelectedDescription} imageDraft={imageDraft} />
                 {selectedImg &&
                     <ModalDescription
                         selectedImg={selectedImg} setSelectedImg={setSelectedImg}
@@ -322,6 +431,7 @@ export default function Edit() {
                         count={count.id}
                         savedDescription={setSavedDescription}
                         deletedImage={setDeletedImage}
+                        deletedImageUrl={deleteUrl}
                     />}
                 {/* <h4>Add a description to any images by clicking on the image</h4> */}
                 <div className='newBlog-input'>

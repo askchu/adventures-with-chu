@@ -3,7 +3,7 @@ import { useAuth } from '../../../Authentication/AuthContext/AuthContext';
 import instance from '../../../../axios-orders';
 
 
-export default function GetData(file, id, savedDescription, deletedImage) {
+export default function GetData(file, id, savedDescription, deletedImage, draftId) {
     const [datas, setData] = useState(null);
     const { currentUser } = useAuth();
 
@@ -16,10 +16,16 @@ export default function GetData(file, id, savedDescription, deletedImage) {
     const year = date.getFullYear();
     const output = year + '/' + month + '/' + day;
 
+    let draftImageData = [];
+
+
 
     useEffect(async () => {
         console.log(`id is: ${id}` + ' from GetData page')
         console.log('grabs data from GetData page')
+        let allImages = [];
+
+
         await instance.get(`/${currentUser.uid}/images/${output}/${id}.json`)
             .then(response => {
                 console.log(response);
@@ -32,10 +38,14 @@ export default function GetData(file, id, savedDescription, deletedImage) {
                     })
                 }
                 setData(results);
+                // allImages.push(results);
             })
             .catch(err => console.log(err));
 
-    }, [file, savedDescription, deletedImage]);
+
+        // setData(allImages);
+
+    }, [file, savedDescription, deletedImage, draftId]);
 
     return { datas };
 }
