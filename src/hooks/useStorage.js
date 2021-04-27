@@ -42,7 +42,7 @@ const useStorage = (file, id) => {
                 imageUrl: url,
                 description: ''
             }
-            await instance.post(`/${currentUser.uid}/images/${output}/${id}.json`, info)
+            await instance.post(`/${currentUser.uid}/drafts/${id}/images/${id}.json`, info)
                 .then(response => {
                     console.log(response)
                     console.log('img uploaded to firebase DB')

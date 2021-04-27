@@ -26,7 +26,7 @@ export default function GetData(file, id, savedDescription, deletedImage, draftI
         let allImages = [];
 
 
-        await instance.get(`/${currentUser.uid}/images/${output}/${id}.json`)
+        await instance.get(`/${currentUser.uid}/drafts/${id}/images/${id}.json`)
             .then(response => {
                 console.log(response);
                 const results = [];

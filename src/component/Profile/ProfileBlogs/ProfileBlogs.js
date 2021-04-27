@@ -25,7 +25,7 @@ export default function ProfileBlogs() {
     }
 
     console.log(drafts);
-    console.log(drafts.indexOf(2))
+    // console.log(drafts.indexOf(2))
 
 
     const { info } = GetCount();
@@ -40,7 +40,6 @@ export default function ProfileBlogs() {
 
     console.log(drafts.length);
 
-
     let draftList = '';
     let draftTitle = '';
 
@@ -50,10 +49,38 @@ export default function ProfileBlogs() {
         indexOfDrafts.unshift(el.id)
     })
 
+
+    // const searchIndex = search(selectedId, imageDraft)
+    // console.log(searchIndex);
+
+    // console.log(drafts[0].content[drafts[0].id]);
+    // const results = drafts[0].content[drafts[0].id]
+    // console.log(results);
+
+    let result = drafts.includes('title')
+    // console.table(drafts[0]);
+
+
+
     draftList = (
         drafts.map((savedDraft) => {
+            // Grabs the content object array
+            let contentObjectKey = savedDraft.content[savedDraft.id];
+
+            // Grabs the key object
+            let contentKey = Object.keys(contentObjectKey);
+            console.log(contentKey)
+
+            // Grabs the title value in the key object
+            console.log(contentObjectKey[contentKey].title)
+
+
+
+
+
+
             const link = `/profile-blogs/${savedDraft.id}/edit`
-            if (savedDraft.title == '') {
+            if (contentObjectKey[contentKey].title == '') {
                 // grabs the index in the array
                 const count = indexOfDrafts.indexOf(savedDraft.id) + 1;
                 draftTitle = (
@@ -65,7 +92,7 @@ export default function ProfileBlogs() {
             } else {
                 draftTitle = (
                     <Link to={link}>
-                        {savedDraft.title}
+                        {contentObjectKey[contentKey].title}
                     </Link>
                 )
             }
@@ -127,20 +154,23 @@ export default function ProfileBlogs() {
         )
     }
 
+
+
     useEffect(async (info) => {
         // resets scrollbar back to the top
         window.scrollTo(0, 0)
         await instance.get(`/${currentUser.uid}/drafts.json`)
             .then(response => {
                 console.log(response.data)
+                console.log(response.data.id)
                 const results = [];
                 for (let key in response.data) {
                     results.unshift({
                         ...response.data[key],
-                        id: key
-                        // title: key.title,
-                        // description: key.description,
-                        // imageUrl: key.imageUrl
+                        id: key,
+                        title: key.content,
+                        description: key.description,
+                        imageUrl: key.images
                     })
                 }
                 setDrafts(results);

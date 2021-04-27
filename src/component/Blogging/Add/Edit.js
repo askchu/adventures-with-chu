@@ -34,14 +34,16 @@ export default function Edit() {
     const [deletedImage, setDeletedImage] = useState(null);
     const [saveDrafts, setSaveDrafts] = useState(false);
     const { id } = useParams();
-    // console.log(id);
+    console.log(id);
     const [draftData, setDraftData] = useState([]);
+
+
 
     // TODO: Grab images from /userId/draft data instead
     // Grabs images from /userId/images database
     const { datas } = GetData(docs, count.id, savedDescription, deletedImage, id);
 
-    // console.log(datas);
+    console.log(datas);
 
 
 
@@ -79,7 +81,7 @@ export default function Edit() {
     const output = year + '/' + month + '/' + day;
 
 
-
+    console.log(count.id);
 
 
 
@@ -104,8 +106,41 @@ export default function Edit() {
             }
         }
 
+        let res = []
+        if (datas.length > 0 && countData) {
+            countData.push(count.id);
+            res = countData;
+        }
+        if (datas.length > 0 && !countData) {
+            res = [count.id]
+        }
+        if (datas.length == 0 && countData) {
+            res = countData;
+        }
 
-        let images = datas;
+
+
+
+        let post = {
+            title: titleValue,
+            content: contentValue,
+            imageId: res
+        }
+
+        instance.put(`/${currentUser.uid}/drafts/${id}.json`, post)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => console.log(error));
+
+        // instance.post(`/${currentUser.uid}/drafts/${id}/imageId.json`, count)
+        //     .then(response => {
+        //         console.log(response)
+        //     })
+        //     .catch(error => console.log(error));
+
+
+        // let images = datas;
         // images = datas;
         // if (imageDraft) {
         //     console.log(imageDraft.length)
@@ -120,86 +155,100 @@ export default function Edit() {
         //         images.push(results);
         //     }
         // }
-        if (datas && !imageDraft) {
-            console.log(images);
-            const post = {
-                title: titleValue,
-                content: contentValue,
-                images: images
-            }
+        // if (datas && !imageId) {
+        //     console.log(images);
+        //     const post = {
+        //         title: titleValue,
+        //         content: contentValue,
+        //         images: images
+        //     }
 
-            // create db in drafts
-            instance.put(`/${currentUser.uid}/drafts/${id}.json`, post)
-                .then(response => {
-                    console.log(response)
-                    // console.log(response.data)
-                })
-                .catch(error => console.log(error));
-        }
+        //     instance.put(`/${currentUser.uid}/drafts/${id}.json`, post)
+        //         .then(response => {
+        //             console.log(response)
+        //         })
+        //         .catch(error => console.log(error));
+        // }
 
 
-        let image = []
-        if (imageDraft && !datas) {
-            imageDraft.forEach(element => {
-                image.push({
-                    description: element.description,
-                    id: element.id,
-                    imageUrl: element.imageUrl
-                })
-                console.log(image);
-            })
-            instance.put(`/${currentUser.uid}/drafts/${id}/images.json`, image)
-                .then(response => {
-                    console.log(response)
-                    // console.log(response.data)
-                })
-                .catch(error => console.log(error));
-        }
+        // let image = []
+        // if (imageId && !datas) {
+        //     imageId.forEach(element => {
+        //         image.push({
+        //             description: element.description,
+        //             id: element.id,
+        //             imageUrl: element.imageUrl
+        //         })
+        //         console.log(image);
+        //     })
+        //     instance.put(`/${currentUser.uid}/drafts/${id}/images.json`, image)
+        //         .then(response => {
+        //             console.log(response)
+        //         })
+        //         .catch(error => console.log(error));
+        // }
 
-        if (imageDraft && datas) {
-            imageDraft.forEach(element => {
-                image.push({
-                    description: element.description,
-                    id: element.id,
-                    imageUrl: element.imageUrl
-                })
-            })
-            datas.forEach(element => {
-                image.push({
-                    description: element.description,
-                    id: element.id,
-                    imageUrl: element.imageUrl
-                })
-            })
-            console.log(image);
-            instance.put(`/${currentUser.uid}/drafts/${id}/images.json`, image)
-                .then(response => {
-                    console.log(response)
-                    // console.log(response.data)
-                })
-                .catch(error => console.log(error));
-        }
+        // if (imageId && datas) {
 
+        //     datas.forEach(element => {
+        //         image.push({
+        //             description: element.description,
+        //             id: element.id,
+        //             imageUrl: element.imageUrl
+        //         })
+        //     })
+        //     console.log(image);
+        //     instance.put(`/${currentUser.uid}/drafts/${id}/images.json`, image)
+        //         .then(response => {
+        //             console.log(response)
+        //         })
+        //         .catch(error => console.log(error));
+        // }
+
+
+        // if (datas) {
+        //     instance.request({
+        //         method: 'post',
+        //         url: `/${currentUser.uid}/drafts/${id}/images.json`,
+        //         data: datas
+        //     }).then(response => {
+        //         console.log(response);
+
+        //     })
+        //         .catch(err => console.log(err));
+        // }
 
 
 
         // Delete images path
-        instance.request({
-            method: 'delete',
-            url: `/${currentUser.uid}/images/${output}/${count.id}.json`
-            // data: data
-        }).then(response => {
-            console.log(response);
-            console.log(`${count.id} image file is deleted`);
+        // instance.request({
+        //     method: 'delete',
+        //     url: `/${currentUser.uid}/images/${output}/${count.id}.json`
+        // }).then(response => {
+        //     console.log(response);
+        //     console.log(`${count.id} image file is deleted`);
 
-        })
-            .catch(err => console.log(err));
+        // })
+        //     .catch(err => console.log(err));
+
+        // if (datas) {
+        // instance.request({
+        //     method: 'post',
+        //     url: `/${currentUser.uid}/drafts/${id}/imageId.json`,
+        //     data: datas
+        // }).then(response => {
+        //     console.log(response);
+
+        // })
+        //     .catch(err => console.log(err));
+        // }
+
+
 
         // Delete Count
         instance.request({
             method: 'delete',
             url: `/${currentUser.uid}/count/${count.id}.json`
-            // data: data
         }).then(response => {
             console.log(response);
             console.log(`${count.id} count file is deleted`);
@@ -294,10 +343,10 @@ export default function Edit() {
 
     const [titlePlaceholder, setTitlePlaceholder] = useState('');
     const [contentPlaceholder, setContentPlaceholder] = useState('');
-    const [imageDraft, setImageDraft] = useState([])
-    console.log(imageDraft);
+    const [imageData, setImageData] = useState([])
+    const [countData, setCountData] = useState([]);
 
-
+    // TODO: grab images from user/images folder and display it on showCurrentImages
 
     const grabDraftData = async () => {
         await instance.get(`/${currentUser.uid}/drafts/${id}.json`)
@@ -307,37 +356,58 @@ export default function Edit() {
                 res.push({
                     content: response.data.content,
                     title: response.data.title,
-                    images: response.data.images
+                    imageId: response.data.imageId
                 })
                 setDraftData(res)
-                setImageDraft(response.data.images);
+                // setImageData(response.data.images)
                 setTitlePlaceholder(response.data.title);
                 setContentPlaceholder(response.data.content);
+                setCountData(response.data.imageId);
             }).catch(err => console.log(err));
     }
-    // let draftImages = [];
+    console.log(draftData)
+    console.log(countData);
 
-    // if (imageDraft == undefined) {
-    //     console.log('no images from this draft')
-    // } else {
-    //     console.log(imageDraft.length);
-    //     draftImages.push(imageDraft);
-    //     draftImages.push(datas);
+    let draftImages = [];
 
-    // }
+    const grabImages = () => {
+        if (countData > 0) {
+            // countData.forEach((el) => {
+            //     console.log(el);
+            //     instance.get(`/${currentUser.uid}/images/${output}/${el}.json`)
+            //         .then(response => {
+            //             console.log(response);
+            //             // console.log(response.data)
+            //             // console.log(response.data[`-MZJUjeMsRGKZg25riDs`]);
+            //             let res = []
+            //             res.push({
+            //                 pic: response.data
+            //             })
+            //             console.log(res);
+            //             imageData.push(res);
+            //         }).catch(err => console.log(err));
+            // })
+            for (let i = 0; i < countData.length; i++) {
+                console.log(countData[i]);
+                instance.get(`/${currentUser.uid}/images/${output}/${countData[i]}.json`)
+                    .then(response => {
+                        console.log(response);
 
-    // console.log(draftImages);
+                    }).catch(err => console.log(err));
+            }
+        }
+    }
+
 
     useEffect(async (deletedImage) => {
         window.scrollTo(0, 0)
         grabCountData();
         grabDraftData();
+
+
+
     }, [deletedImage])
 
-
-    // console.log(count);
-    // const key = dataId[0]
-    // console.log(key.id);
 
 
     const editPost = (newCount) => {
@@ -367,29 +437,41 @@ export default function Edit() {
 
     let deleteUrl = '';
 
-    if (imageDraft) {
 
-        console.log(selectedId);
+    // if (imageDraft || datas) {
 
-        function search(idKey, myArray) {
-            for (var i = 0; i < myArray.length; i++) {
-                if (myArray[i].id === idKey) {
-                    // return myArray[i];
-                    return myArray.indexOf(myArray[i]);
-                }
-            }
-        }
+    //     console.log(selectedId);
 
-        const searchIndex = search(selectedId, imageDraft)
-        console.log(searchIndex);
-        deleteUrl = `/${currentUser.uid}/drafts/${id}/images/${searchIndex}.json`;
-        console.log(deleteUrl);
-    }
-    // if (datas) {
-    //     deleteUrl = `/${currentUser.uid}/images/${output}/${count.id}/${selectedId}.json`;
+    //     function search(idKey, myArray) {
+    //         if (myArray) {
+    //             for (var i = 0; i < myArray.length; i++) {
+    //                 if (myArray[i].id === idKey) {
+    //                     return myArray.indexOf(myArray[i]);
+    //                 }
+    //             }
+
+    //         } else {
+    //             console.log('no images in draft');
+    //         }
+
+    //     }
+
+    //     const searchIndex = search(selectedId, imageDraft)
+    //     console.log(searchIndex);
+
+    //     if (searchIndex == undefined) {
+    //         deleteUrl = `/${currentUser.uid}/images/${output}/${count.id}/${selectedId}.json`;
+    //     } else {
+    //         deleteUrl = `/${currentUser.uid}/drafts/${id}/images/${searchIndex}.json`;
+    //     }
     //     console.log(deleteUrl);
     // }
-    console.log(deleteUrl);
+
+
+    // console.log(deleteUrl);
+
+
+
 
 
 
@@ -421,7 +503,8 @@ export default function Edit() {
                     </div>
                 </div>
 
-                <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} setSelectedId={setSelectedId} setSelectedDescription={setSelectedDescription} imageDraft={imageDraft} />
+                <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} setSelectedId={setSelectedId} setSelectedDescription={setSelectedDescription} imageDraft={imageData}
+                />
                 {selectedImg &&
                     <ModalDescription
                         selectedImg={selectedImg} setSelectedImg={setSelectedImg}

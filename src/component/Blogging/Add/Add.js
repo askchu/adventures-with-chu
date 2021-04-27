@@ -38,13 +38,22 @@ export default function Add() {
     // Grabs images from /userId/images database
     const { datas } = GetData(docs, count.id, savedDescription, deletedImage);
     console.log(datas);
+    console.log(count.id);
 
 
-
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const types = ['image/png', 'image/jpeg'];
         let selected = e.target.files[0];
         let countArrayNumber = 0
+
+        // await instance.get(`/${currentUser.uid}/drafts/${count.id}.json`)
+        //     .then(response => {
+        //         console.log(response.data)
+        //     }).catch(err => {
+        //         console.log(err);
+        //     })
+
+
 
         if (count.length > 1) {
             countArrayNumber = count.length - 1;
@@ -75,45 +84,48 @@ export default function Add() {
     const year = date.getFullYear();
     const output = year + '/' + month + '/' + day;
 
-    const saveDraft = () => {
+
+
+    const [imgData, setImgData] = useState(false);
+
+
+
+
+    const saveToDrafts = () => {
         const post = {
             title: titleRef.current.value,
             content: contentRef.current.value,
-            images: images
         }
-        // console.log(post);
+        // // console.log(imgData);
+        // if (datas.length > 0) {
+        //     post.imageId.push(count.id);
+        // }
 
-        // create db in drafts
-        instance.post(`/${currentUser.uid}/drafts.json`, post)
-            .then(response => {
-                console.log(response)
-                // console.log(response.data)
-            })
-            .catch(error => console.log(error));
+        // // console.log(post);
 
-        // Delete images path
-        instance.request({
-            method: 'delete',
-            url: `/${currentUser.uid}/images/${output}/${count.id}.json`
-            // data: data
-        }).then(response => {
-            console.log(response);
-            console.log(`${count.id} image file is deleted`);
+        // // create db in drafts
+        // instance.post(`/${currentUser.uid}/drafts.json`, post)
+        //     .then(response => {
+        //         console.log(response)
+        //         // console.log(response.data)
+        //     })
+        //     .catch(error => console.log(error));
 
-        })
-            .catch(err => console.log(err));
 
-        // Delete Count
-        instance.request({
-            method: 'delete',
-            url: `/${currentUser.uid}/count/${count.id}.json`
-            // data: data
-        }).then(response => {
-            console.log(response);
-            console.log(`${count.id} count file is deleted`);
+        // // Delete Count
+        // instance.request({
+        //     method: 'delete',
+        //     url: `/${currentUser.uid}/count/${count.id}.json`
+        //     // data: data
+        // }).then(response => {
+        //     console.log(response);
+        //     console.log(`${count.id} count file is deleted`);
 
-        })
-            .catch(err => console.log(err));
+        // })
+        //     .catch(err => console.log(err));
+
+
+        save(count.id, post);
 
         console.log('saved to drafts');
         history.push('/profile-blogs');
@@ -160,7 +172,7 @@ export default function Add() {
                     <div className='options'>
                         <h2>Save to Drafts?</h2>
                         <div className='actions'>
-                            <button onClick={saveDraft}>Yes</button>
+                            <button onClick={saveToDrafts}>Yes</button>
                             <button onClick={noSave}>No</button>
                         </div>
                     </div>
@@ -199,6 +211,27 @@ export default function Add() {
                 setCount(res[arrayNum]);
             })
             .catch(err => console.log(err));
+    }
+
+    const save = (countId, post) => {
+
+        instance.post(`/${currentUser.uid}/drafts/${countId}/content/${countId}.json`, post)
+            .then(response => {
+                console.log(response)
+                // console.log(response.data)
+            })
+            .catch(error => console.log(error));
+
+        let id = {
+            id: countId
+        }
+
+        instance.post(`/${currentUser.uid}/drafts/${countId}.json`, id)
+            .then(response => {
+                console.log(response)
+                // console.log(response.data)
+            })
+            .catch(error => console.log(error));
     }
 
 
@@ -270,7 +303,7 @@ export default function Add() {
                     <div className='output'>
                         {error && <div className='errors'>{error}</div>}
                         {file && file.name}
-                        {file && <ProgressBar file={file} setFile={setFile} id={countId} setId={setCountId} />}
+                        {file && <ProgressBar file={file} setFile={setFile} id={count.id} setId={setCountId} />}
                     </div>
                 </div>
 

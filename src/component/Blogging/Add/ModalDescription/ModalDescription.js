@@ -35,7 +35,7 @@ export default function ModalDescription({
     const addDescription = (data) => {
         instance.request({
             method: 'put',
-            url: `/${currentUser.uid}/images/${output}/${count}/${selectedId}.json`,
+            url: `/${currentUser.uid}/drafts/${count}/images/${count}/${selectedId}.json`,
             data: data
         }).then(response => {
             console.log(response);
