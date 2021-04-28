@@ -190,7 +190,6 @@ export default function ProfileBlogs() {
             })
                 .catch(err => console.log(err));
         }
-
     }
 
     useEffect(async (info) => {
@@ -229,7 +228,6 @@ export default function ProfileBlogs() {
                 setCountArray(results);
             }).catch(err => console.log(err));
     }, [info])
-    // [info]
 
     return (
         <div>

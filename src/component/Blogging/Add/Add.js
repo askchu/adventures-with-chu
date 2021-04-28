@@ -205,6 +205,46 @@ export default function Add() {
             .catch(err => console.log(err));
     }
 
+    const postBlog = (event) => {
+        event.preventDefault();
+
+        const post = {
+            title: titleRef.current.value,
+            content: contentRef.current.value,
+        }
+
+        instance.post(`/${currentUser.uid}/blogs/${count.id}/content.json`, post)
+            .then(response => {
+                console.log(response)
+                // console.log(response.data)
+            })
+            .catch(error => console.log(error));
+
+        for (let img of datas) {
+            console.log(img);
+            instance.post(`/${currentUser.uid}/blogs/${count.id}/images.json`, img)
+                .then(response => {
+                    console.log(response)
+                    // console.log(response.data)
+                })
+                .catch(error => console.log(error));
+        }
+
+        instance.request({
+            method: 'delete',
+            url: `/${currentUser.uid}/drafts/${count.id}.json`
+        }).then(response => {
+            console.log(response);
+            console.log(`draft ${count.id} deleted`)
+
+        })
+            .catch(err => console.log(err));
+
+
+        history.push('/profile-blogs');
+
+
+    }
 
     useEffect(async () => {
         window.scrollTo(0, 0)
@@ -218,26 +258,9 @@ export default function Add() {
     // console.log(key.id);
 
 
-    const editPost = (newCount) => {
-
-        const countId = count[0].id
-
-        instance.request({
-            method: 'put',
-            url: `/${currentUser.uid}/count/${countId}.json`,
-            data: newCount
-        }).then(response => {
-            this.props.history.push(`/profile-blogs`);
-        })
-            .catch(err => console.log(err));
-    }
 
 
-    const submitPostHandler = (event) => {
-        event.preventDefault();
-        console.log('post submitted')
-        // history.push('/profile-blogs');
-    }
+
 
     console.log(selectedImg);
     console.log(selectedId);
@@ -299,7 +322,7 @@ export default function Add() {
                     <button
                         // disabled={loading}
                         type='submit'
-                        onClick={submitPostHandler}
+                        onClick={postBlog}
                     >Post
                 </button>
                 </div>
