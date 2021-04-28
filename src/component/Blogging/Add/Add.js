@@ -215,7 +215,7 @@ export default function Add() {
 
     const save = (countId, post) => {
 
-        instance.post(`/${currentUser.uid}/drafts/${countId}/content/${countId}.json`, post)
+        instance.post(`/${currentUser.uid}/drafts/${countId}/content.json`, post)
             .then(response => {
                 console.log(response)
                 // console.log(response.data)
@@ -226,7 +226,7 @@ export default function Add() {
             id: countId
         }
 
-        instance.post(`/${currentUser.uid}/drafts/${countId}.json`, id)
+        instance.post(`/${currentUser.uid}/drafts/${countId}/id.json`, id)
             .then(response => {
                 console.log(response)
                 // console.log(response.data)
