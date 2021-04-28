@@ -41,7 +41,7 @@ export default function Edit() {
 
     // TODO: Grab images from /userId/draft data instead
     // Grabs images from /userId/images database
-    const { datas } = GetData(docs, count.id, savedDescription, deletedImage, id);
+    const { datas } = GetData(docs, id, savedDescription, deletedImage);
 
     console.log(datas);
 
@@ -58,7 +58,7 @@ export default function Edit() {
         console.log(countArrayNumber);
         if (selected && types.includes(selected.type)) {
             setFile(selected);
-            setCountId(count.id);
+            setCountId(id);
             setError('');
 
         } else {
@@ -119,131 +119,31 @@ export default function Edit() {
         }
 
 
+        let contentObjectKey = '';
+        let contentKey = '';
+        console.log(contentObjectKey);
+        console.log(contentKey)
+        if (draftData.length > 0) {
+            contentObjectKey = draftData[0].content;
+            contentKey = Object.keys(contentObjectKey);
+            setTitlePlaceholder(contentObjectKey[contentKey].title);
+            setContentPlaceholder(contentObjectKey[contentKey].content)
+        }
+
 
 
         let post = {
             title: titleValue,
             content: contentValue,
-            imageId: res
+            // images: datas
         }
 
-        instance.put(`/${currentUser.uid}/drafts/${id}.json`, post)
+
+        instance.put(`/${currentUser.uid}/drafts/${id}/content/${contentKey}.json`, post)
             .then(response => {
                 console.log(response)
             })
             .catch(error => console.log(error));
-
-        // instance.post(`/${currentUser.uid}/drafts/${id}/imageId.json`, count)
-        //     .then(response => {
-        //         console.log(response)
-        //     })
-        //     .catch(error => console.log(error));
-
-
-        // let images = datas;
-        // images = datas;
-        // if (imageDraft) {
-        //     console.log(imageDraft.length)
-        //     for (let i = 0; i < imageDraft.length; i++) {
-        //         let results = []
-        //         results.push({
-        //             description: imageDraft[i].description,
-        //             id: imageDraft[i].id,
-        //             imageUrl: imageDraft[i].imageUrl
-        //         })
-        //         console.log(results);
-        //         images.push(results);
-        //     }
-        // }
-        // if (datas && !imageId) {
-        //     console.log(images);
-        //     const post = {
-        //         title: titleValue,
-        //         content: contentValue,
-        //         images: images
-        //     }
-
-        //     instance.put(`/${currentUser.uid}/drafts/${id}.json`, post)
-        //         .then(response => {
-        //             console.log(response)
-        //         })
-        //         .catch(error => console.log(error));
-        // }
-
-
-        // let image = []
-        // if (imageId && !datas) {
-        //     imageId.forEach(element => {
-        //         image.push({
-        //             description: element.description,
-        //             id: element.id,
-        //             imageUrl: element.imageUrl
-        //         })
-        //         console.log(image);
-        //     })
-        //     instance.put(`/${currentUser.uid}/drafts/${id}/images.json`, image)
-        //         .then(response => {
-        //             console.log(response)
-        //         })
-        //         .catch(error => console.log(error));
-        // }
-
-        // if (imageId && datas) {
-
-        //     datas.forEach(element => {
-        //         image.push({
-        //             description: element.description,
-        //             id: element.id,
-        //             imageUrl: element.imageUrl
-        //         })
-        //     })
-        //     console.log(image);
-        //     instance.put(`/${currentUser.uid}/drafts/${id}/images.json`, image)
-        //         .then(response => {
-        //             console.log(response)
-        //         })
-        //         .catch(error => console.log(error));
-        // }
-
-
-        // if (datas) {
-        //     instance.request({
-        //         method: 'post',
-        //         url: `/${currentUser.uid}/drafts/${id}/images.json`,
-        //         data: datas
-        //     }).then(response => {
-        //         console.log(response);
-
-        //     })
-        //         .catch(err => console.log(err));
-        // }
-
-
-
-        // Delete images path
-        // instance.request({
-        //     method: 'delete',
-        //     url: `/${currentUser.uid}/images/${output}/${count.id}.json`
-        // }).then(response => {
-        //     console.log(response);
-        //     console.log(`${count.id} image file is deleted`);
-
-        // })
-        //     .catch(err => console.log(err));
-
-        // if (datas) {
-        // instance.request({
-        //     method: 'post',
-        //     url: `/${currentUser.uid}/drafts/${id}/imageId.json`,
-        //     data: datas
-        // }).then(response => {
-        //     console.log(response);
-
-        // })
-        //     .catch(err => console.log(err));
-        // }
-
-
 
         // Delete Count
         instance.request({
@@ -286,6 +186,8 @@ export default function Edit() {
         history.push('/profile-blogs');
     }
 
+
+
     const handleClick = (e) => {
         if (e.target.classList.contains('backdrop')) {
             setSaveDrafts(false);
@@ -311,11 +213,36 @@ export default function Edit() {
 
 
 
+
     const requestToDraft = () => {
         setSaveDrafts(true);
     }
 
+    const [deleteDraft, setDeleteDrafts] = useState(false);
 
+    const requestToDelete = () => {
+        setDeleteDrafts(true);
+    }
+
+    const dontDelete = () => {
+        setDeleteDrafts(false);
+    }
+
+    if (deleteDraft === true) {
+        options = (
+            <div className='container' >
+                <div className='backdrop' onClick={handleClick}>
+                    <div className='options'>
+                        <h2>Delete Draft?</h2>
+                        <div className='actions'>
+                            <button onClick={noSave}>Yes</button>
+                            <button onClick={dontDelete}>No</button>
+                        </div>
+                    </div>
+                </div>
+            </div >
+        )
+    }
 
     const grabCountData = async () => {
         console.log(count);
@@ -355,75 +282,38 @@ export default function Edit() {
                 let res = []
                 res.push({
                     content: response.data.content,
-                    title: response.data.title,
-                    imageId: response.data.imageId
+                    // title: response.data.content,
+                    images: response.data.images
                 })
                 setDraftData(res)
-                // setImageData(response.data.images)
-                setTitlePlaceholder(response.data.title);
-                setContentPlaceholder(response.data.content);
-                setCountData(response.data.imageId);
+                setImageData(response.data.images)
+                let contentObjectKey = '';
+                let contentKey = '';
+                if (res.length > 0) {
+                    contentObjectKey = res[0].content;
+                    contentKey = Object.keys(contentObjectKey);
+                    setTitlePlaceholder(contentObjectKey[contentKey].title);
+                    setContentPlaceholder(contentObjectKey[contentKey].content)
+                }
             }).catch(err => console.log(err));
+
     }
-    console.log(draftData)
-    console.log(countData);
+    console.log(imageData);
+    console.log(titlePlaceholder)
 
     let draftImages = [];
-
-    const grabImages = () => {
-        if (countData > 0) {
-            // countData.forEach((el) => {
-            //     console.log(el);
-            //     instance.get(`/${currentUser.uid}/images/${output}/${el}.json`)
-            //         .then(response => {
-            //             console.log(response);
-            //             // console.log(response.data)
-            //             // console.log(response.data[`-MZJUjeMsRGKZg25riDs`]);
-            //             let res = []
-            //             res.push({
-            //                 pic: response.data
-            //             })
-            //             console.log(res);
-            //             imageData.push(res);
-            //         }).catch(err => console.log(err));
-            // })
-            for (let i = 0; i < countData.length; i++) {
-                console.log(countData[i]);
-                instance.get(`/${currentUser.uid}/images/${output}/${countData[i]}.json`)
-                    .then(response => {
-                        console.log(response);
-
-                    }).catch(err => console.log(err));
-            }
-        }
-    }
 
 
     useEffect(async (deletedImage) => {
         window.scrollTo(0, 0)
-        grabCountData();
+        // grabCountData();
         grabDraftData();
 
 
 
     }, [deletedImage])
 
-
-
-    const editPost = (newCount) => {
-
-        const countId = count[0].id
-
-        instance.request({
-            method: 'put',
-            url: `/${currentUser.uid}/count/${countId}.json`,
-            data: newCount
-        }).then(response => {
-            this.props.history.push(`/profile-blogs`);
-        })
-            .catch(err => console.log(err));
-    }
-
+    console.log(titlePlaceholder);
 
     const submitPostHandler = (event) => {
         event.preventDefault();
@@ -456,16 +346,16 @@ export default function Edit() {
 
     //     }
 
-    //     const searchIndex = search(selectedId, imageDraft)
-    //     console.log(searchIndex);
+    // const searchIndex = search(selectedId, imageDraft)
+    // console.log(searchIndex);
 
-    //     if (searchIndex == undefined) {
-    //         deleteUrl = `/${currentUser.uid}/images/${output}/${count.id}/${selectedId}.json`;
-    //     } else {
-    //         deleteUrl = `/${currentUser.uid}/drafts/${id}/images/${searchIndex}.json`;
-    //     }
-    //     console.log(deleteUrl);
+    // if (searchIndex == undefined) {
+    //     deleteUrl = `/${currentUser.uid}/images/${output}/${count.id}/${selectedId}.json`;
+    // } else {
+    //     deleteUrl = `/${currentUser.uid}/drafts/${id}/images/${searchIndex}.json`;
     // }
+    // console.log(deleteUrl);
+    // // }
 
 
     // console.log(deleteUrl);
@@ -480,8 +370,10 @@ export default function Edit() {
         <div className='container-add'>
             <div className='title'>
                 <h1>Edit Draft #{id}</h1>
-                <button onClick={requestToDraft}>Back</button>
-                <button onClick={requestToDraft}>Delete</button>
+                <div className='choices'>
+                    <button onClick={requestToDraft}>Back</button>
+                    <button className='delete' onClick={requestToDelete}>Delete</button>
+                </div>
             </div>
             <form className='newBlog'>
                 <div className='newBlog-input'>
@@ -511,7 +403,7 @@ export default function Edit() {
                         selectedId={selectedId}
                         setSelectedId={setSelectedId}
                         selectedDescription={selectedDescription} setSelectedDescription={setSelectedDescription}
-                        count={count.id}
+                        count={id}
                         savedDescription={setSavedDescription}
                         deletedImage={setDeletedImage}
                         deletedImageUrl={deleteUrl}

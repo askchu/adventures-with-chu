@@ -35,7 +35,7 @@ export default function ModalDescription({
     const addDescription = (data) => {
         instance.request({
             method: 'put',
-            url: `/${currentUser.uid}/drafts/${count}/images/${count}/${selectedId}.json`,
+            url: `/${currentUser.uid}/drafts/${count}/images/${selectedId}.json`,
             data: data
         }).then(response => {
             console.log(response);
@@ -64,7 +64,7 @@ export default function ModalDescription({
     const deleteImage = (e) => {
         instance.request({
             method: 'delete',
-            url: deletedImageUrl
+            url: `/${currentUser.uid}/drafts/${count}/images/${selectedId}.json`
             // data: data
         }).then(response => {
             console.log(response);
@@ -87,8 +87,8 @@ export default function ModalDescription({
                         <label>Description</label>
                         {/* {selectedId} */}
                         <textarea ref={textRef} placeholder={selectedDescription} />
-                        <button className='delete' onClick={deleteImage}>Delete</button>
                         <button onClick={saveData}>Save</button>
+                        <button className='delete' onClick={deleteImage}>Delete</button>
                     </div>
                 </div>
             </div>

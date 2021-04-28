@@ -28,6 +28,7 @@ export default function ProfileBlogs() {
     // console.log(drafts.indexOf(2))
 
 
+    // Grabs count data
     const { info } = GetCount();
 
 
@@ -65,14 +66,18 @@ export default function ProfileBlogs() {
     draftList = (
         drafts.map((savedDraft) => {
             // Grabs the content object array
-            let contentObjectKey = savedDraft.content[savedDraft.id];
+            // let contentObjectKey = savedDraft.content[savedDraft.id];
+            let contentObjectKey = savedDraft.content;
 
+            let contentKey = '';
             // Grabs the key object
-            let contentKey = Object.keys(contentObjectKey);
+            if (savedDraft.content) {
+                contentKey = Object.keys(contentObjectKey);
+            }
             console.log(contentKey)
 
             // Grabs the title value in the key object
-            console.log(contentObjectKey[contentKey].title)
+            // console.log(contentObjectKey[contentKey].title)
 
 
 
@@ -80,22 +85,25 @@ export default function ProfileBlogs() {
 
 
             const link = `/profile-blogs/${savedDraft.id}/edit`
-            if (contentObjectKey[contentKey].title == '') {
-                // grabs the index in the array
-                const count = indexOfDrafts.indexOf(savedDraft.id) + 1;
-                draftTitle = (
-                    <Link to={link}>
-                        {/* prints out the number in the index */}
+            if (savedDraft.content) {
+                if (contentObjectKey[contentKey].title == '') {
+                    // grabs the index in the array
+                    const count = indexOfDrafts.indexOf(savedDraft.id) + 1;
+                    draftTitle = (
+                        <Link to={link}>
+                            {/* prints out the number in the index */}
                         Draft #{count}
-                    </Link>
-                )
-            } else {
-                draftTitle = (
-                    <Link to={link}>
-                        {contentObjectKey[contentKey].title}
-                    </Link>
-                )
+                        </Link>
+                    )
+                } else {
+                    draftTitle = (
+                        <Link to={link}>
+                            {contentObjectKey[contentKey].title}
+                        </Link>
+                    )
+                }
             }
+
             return (
                 <ul>
                     <li key={savedDraft.id}>

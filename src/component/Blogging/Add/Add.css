@@ -21,6 +21,17 @@ button a {
     font-size: 1.2rem;
     margin-bottom: 20px;
 }
+.choices{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+}
+.choices .delete{
+    background: red;
+}
+
 
 .newBlog{
     border: 1px solid #111;

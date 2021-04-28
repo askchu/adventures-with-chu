@@ -96,34 +96,6 @@ export default function Add() {
             title: titleRef.current.value,
             content: contentRef.current.value,
         }
-        // // console.log(imgData);
-        // if (datas.length > 0) {
-        //     post.imageId.push(count.id);
-        // }
-
-        // // console.log(post);
-
-        // // create db in drafts
-        // instance.post(`/${currentUser.uid}/drafts.json`, post)
-        //     .then(response => {
-        //         console.log(response)
-        //         // console.log(response.data)
-        //     })
-        //     .catch(error => console.log(error));
-
-
-        // // Delete Count
-        // instance.request({
-        //     method: 'delete',
-        //     url: `/${currentUser.uid}/count/${count.id}.json`
-        //     // data: data
-        // }).then(response => {
-        //     console.log(response);
-        //     console.log(`${count.id} count file is deleted`);
-
-        // })
-        //     .catch(err => console.log(err));
-
 
         save(count.id, post);
 
@@ -222,16 +194,16 @@ export default function Add() {
             })
             .catch(error => console.log(error));
 
-        let id = {
-            id: countId
-        }
+        //     let id = {
+        //         id: countId
+        //     }
 
-        instance.post(`/${currentUser.uid}/drafts/${countId}/id.json`, id)
-            .then(response => {
-                console.log(response)
-                // console.log(response.data)
-            })
-            .catch(error => console.log(error));
+        //     instance.post(`/${currentUser.uid}/drafts/${countId}/id.json`, id)
+        //         .then(response => {
+        //             console.log(response)
+        //             // console.log(response.data)
+        //         })
+        //         .catch(error => console.log(error));
     }
 
 
