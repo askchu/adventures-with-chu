@@ -194,16 +194,15 @@ export default function Add() {
             })
             .catch(error => console.log(error));
 
-        //     let id = {
-        //         id: countId
-        //     }
+        instance.request({
+            method: 'delete',
+            url: `/${currentUser.uid}/count/${count.id}.json`
+        }).then(response => {
+            console.log(response);
+            console.log(`${count.id} count file is deleted`);
 
-        //     instance.post(`/${currentUser.uid}/drafts/${countId}/id.json`, id)
-        //         .then(response => {
-        //             console.log(response)
-        //             // console.log(response.data)
-        //         })
-        //         .catch(error => console.log(error));
+        })
+            .catch(err => console.log(err));
     }
 
 

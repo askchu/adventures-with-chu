@@ -164,6 +164,35 @@ export default function ProfileBlogs() {
 
 
 
+
+    const [countArray, setCountArray] = useState([]);
+    console.log(countArray);
+
+    const indexOfCounts = [];
+
+
+    // Deletes all of the count except for the newest one made
+    if (countArray.length > 0) {
+        for (let x of countArray) {
+            indexOfCounts.push(x.id)
+        }
+        console.log(indexOfCounts);
+        console.log(indexOfCounts.length);
+        const length = indexOfCounts.length - 1;
+        console.log(length);
+        for (let i = 0; i < length; i++) {
+            console.log(indexOfCounts[i]);
+            instance.request({
+                method: 'delete',
+                url: `/${currentUser.uid}/count/${indexOfCounts[i]}.json`
+            }).then(response => {
+                console.log(response);
+            })
+                .catch(err => console.log(err));
+        }
+
+    }
+
     useEffect(async (info) => {
         // resets scrollbar back to the top
         window.scrollTo(0, 0)
@@ -184,6 +213,21 @@ export default function ProfileBlogs() {
                 setDrafts(results);
             })
             .catch(err => console.log(err));
+
+        await instance.get(`/${currentUser.uid}/count.json`)
+            .then(response => {
+                console.log(response.data)
+                const results = [];
+                for (let key in response.data) {
+                    results.push({
+                        // ...response.data,
+                        id: key,
+                        // name: response.data.name
+                    })
+                }
+                console.log(results);
+                setCountArray(results);
+            }).catch(err => console.log(err));
     }, [info])
     // [info]
 

@@ -87,22 +87,22 @@ export default function Edit() {
 
     const saveDraft = () => {
         let titleValue = ''
-        if (draftData[0].title || titleRef.current.value !== titleValue) {
-            if (draftData[0].title !== titleRef.current.value) {
+        if (titlePlaceholder || titleRef.current.value !== titleValue) {
+            if (titlePlaceholder !== titleRef.current.value) {
                 titleValue = titleRef.current.value;
             }
-            if (draftData[0].title === titleRef.current.value) {
-                titleValue = draftData[0].title;
+            if (titlePlaceholder === titleRef.current.value) {
+                titleValue = titlePlaceholder;
             }
         }
 
         let contentValue = ''
-        if (draftData[0].content || contentRef.current.value !== contentValue) {
-            if (draftData[0].content !== contentRef.current.value) {
+        if (contentPlaceholder || contentRef.current.value !== contentValue) {
+            if (contentPlaceholder !== contentRef.current.value) {
                 contentValue = contentRef.current.value;
             }
             if (contentRef.current.value === '') {
-                contentValue = draftData[0].content;
+                contentValue = contentPlaceholder;
             }
         }
 

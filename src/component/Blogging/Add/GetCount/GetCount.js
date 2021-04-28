@@ -46,6 +46,11 @@ export default function GetCount() {
                 setInfo(results);
             })
             .catch(error => console.log(error));
+
+
+
+
+
     }, [])
 
     return { info };
