@@ -304,6 +304,45 @@ export default function Edit() {
     let draftImages = [];
 
 
+    const postBlog = (event) => {
+        event.preventDefault();
+
+        const post = {
+            title: titleRef.current.value,
+            content: contentRef.current.value,
+        }
+
+        instance.post(`/${currentUser.uid}/blogs/${id}/content.json`, post)
+            .then(response => {
+                console.log(response)
+                // console.log(response.data)
+            })
+            .catch(error => console.log(error));
+
+        for (let img of datas) {
+            console.log(img);
+            instance.post(`/${currentUser.uid}/blogs/${id}/images.json`, img)
+                .then(response => {
+                    console.log(response)
+                    // console.log(response.data)
+                })
+                .catch(error => console.log(error));
+        }
+
+        instance.request({
+            method: 'delete',
+            url: `/${currentUser.uid}/drafts/${id}.json`
+        }).then(response => {
+            console.log(response);
+            console.log(`draft ${id} deleted`)
+
+        })
+            .catch(err => console.log(err));
+
+
+        history.push('/profile-blogs');
+    }
+
     useEffect(async (deletedImage) => {
         window.scrollTo(0, 0)
         // grabCountData();
@@ -417,7 +456,7 @@ export default function Edit() {
                     <button
                         // disabled={loading}
                         type='submit'
-                        onClick={submitPostHandler}
+                        onClick={postBlog}
                     >Post
                 </button>
                 </div>

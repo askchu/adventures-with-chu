@@ -1,0 +1,21 @@
+.showBlogs{
+    padding: 10px;
+}
+
+.blog-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+}
+
+.perBlog{
+    margin: 0 auto;
+}
+
+.perBlog .post{
+    width: 100%;
+}
+
+.card{
+    min-width: 100px;
+}

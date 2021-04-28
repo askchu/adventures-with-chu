@@ -22,16 +22,25 @@ export default function ShowNews(props) {
         )
     }
 
-    return (
-        <div className="news"
-        >
+
+    let image = ''
+    if (props.img) {
+        image = (
             <div className="newsPic" style={{
                 background: `url(${props.img})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
             }}>
             </div>
+        )
+    }
+    if (props.img == null) {
 
+    }
+
+    return (
+        <div className="news">
+            {image}
             <div className='summary'>
                 {/* <h5>By: {props.author}</h5> */}
                 {author}

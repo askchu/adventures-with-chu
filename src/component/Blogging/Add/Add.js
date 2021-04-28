@@ -242,8 +242,6 @@ export default function Add() {
 
 
         history.push('/profile-blogs');
-
-
     }
 
     useEffect(async () => {

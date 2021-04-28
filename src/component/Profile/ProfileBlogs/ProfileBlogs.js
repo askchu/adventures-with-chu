@@ -6,6 +6,7 @@ import instance from '../../../axios-orders';
 import { useAuth } from '../../Authentication/AuthContext/AuthContext';
 import Aux from '../../../hoc/Auxilary/Auxilary';
 import './ProfileBlogs.css';
+import ShowNews from '../../../containers/Home/News/ShowNews/ShowNews';
 
 export default function ProfileBlogs() {
 
@@ -62,6 +63,8 @@ export default function ProfileBlogs() {
     // console.table(drafts[0]);
 
 
+    const [blogData, setBlogData] = useState([]);
+    console.log(blogData);
 
     draftList = (
         drafts.map((savedDraft) => {
@@ -115,6 +118,51 @@ export default function ProfileBlogs() {
         }
         ))
 
+    console.log(blogData);
+
+    const eachBlog = (
+        blogData.map((el) => {
+            let contentObjectKey = el.content;
+
+            let contentKey = '';
+            // Grabs the key object
+            if (el.content) {
+                contentKey = Object.keys(contentObjectKey);
+            }
+            // console.log(contentKey)
+            // console.log(el);
+            console.log(contentObjectKey[contentKey].title)
+
+            let blogPost = ''
+            if (el.content) {
+                blogPost = (
+
+                    // TODO: fix how it is displayed on the page
+                    <div>
+                        <ShowNews
+                            key={el.id}
+                            title={contentObjectKey[contentKey].title}
+                            content={contentObjectKey[contentKey].content}
+                            description={contentObjectKey[contentKey].content}
+                            author={currentUser.displayName} />
+                    </div>
+
+                    // <div className='card'>
+                    //     <h3>{contentObjectKey[contentKey].title}</h3>
+                    //     <p>{contentObjectKey[contentKey].content}</p>
+                    // </div>
+                )
+            }
+
+            return (
+                <div className='perBlog'>
+                    { blogPost}
+                </div>
+            )
+
+        }))
+
+
 
 
     let createBlog = [];
@@ -155,12 +203,25 @@ export default function ProfileBlogs() {
                             <h3 onClick={onMouseClick}>Drafts ({drafts.length})</h3>
                             {dropdown && draftList}
                         </div>
-                        <div><h3>Blogs ({posts.length})</h3></div>
+                        {/* <div>
+                            <h3>Blogs ({blogData.length})</h3>
+                            {eachBlog}
+                        </div> */}
+                    </div>
+
+                </div>
+                <div className='showBlogs'>
+                    <div>
+                        <h3>Blogs ({blogData.length})</h3>
+                        <div className='blog-grid'>
+                            {eachBlog}
+                        </div>
                     </div>
                 </div>
             </Aux>
         )
     }
+
 
 
 
@@ -192,27 +253,30 @@ export default function ProfileBlogs() {
         }
     }
 
+
+
+
+
     useEffect(async (info) => {
         // resets scrollbar back to the top
         window.scrollTo(0, 0)
+
+        // Grabs Drafts Data
         await instance.get(`/${currentUser.uid}/drafts.json`)
             .then(response => {
                 console.log(response.data)
-                console.log(response.data.id)
                 const results = [];
                 for (let key in response.data) {
                     results.unshift({
                         ...response.data[key],
                         id: key,
-                        title: key.content,
-                        description: key.description,
-                        imageUrl: key.images
                     })
                 }
                 setDrafts(results);
             })
             .catch(err => console.log(err));
 
+        // Grabs Count Data
         await instance.get(`/${currentUser.uid}/count.json`)
             .then(response => {
                 console.log(response.data)
@@ -227,7 +291,25 @@ export default function ProfileBlogs() {
                 console.log(results);
                 setCountArray(results);
             }).catch(err => console.log(err));
+
+        // Grabs Blog Data
+        await instance.get(`/${currentUser.uid}/blogs.json`)
+            .then(response => {
+                console.log(response.data)
+                const results = [];
+                for (let key in response.data) {
+                    results.push({
+                        ...response.data[key],
+                        id: key,
+                        // name: response.data.name
+                    })
+                }
+                console.log(results);
+                setBlogData(results);
+            }).catch(err => console.log(err));
     }, [info])
+
+
 
     return (
         <div>
