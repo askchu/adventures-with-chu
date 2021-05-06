@@ -34,8 +34,6 @@ function App() {
           <PrivateRoutes path="/profile-gallery" exact component={ProfileGallery} />
           <PrivateRoutes path="/profile-saved" exact component={SavedPosts} />
           <PrivateRoutes path="/profile-blogs-new" exact component={Add} />
-
-          {/* TODO: add edit page */}
           <PrivateRoutes path="/profile-blogs/:id/edit" exact component={Edit} />
 
           {/* NOTE: Links work in progress */}

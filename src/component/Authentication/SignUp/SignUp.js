@@ -51,10 +51,10 @@ export default function SignUp() {
                 {/* {currentUser.email} */}
                 {error && <Error message={error} />}
                 <form onSubmit={submitHandler}>
-                    <div className='input-form'>
+                    {/* <div className='input-form'>
                         <label>Full Name:</label>
                         <input type='text' required ref={nameRef} />
-                    </div>
+                    </div> */}
                     <div className='input-form'>
                         <label>Email Address</label>
                         <input type='email' required ref={emailRef} />

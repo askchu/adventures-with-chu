@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Profile.css';
 import { useAuth } from '../../component/Authentication/AuthContext/AuthContext';
 import img2 from '../../assets/images/img2.jpg';
@@ -7,12 +7,13 @@ import { useHistory, Link } from 'react-router-dom';
 import firebase, { storage } from '../../firebase';
 import Blog from '../../containers/Blog/Blog';
 import Add from '../Blogging/Add/Add';
+import instance from '../../axios-orders';
 
 export default function Profile() {
     const [error, setError] = useState('');
     const { currentUser, logout } = useAuth();
     const { history } = useHistory();
-
+    const [blogData, setBlogData] = useState([]);
     async function handleLogout() {
         setError('');
         try {
@@ -35,6 +36,27 @@ export default function Profile() {
         )
     }
 
+    useEffect(async () => {
+        await instance.get(`/${currentUser.uid}/blogs.json`)
+            .then(response => {
+                console.log(response.data)
+                const results = [];
+                for (let key in response.data) {
+                    results.push({
+                        ...response.data[key],
+                        id: key,
+                        // name: response.data.name
+                    })
+                }
+                console.log(results);
+                setBlogData(results);
+            }).catch(err => console.log(err));
+    }, [])
+
+    let postLength = ''
+    if (blogData) {
+        postLength = blogData.length;
+    }
 
     return (
         <div className='containers'>
@@ -55,7 +77,7 @@ export default function Profile() {
                         <h2>Toronto, ON</h2>
                     </div>
                     <div className='count'>
-                        <p>Posts: 0</p>
+                        <p>Posts: {postLength}</p>
                         <p className='followers'>Followers: 0</p>
                         <p className='following'>Following: 0</p>
                     </div>

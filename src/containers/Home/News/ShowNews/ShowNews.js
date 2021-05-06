@@ -1,4 +1,5 @@
 import React from 'react';
+import Aux from '../../../../hoc/Auxilary/Auxilary';
 import './ShowNews.css';
 
 export default function ShowNews(props) {
@@ -23,30 +24,40 @@ export default function ShowNews(props) {
     }
 
 
+
     let image = ''
     if (props.img) {
         image = (
-            <div className="newsPic" style={{
-                background: `url(${props.img})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover'
-            }}>
-            </div>
+            <Aux>
+                <div className="newsPic" style={{
+                    background: `url(${props.img})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover'
+                }}>
+                </div>
+                <div className='summary'>
+                    {/* <h5>By: {props.author}</h5> */}
+                    {author}
+                    <h4>{props.title}</h4>
+                    {content}
+                </div>
+            </Aux>
         )
     }
     if (props.img == null) {
-
+        image = (<div className='summary'>
+            {/* <h5>By: {props.author}</h5> */}
+            <h4>{props.title}</h4>
+            {author}
+            {content}
+        </div>
+        )
     }
 
     return (
         <div className="news">
             {image}
-            <div className='summary'>
-                {/* <h5>By: {props.author}</h5> */}
-                {author}
-                <h4>{props.title}</h4>
-                {content}
-            </div>
+
         </div >
 
     )

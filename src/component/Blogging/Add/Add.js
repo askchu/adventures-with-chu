@@ -82,7 +82,7 @@ export default function Add() {
     const month = monthNames[date.getMonth()];
     const day = String(date.getDate()).padStart(2, '0');
     const year = date.getFullYear();
-    const output = year + '/' + month + '/' + day;
+    const output = `${month} ${day}/${year}`;
 
 
 
@@ -209,6 +209,7 @@ export default function Add() {
         event.preventDefault();
 
         const post = {
+            date: output,
             title: titleRef.current.value,
             content: contentRef.current.value,
         }

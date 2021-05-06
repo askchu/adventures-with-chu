@@ -133,24 +133,73 @@ export default function ProfileBlogs() {
             // console.log(el);
             console.log(contentObjectKey[contentKey].title)
 
+            let imageObjectKey = '';
+            let imageKey = '';
+            let imageUrl = '';
+            console.log(el.images);
+            if (el.images) {
+                imageObjectKey = el.images;
+                console.log(imageObjectKey);
+                imageKey = Object.keys(imageObjectKey);
+                console.log(imageKey);
+                imageUrl = imageObjectKey[imageKey].imageUrl;
+            }
+
+
+            console.log(imageKey);
+
             let blogPost = ''
-            if (el.content) {
+
+            if (!el.images) {
                 blogPost = (
 
                     // TODO: fix how it is displayed on the page
-                    <div>
-                        <ShowNews
+                    <div className='card'>
+                        {/* <ShowNews
                             key={el.id}
                             title={contentObjectKey[contentKey].title}
                             content={contentObjectKey[contentKey].content}
                             description={contentObjectKey[contentKey].content}
-                            author={currentUser.displayName} />
+                            author={currentUser.displayName} /> */}
+                        <h2>{contentObjectKey[contentKey].title}</h2>
+                        {/* <div className='img'>
+                            <img src={imageUrl} />
+                        </div> */}
+                        <div className='info'>
+                            <strong>
+                                <p>By: {currentUser.displayName}</p>
+                                <p>{contentObjectKey[contentKey].date}</p>
+                            </strong>
+                        </div>
+                        <p>{contentObjectKey[contentKey].content}</p>
                     </div>
 
-                    // <div className='card'>
-                    //     <h3>{contentObjectKey[contentKey].title}</h3>
-                    //     <p>{contentObjectKey[contentKey].content}</p>
-                    // </div>
+                )
+            }
+            if (el.images) {
+                blogPost = (
+
+                    // TODO: fix how it is displayed on the page
+                    <div className='cardWithImg'>
+                        {/* <ShowNews
+                            key={el.id}
+                            title={contentObjectKey[contentKey].title}
+                            content={contentObjectKey[contentKey].content}
+                            description={contentObjectKey[contentKey].content}
+                            author={currentUser.displayName} /> */}
+                        <h2>{contentObjectKey[contentKey].title}</h2>
+                        <div className='img'>
+                            <img src={imageUrl} />
+                        </div>
+                        <div className='info'>
+                            <strong>
+                                <p>By: {currentUser.displayName}</p>
+                                <p>{contentObjectKey[contentKey].date}</p>
+                            </strong>
+                            <p>{contentObjectKey[contentKey].content}</p>
+                        </div>
+                    </div>
+
                 )
             }
 
@@ -163,10 +212,11 @@ export default function ProfileBlogs() {
         }))
 
 
-
+    console.log(blogData.length);
+    console.log(drafts.length);
 
     let createBlog = [];
-    if (drafts.length === 0) {
+    if (drafts.length === 0 && blogData.length === 0) {
         createBlog = (
             <div style={{
                 display: 'flex',
