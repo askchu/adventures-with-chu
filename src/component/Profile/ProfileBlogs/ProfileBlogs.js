@@ -137,12 +137,25 @@ export default function ProfileBlogs() {
             let imageKey = '';
             let imageUrl = '';
             console.log(el.images);
+            // TODO: fix rendering if there is more than 1 images saved.
+
             if (el.images) {
-                imageObjectKey = el.images;
-                console.log(imageObjectKey);
-                imageKey = Object.keys(imageObjectKey);
-                console.log(imageKey);
-                imageUrl = imageObjectKey[imageKey].imageUrl;
+                // imageObjectKey = el.images;
+                // console.log(imageObjectKey);
+                // imageKey = Object.keys(imageObjectKey);
+                // console.log(imageKey);
+                // imageUrl = imageObjectKey[imageKey].imageUrl;
+                for (let i = 0; i < 1; i++) {
+                    imageObjectKey = el.images;
+                    console.log(imageObjectKey);
+                    imageKey = Object.keys(imageObjectKey);
+                    console.log(imageKey);
+                    console.log(imageKey[i]);
+                    // imageUrl = imageObjectKey[imageKey].imageUrl;
+                    console.log(imageObjectKey[imageKey[i]].imageUrl);
+                    imageUrl = imageObjectKey[imageKey[i]].imageUrl;
+                }
+
             }
 
 
@@ -150,56 +163,60 @@ export default function ProfileBlogs() {
 
             let blogPost = ''
 
+            let link = `/profile/blogs/${el.id}`;
+
             if (!el.images) {
                 blogPost = (
 
-                    // TODO: fix how it is displayed on the page
-                    <div className='card'>
-                        {/* <ShowNews
+                    <Link to={link}>
+                        <div className='card'>
+                            {/* <ShowNews
                             key={el.id}
                             title={contentObjectKey[contentKey].title}
                             content={contentObjectKey[contentKey].content}
                             description={contentObjectKey[contentKey].content}
                             author={currentUser.displayName} /> */}
-                        <h2>{contentObjectKey[contentKey].title}</h2>
-                        {/* <div className='img'>
+                            <h2>{contentObjectKey[contentKey].title}</h2>
+                            {/* <div className='img'>
                             <img src={imageUrl} />
                         </div> */}
-                        <div className='info'>
-                            <strong>
-                                <p>By: {currentUser.displayName}</p>
-                                <p>{contentObjectKey[contentKey].date}</p>
-                            </strong>
+                            <div className='info'>
+                                <strong>
+                                    <p>By: {currentUser.displayName}</p>
+                                    <p>{contentObjectKey[contentKey].date}</p>
+                                </strong>
+                            </div>
+                            <p>{contentObjectKey[contentKey].content}</p>
                         </div>
-                        <p>{contentObjectKey[contentKey].content}</p>
-                    </div>
-
+                    </Link>
                 )
             }
             if (el.images) {
                 blogPost = (
 
-                    // TODO: fix how it is displayed on the page
-                    <div className='cardWithImg'>
-                        {/* <ShowNews
+                    <Link to={link}>
+                        <div className='cardWithImg'>
+                            {/* <ShowNews
                             key={el.id}
                             title={contentObjectKey[contentKey].title}
                             content={contentObjectKey[contentKey].content}
                             description={contentObjectKey[contentKey].content}
                             author={currentUser.displayName} /> */}
-                        <h2>{contentObjectKey[contentKey].title}</h2>
-                        <div className='img'>
-                            <img src={imageUrl} />
+                            <h2>{contentObjectKey[contentKey].title}</h2>
+                            <div className='details'>
+                                <div className='img'>
+                                    <img src={imageUrl} />
+                                </div>
+                                <div className='info'>
+                                    <strong>
+                                        <p>By: {currentUser.displayName}</p>
+                                        <p>{contentObjectKey[contentKey].date}</p>
+                                    </strong>
+                                    <p>{contentObjectKey[contentKey].content}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div className='info'>
-                            <strong>
-                                <p>By: {currentUser.displayName}</p>
-                                <p>{contentObjectKey[contentKey].date}</p>
-                            </strong>
-                            <p>{contentObjectKey[contentKey].content}</p>
-                        </div>
-                    </div>
-
+                    </Link>
                 )
             }
 

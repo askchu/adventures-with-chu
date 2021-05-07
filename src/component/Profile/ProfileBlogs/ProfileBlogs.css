@@ -15,6 +15,7 @@
 
 .perBlog{
     margin: 0 auto;
+    width: 500px;
 }
 .perBlog h3{
     margin-top: 10px;
@@ -30,7 +31,7 @@
 .perBlog .img{
     position: relative;
     width: 100%;
-    max-width: 150px;
+    max-width: 200px;
     margin: 0 auto;
 }
 .perBlog .img img{
@@ -58,18 +59,28 @@
 }
 
 .perBlog .cardWithImg{
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(2, 250px);
     grid-template-rows: repeat(1, 0.2fr 1fr);
     grid-template-areas: 
     "title title"
-    "img info";
+    "img info"; */
+    width: 100%;
     border: 1px solid #111;
     border-radius: 10px;
     text-align: center;
     opacity: 0.9;
     box-shadow: 2px 8px 8px rgb(177 176 176 / 93%);
     padding: 10p;
+    color: black;
+}
+.perBlog .details{
+    display: flex;
+    justify-content: space-evenly;
+}
+.cardWithImg:hover{
+    opacity: 1;
+    box-shadow: 4px 8px 8px rgba(124, 124, 124, 0.933);
 }
 .cardWithImg h2{
     grid-area: title;
@@ -80,6 +91,8 @@
 }
 .cardWithImg .info{
     grid-area: info;
+    width: 100%;
+    max-width: 250px;
     /* display: flex;
     flex-direction: column;
     justify-content: center;

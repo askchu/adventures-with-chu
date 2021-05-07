@@ -1,0 +1,14 @@
+.showBlog header{
+    text-align: center;
+}
+
+.showBlog h2{
+    margin-bottom: 0;
+}
+
+.showBlog .img{
+    width: 250px;
+}
+.showBlog .img img {
+    width: 100%;
+}

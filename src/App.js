@@ -35,6 +35,7 @@ function App() {
           <PrivateRoutes path="/profile-saved" exact component={SavedPosts} />
           <PrivateRoutes path="/profile-blogs-new" exact component={Add} />
           <PrivateRoutes path="/profile-blogs/:id/edit" exact component={Edit} />
+          <PrivateRoutes path="/profile/blogs/:id" component={ShowBlog} />
 
           {/* NOTE: Links work in progress */}
           <Route path="/my-blogs/:id/" exact component={ShowBlog} />
