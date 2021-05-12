@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import img from '../../../assets/images/logo3.png';
 import { useAuth } from '../../Authentication/AuthContext/AuthContext';
 import { Link, useHistory } from "react-router-dom";
@@ -20,6 +20,8 @@ export default function UpdateProfile() {
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState(null);
     const history = useHistory();
+    const [profile, setProfile] = useState([]);
+    const [email, setEmail] = useState('');
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -32,35 +34,68 @@ export default function UpdateProfile() {
             return setError('Passwords do not match');
         }
 
-        const profile = {
-            name: nameRef.current.value,
-            location: locationRef.current.value
+
+        let nameValue = profileName;
+        let locationValue = profileLocation;
+
+        if (locationRef.current.value !== locationValue) {
+            locationValue = locationRef.current.value;
+        }
+        if (nameRef.current.value !== nameValue) {
+            nameValue = nameRef.current.value;
         }
 
-        try {
+
+        const profile = {
+            location: locationValue,
+            name: nameValue
+        }
+
+        let emailAddress = email;
+        if (emailRef.current.value !== email) {
+            emailAddress = emailRef.current.value
+        }
+
+        if (profileId) {
             setError('');
             setLoading(true);
-            await updateProfile(emailRef.current.value, passwordRef.current.value
-            )
-            await instance.post(`users/${currentUser.uid}/profile.json`, profile)
+            await instance.put(`users/${currentUser.uid}/profile/${profileId}.json`, profile)
                 .then(response => {
                     console.log(response.data)
                 })
                 .catch(err => console.log(err));
+            await updateProfile(emailAddress, passwordRef.current.value
+            )
             history.push("/profile-blogs");
-
-            // const storage = firebase.storage().ref(`${currentUser.uid}/profilePic/${image.name}`)
-            // const uploadPic = storage.put(image);
-            // uploadPic.on(firebase.storage.TaskEvent.STATE_CHANGED,
-            //     () => {
-            //         let downloadURL = uploadPic.snapshot.downloadURL
-            //         console.log('Picture has been uploaded');
-            //     })
-
-            // console.log('Account updated...')
-        } catch (e) {
-            setError(`Failed to update account, ${e}`);
         }
+
+        if (!profileId) {
+            try {
+                setError('');
+                setLoading(true);
+                await updateProfile(emailAddress, passwordRef.current.value
+                )
+                await instance.post(`users/${currentUser.uid}/profile.json`, profile)
+                    .then(response => {
+                        console.log(response.data)
+                    })
+                    .catch(err => console.log(err));
+                history.push("/profile-blogs");
+
+                // const storage = firebase.storage().ref(`${currentUser.uid}/profilePic/${image.name}`)
+                // const uploadPic = storage.put(image);
+                // uploadPic.on(firebase.storage.TaskEvent.STATE_CHANGED,
+                //     () => {
+                //         let downloadURL = uploadPic.snapshot.downloadURL
+                //         console.log('Picture has been uploaded');
+                //     })
+
+                // console.log('Account updated...')
+            } catch (e) {
+                setError(`Failed to update account, ${e}`);
+            }
+        }
+
         setLoading(false);
     }
 
@@ -80,8 +115,31 @@ export default function UpdateProfile() {
 
 
 
-    // console.log('image: ', image);
-    // console.log(currentUser.uid);
+    useEffect(async () => {
+        await instance.get(`users/${currentUser.uid}/profile.json`)
+            .then(response => {
+                console.log(response.data[0])
+                let dataValue = Object.values(response.data)
+                let dataId = Object.keys(response.data);
+                console.log(dataValue);
+                console.log(dataId);
+                setProfileName(dataValue[0].name);
+                setProfileLocation(dataValue[0].location);
+                setProfileId(dataId[0]);
+                setEmail(currentUser.email);
+            })
+            .catch(err => console.log(err));
+
+
+    }, [])
+    console.log(profile);
+
+    const [profileName, setProfileName] = useState('');
+    const [profileLocation, setProfileLocation] = useState('');
+    const [profileId, setProfileId] = useState('');
+
+    console.log(profileName);
+    console.log(profileId);
 
     return (
         <div className='container'>
@@ -99,11 +157,11 @@ export default function UpdateProfile() {
                 <form onSubmit={submitHandler}>
                     <div className='input-form'>
                         <label>Profile Name:</label>
-                        <input type='text' ref={nameRef} />
+                        <input type='text' ref={nameRef} value={profileName} onChange={event => setProfileName(event.target.value)} />
                     </div>
                     <div className='input-form'>
                         <label>Location:</label>
-                        <input type='text' ref={locationRef} />
+                        <input type='text' ref={locationRef} value={profileLocation} onChange={event => setProfileLocation(event.target.value)} />
                     </div>
                     {/* <div className='input-form'>
                         <label>Profile Picture:</label>
@@ -113,7 +171,7 @@ export default function UpdateProfile() {
 
                     <div className='input-form'>
                         <label>Email Address</label>
-                        <input type='email' ref={emailRef} defaultValue={currentUser.email} />
+                        <input type='email' ref={emailRef} value={email} onChange={event => setEmail(event.target.value)} />
                     </div>
                     <div className='input-form'>
                         <label>Password</label>

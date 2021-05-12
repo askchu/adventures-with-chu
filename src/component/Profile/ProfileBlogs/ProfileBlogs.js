@@ -14,6 +14,7 @@ export default function ProfileBlogs() {
     const { currentUser } = useAuth();
     const [drafts, setDrafts] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [profile, setProfile] = useState([]);
 
     console.log(dropdown);
     const onMouseClick = () => {
@@ -182,7 +183,7 @@ export default function ProfileBlogs() {
                         </div> */}
                             <div className='info'>
                                 <strong>
-                                    <p>By: {currentUser.displayName}</p>
+                                    <p>By: {profile[0].name}</p>
                                     <p>{contentObjectKey[contentKey].date}</p>
                                 </strong>
                             </div>
@@ -201,7 +202,7 @@ export default function ProfileBlogs() {
                             title={contentObjectKey[contentKey].title}
                             content={contentObjectKey[contentKey].content}
                             description={contentObjectKey[contentKey].content}
-                            author={currentUser.displayName} /> */}
+                            author={profile[0].name} /> */}
                             <h2>{contentObjectKey[contentKey].title}</h2>
                             <div className='details'>
                                 <div className='img'>
@@ -209,7 +210,7 @@ export default function ProfileBlogs() {
                                 </div>
                                 <div className='info'>
                                     <strong>
-                                        <p>By: {currentUser.displayName}</p>
+                                        <p>By: {profile[0].name}</p>
                                         <p>{contentObjectKey[contentKey].date}</p>
                                     </strong>
                                     <p>{contentObjectKey[contentKey].content}</p>
@@ -289,7 +290,7 @@ export default function ProfileBlogs() {
         )
     }
 
-
+    console.log(profile);
 
 
 
@@ -344,6 +345,19 @@ export default function ProfileBlogs() {
             .catch(err => console.log(err));
 
         //  Grabs Profile Data
+        await instance.get(`users/${currentUser.uid}/profile.json`)
+            .then(response => {
+                console.log(response.data)
+                const results = [];
+                for (let key in response.data) {
+                    results.unshift({
+                        ...response.data[key],
+                        id: key,
+                    })
+                }
+                setProfile(results);
+            })
+            .catch(err => console.log(err));
 
         // Grabs Count Data
         await instance.get(`users/${currentUser.uid}/count.json`)
@@ -378,7 +392,7 @@ export default function ProfileBlogs() {
             }).catch(err => console.log(err));
     }, [info])
 
-
+    console.log(profile);
 
     return (
         <div>

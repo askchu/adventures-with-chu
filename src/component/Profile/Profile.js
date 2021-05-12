@@ -14,6 +14,7 @@ export default function Profile() {
     const { currentUser, logout } = useAuth();
     const { history } = useHistory();
     const [blogData, setBlogData] = useState([]);
+    const [profile, setProfile] = useState([]);
     async function handleLogout() {
         setError('');
         try {
@@ -30,15 +31,19 @@ export default function Profile() {
     let display = (
         <h1>(Profile Name)</h1>
     )
-    if (currentUser.displayName) {
-        display = (
-            <h1>{currentUser.displayName}</h1>
-        )
-    }
     let location = (
         <h2>(Location)</h2>
     )
+    if (profile.length > 0) {
+        display = (
+            <h1>{profile[0].name}</h1>
+        )
+        location = (
+            <h2>{profile[0].location}</h2>
+        )
+    }
 
+    console.log(profile);
 
     useEffect(async () => {
         await instance.get(`users/${currentUser.uid}/blogs.json`)
@@ -55,6 +60,21 @@ export default function Profile() {
                 console.log(results);
                 setBlogData(results);
             }).catch(err => console.log(err));
+
+        await instance.get(`users/${currentUser.uid}/profile.json`)
+            .then(response => {
+                console.log(response.data)
+                const results = [];
+                for (let key in response.data) {
+                    results.unshift({
+                        ...response.data[key],
+                        id: key,
+                    })
+                }
+                setProfile(results);
+            })
+            .catch(err => console.log(err));
+
     }, [])
 
     let postLength = ''
