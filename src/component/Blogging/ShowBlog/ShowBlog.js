@@ -12,13 +12,14 @@ export default function ShowBlog() {
 
     const [content, setContent] = useState([]);
     const [image, setImages] = useState([]);
+    const [profileName, setProfileName] = useState('');
 
     // console.log(content);
     console.log(image);
 
     useEffect(async () => {
         window.scrollTo(0, 0)
-        await instance.get(`/${currentUser.uid}/blogs/${id}.json`)
+        await instance.get(`users/${currentUser.uid}/blogs/${id}.json`)
             .then(response => {
                 console.log(response.data)
                 let content = []
@@ -33,6 +34,27 @@ export default function ShowBlog() {
                     setImages(images);
                 }
                 setContent(content);
+            }).catch(err => console.log(err));
+
+
+        await instance.get(`users/${currentUser.uid}/profile.json`)
+            .then(response => {
+                console.log(response.data)
+                let dataValue = Object.values(response.data)
+                console.log(dataValue);
+                setProfileName(dataValue[0].name);
+                // let content = []
+                // let images = []
+                // content.push({
+                //     content: response.data.content
+                // })
+                // if (response.data.images) {
+                //     images.push({
+                //         images: response.data.images
+                //     })
+                //     setImages(images);
+                // }
+                // setContent(content);
             }).catch(err => console.log(err));
     }, [])
 
@@ -84,7 +106,7 @@ export default function ShowBlog() {
             <div className='showBlog'>
                 <header>
                     <h2>{title}</h2>
-                    <h4>Author: {currentUser.displayName} </h4>
+                    <h4>Author: {profileName} </h4>
                     <h4>Posted: {date}</h4>
                 </header>
 

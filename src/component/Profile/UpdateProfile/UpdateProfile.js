@@ -5,6 +5,10 @@ import { Link, useHistory } from "react-router-dom";
 import Error from '../../Authentication/Error/Error';
 import firebase, { storage } from '../../../firebase';
 import instance from '../../../axios-orders';
+import ProgressBar from '../../ProgressBar/ProfileImageProgressBar';
+import ShowCurrentImages from '../../Blogging/Add/ShowCurrentImages/ShowCurrentImages';
+import GetData from '../../Blogging/Add/GetData/GetImageData';
+import useFirestore from '../../../hooks/useFirestore';
 
 
 export default function UpdateProfile() {
@@ -22,6 +26,8 @@ export default function UpdateProfile() {
     const history = useHistory();
     const [profile, setProfile] = useState([]);
     const [email, setEmail] = useState('');
+    const { docs } = useFirestore(currentUser.uid);
+
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -114,11 +120,10 @@ export default function UpdateProfile() {
     }
 
 
-
     useEffect(async () => {
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
-                console.log(response.data[0])
+                console.log(response.data)
                 let dataValue = Object.values(response.data)
                 let dataId = Object.keys(response.data);
                 console.log(dataValue);
@@ -126,20 +131,67 @@ export default function UpdateProfile() {
                 setProfileName(dataValue[0].name);
                 setProfileLocation(dataValue[0].location);
                 setProfileId(dataId[0]);
+
+                setProfilePic(dataValue[0].images)
                 setEmail(currentUser.email);
             })
             .catch(err => console.log(err));
-
-
     }, [])
-    console.log(profile);
 
     const [profileName, setProfileName] = useState('');
     const [profileLocation, setProfileLocation] = useState('');
     const [profileId, setProfileId] = useState('');
+    const [profilePic, setProfilePic] = useState([]);
+    const [dataChanged, setDataChanged] = useState(false);
+    const { datas } = GetData(docs, profileId, dataChanged);
+    console.log(datas);
 
+
+    const deleteImg = async (e) => {
+        e.preventDefault();
+        await instance.delete(`users/${currentUser.uid}/profile/${profileId}/images/${datas[0].id}.json`)
+            .then(response => {
+                console.log(response.data)
+                setDataChanged(true);
+            })
+            .catch(err => console.log(err));
+        imageRef.current.value = null;
+    }
+
+
+    let showImg = ''
+    if (!datas) {
+        showImg = (
+            <div></div>
+        );
+    }
+    if (datas !== null) {
+        if (datas.length > 0) {
+            const images = Object.values(datas[0]);
+            console.log(images);
+            showImg = (
+                <div className='img'>
+                    <img key={datas[0].id} src={images[1]} />
+                    <button onClick={deleteImg}>Delete</button>
+                </div>
+            )
+        }
+
+    }
+
+
+    console.log(profilePic);
     console.log(profileName);
     console.log(profileId);
+
+    // let imageData = '';
+    // if (profilePic) {
+    //     console.log(profilePic);
+    //     let data = Object.values(profilePic);
+    //     console.log(data);
+    //     imageData = data[0].imageUrl;
+    // }
+    // console.log(imageData);
 
     return (
         <div className='container'>
@@ -163,11 +215,15 @@ export default function UpdateProfile() {
                         <label>Location:</label>
                         <input type='text' ref={locationRef} value={profileLocation} onChange={event => setProfileLocation(event.target.value)} />
                     </div>
-                    {/* <div className='input-form'>
+                    <div className='input-form'>
                         <label>Profile Picture:</label>
                         <input type='file' accept="image/png, image/jpeg" onChange={handleChange} ref={imageRef} />
                         {image && <div>{image.name}</div>}
-                    </div> */}
+                        {image && <ProgressBar file={image} setFile={setImage} id={profileId} />}
+                    </div>
+                    {showImg}
+                    {/* <ShowCurrentImages data={datas} /> */}
+                    {/* <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} setSelectedId={setSelectedId} setSelectedDescription={setSelectedDescription} /> */}
 
                     <div className='input-form'>
                         <label>Email Address</label>
@@ -191,6 +247,6 @@ export default function UpdateProfile() {
                     <p><span><a href='/profile-blogs'>Cancel</a></span></p>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
