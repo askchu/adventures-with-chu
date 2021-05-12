@@ -107,7 +107,7 @@ export default function Add() {
         console.log('not saved to drafts');
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/images/${output}/${count.id}.json`
+            url: `users/${currentUser.uid}/images/${output}/${count.id}.json`
             // data: data
         }).then(response => {
             console.log(response);
@@ -119,7 +119,7 @@ export default function Add() {
         // Delete Count
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/count/${count.id}.json`
+            url: `users/${currentUser.uid}/count/${count.id}.json`
             // data: data
         }).then(response => {
             console.log(response);
@@ -163,7 +163,7 @@ export default function Add() {
 
     const grabCount = async () => {
         console.log(count);
-        await instance.get(`/${currentUser.uid}/count.json`)
+        await instance.get(`users/${currentUser.uid}/count.json`)
             .then(response => {
                 console.log(response.data)
                 console.log(response.data.length)
@@ -187,7 +187,7 @@ export default function Add() {
 
     const save = (countId, post) => {
 
-        instance.post(`/${currentUser.uid}/drafts/${countId}/content.json`, post)
+        instance.post(`users/${currentUser.uid}/drafts/${countId}/content.json`, post)
             .then(response => {
                 console.log(response)
                 // console.log(response.data)
@@ -196,7 +196,7 @@ export default function Add() {
 
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/count/${count.id}.json`
+            url: `users/${currentUser.uid}/count/${count.id}.json`
         }).then(response => {
             console.log(response);
             console.log(`${count.id} count file is deleted`);
@@ -214,7 +214,7 @@ export default function Add() {
             content: contentRef.current.value,
         }
 
-        instance.post(`/${currentUser.uid}/blogs/${count.id}/content.json`, post)
+        instance.post(`users/${currentUser.uid}/blogs/${count.id}/content.json`, post)
             .then(response => {
                 console.log(response)
                 // console.log(response.data)
@@ -223,7 +223,7 @@ export default function Add() {
 
         for (let img of datas) {
             console.log(img);
-            instance.post(`/${currentUser.uid}/blogs/${count.id}/images.json`, img)
+            instance.post(`users/${currentUser.uid}/blogs/${count.id}/images.json`, img)
                 .then(response => {
                     console.log(response)
                     // console.log(response.data)
@@ -233,7 +233,7 @@ export default function Add() {
 
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/drafts/${count.id}.json`
+            url: `users/${currentUser.uid}/drafts/${count.id}.json`
         }).then(response => {
             console.log(response);
             console.log(`draft ${count.id} deleted`)

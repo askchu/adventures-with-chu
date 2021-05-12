@@ -10,24 +10,24 @@ export default function GetCount() {
     const { currentUser } = useAuth();
 
 
-    const postCount = async () => {
-        const number = {
-            count: 1
-        };
-        instance.post(`/${currentUser.uid}/count.json`, number)
-            .then(response => {
-                console.log(response)
-                console.log(response.data)
-                console.log(`count is ${number.count}`)
-            })
-            .catch(error => console.log(error));
-    }
+    // const postCount = async () => {
+    //     const number = {
+    //         count: 1
+    //     };
+    //     instance.post(`/${currentUser.uid}/count.json`, number)
+    //         .then(response => {
+    //             console.log(response)
+    //             console.log(response.data)
+    //             console.log(`count is ${number.count}`)
+    //         })
+    //         .catch(error => console.log(error));
+    // }
 
     useEffect(() => {
         const number = {
             count: `${count}`
         };
-        instance.post(`/${currentUser.uid}/count.json`, number)
+        instance.post(`users/${currentUser.uid}/count.json`, number)
             .then(response => {
                 console.log(response)
                 console.log(response.data)

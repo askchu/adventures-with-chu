@@ -17,7 +17,7 @@ export default function ShowBlog() {
     console.log(image);
 
     useEffect(async () => {
-
+        window.scrollTo(0, 0)
         await instance.get(`/${currentUser.uid}/blogs/${id}.json`)
             .then(response => {
                 console.log(response.data)
@@ -84,20 +84,25 @@ export default function ShowBlog() {
             <div className='showBlog'>
                 <header>
                     <h2>{title}</h2>
-                    <h4>{date}</h4>
+                    <h4>Author: {currentUser.displayName} </h4>
+                    <h4>Posted: {date}</h4>
                 </header>
 
-                <h4>Gallery</h4>
-                <div className='img-grid'>
-                    {eachImg.map(el => (
-                        <div className='img'>
-                            <img src={el.imageUrl} />
-                            <p>{el.description}</p>
-                        </div>
-                    ))}
+                <div className='gallery'>
+                    <h4>Gallery</h4>
+                    <div className='img-grid'>
+                        {eachImg.map(el => (
+                            <div className='img'>
+                                <img src={el.imageUrl} />
+                                <p>{el.description}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
-                <p>{details}</p>
+                <div className='synopsis'>
+                    <p>{details}</p>
+                </div>
             </div>
 
         </div>

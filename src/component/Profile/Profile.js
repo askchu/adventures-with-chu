@@ -35,9 +35,13 @@ export default function Profile() {
             <h1>{currentUser.displayName}</h1>
         )
     }
+    let location = (
+        <h2>(Location)</h2>
+    )
+
 
     useEffect(async () => {
-        await instance.get(`/${currentUser.uid}/blogs.json`)
+        await instance.get(`users/${currentUser.uid}/blogs.json`)
             .then(response => {
                 console.log(response.data)
                 const results = [];
@@ -74,7 +78,7 @@ export default function Profile() {
                 <div className='user-details'>
                     <div className='display'>
                         {display}
-                        <h2>Toronto, ON</h2>
+                        {location}
                     </div>
                     <div className='count'>
                         <p>Posts: {postLength}</p>

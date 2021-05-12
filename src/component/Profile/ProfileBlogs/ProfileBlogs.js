@@ -312,7 +312,7 @@ export default function ProfileBlogs() {
             console.log(indexOfCounts[i]);
             instance.request({
                 method: 'delete',
-                url: `/${currentUser.uid}/count/${indexOfCounts[i]}.json`
+                url: `users/${currentUser.uid}/count/${indexOfCounts[i]}.json`
             }).then(response => {
                 console.log(response);
             })
@@ -329,7 +329,7 @@ export default function ProfileBlogs() {
         window.scrollTo(0, 0)
 
         // Grabs Drafts Data
-        await instance.get(`/${currentUser.uid}/drafts.json`)
+        await instance.get(`users/${currentUser.uid}/drafts.json`)
             .then(response => {
                 console.log(response.data)
                 const results = [];
@@ -343,8 +343,10 @@ export default function ProfileBlogs() {
             })
             .catch(err => console.log(err));
 
+        //  Grabs Profile Data
+
         // Grabs Count Data
-        await instance.get(`/${currentUser.uid}/count.json`)
+        await instance.get(`users/${currentUser.uid}/count.json`)
             .then(response => {
                 console.log(response.data)
                 const results = [];
@@ -360,7 +362,7 @@ export default function ProfileBlogs() {
             }).catch(err => console.log(err));
 
         // Grabs Blog Data
-        await instance.get(`/${currentUser.uid}/blogs.json`)
+        await instance.get(`users/${currentUser.uid}/blogs.json`)
             .then(response => {
                 console.log(response.data)
                 const results = [];

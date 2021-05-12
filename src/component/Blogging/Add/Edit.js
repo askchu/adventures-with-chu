@@ -84,7 +84,6 @@ export default function Edit() {
     console.log(count.id);
 
 
-
     const saveDraft = () => {
         let titleValue = ''
         if (titlePlaceholder || titleRef.current.value !== titleValue) {
@@ -96,14 +95,13 @@ export default function Edit() {
             }
         }
 
-        let contentValue = ''
-        if (contentPlaceholder || contentRef.current.value !== contentValue) {
-            if (contentPlaceholder !== contentRef.current.value) {
-                contentValue = contentRef.current.value;
-            }
-            if (contentRef.current.value === '') {
-                contentValue = contentPlaceholder;
-            }
+        let contentValue = contentPlaceholder
+        if (contentRef.current.value !== contentValue) {
+            // if (contentRef.current.value === '') {
+            //     contentValue = contentPlaceholder;
+            // }
+            contentValue = contentRef.current.value;
+
         }
 
         let res = []
@@ -130,7 +128,7 @@ export default function Edit() {
             setContentPlaceholder(contentObjectKey[contentKey].content)
         }
 
-
+        console.log(contentValue);
 
         let post = {
             title: titleValue,
@@ -139,7 +137,7 @@ export default function Edit() {
         }
 
 
-        instance.put(`/${currentUser.uid}/drafts/${id}/content/${contentKey}.json`, post)
+        instance.put(`users/${currentUser.uid}/drafts/${id}/content/${contentKey}.json`, post)
             .then(response => {
                 console.log(response)
             })
@@ -148,7 +146,7 @@ export default function Edit() {
         // Delete Count
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/count/${count.id}.json`
+            url: `users/${currentUser.uid}/count/${count.id}.json`
         }).then(response => {
             console.log(response);
             console.log(`${count.id} count file is deleted`);
@@ -164,7 +162,7 @@ export default function Edit() {
         // Deletes draft
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/drafts/${id}.json`
+            url: `users/${currentUser.uid}/drafts/${id}.json`
         }).then(response => {
             console.log(response);
             console.log(`draft ${id} deleted`)
@@ -175,7 +173,7 @@ export default function Edit() {
         // // Delete Count
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/count/${count.id}.json`
+            url: `users/${currentUser.uid}/count/${count.id}.json`
             // data: data
         }).then(response => {
             console.log(response);
@@ -246,7 +244,7 @@ export default function Edit() {
 
     const grabCountData = async () => {
         console.log(count);
-        await instance.get(`/${currentUser.uid}/count.json`)
+        await instance.get(`users/${currentUser.uid}/count.json`)
             .then(response => {
                 console.log(response.data)
                 console.log(response.data.length)
@@ -272,11 +270,11 @@ export default function Edit() {
     const [contentPlaceholder, setContentPlaceholder] = useState('');
     const [imageData, setImageData] = useState([])
     const [countData, setCountData] = useState([]);
+    console.log(contentPlaceholder);
 
-    // TODO: grab images from user/images folder and display it on showCurrentImages
 
     const grabDraftData = async () => {
-        await instance.get(`/${currentUser.uid}/drafts/${id}.json`)
+        await instance.get(`users/${currentUser.uid}/drafts/${id}.json`)
             .then(response => {
                 console.log(response)
                 let res = []
@@ -313,7 +311,7 @@ export default function Edit() {
             content: contentRef.current.value,
         }
 
-        instance.post(`/${currentUser.uid}/blogs/${id}/content.json`, post)
+        instance.post(`users/${currentUser.uid}/blogs/${id}/content.json`, post)
             .then(response => {
                 console.log(response)
                 // console.log(response.data)
@@ -322,7 +320,7 @@ export default function Edit() {
 
         for (let img of datas) {
             console.log(img);
-            instance.post(`/${currentUser.uid}/blogs/${id}/images.json`, img)
+            instance.post(`users/${currentUser.uid}/blogs/${id}/images.json`, img)
                 .then(response => {
                     console.log(response)
                     // console.log(response.data)
@@ -332,7 +330,7 @@ export default function Edit() {
 
         instance.request({
             method: 'delete',
-            url: `/${currentUser.uid}/drafts/${id}.json`
+            url: `users/${currentUser.uid}/drafts/${id}.json`
         }).then(response => {
             console.log(response);
             console.log(`draft ${id} deleted`)
@@ -367,38 +365,6 @@ export default function Edit() {
 
     let deleteUrl = '';
 
-
-    // if (imageDraft || datas) {
-
-    //     console.log(selectedId);
-
-    //     function search(idKey, myArray) {
-    //         if (myArray) {
-    //             for (var i = 0; i < myArray.length; i++) {
-    //                 if (myArray[i].id === idKey) {
-    //                     return myArray.indexOf(myArray[i]);
-    //                 }
-    //             }
-
-    //         } else {
-    //             console.log('no images in draft');
-    //         }
-
-    //     }
-
-    // const searchIndex = search(selectedId, imageDraft)
-    // console.log(searchIndex);
-
-    // if (searchIndex == undefined) {
-    //     deleteUrl = `/${currentUser.uid}/images/${output}/${count.id}/${selectedId}.json`;
-    // } else {
-    //     deleteUrl = `/${currentUser.uid}/drafts/${id}/images/${searchIndex}.json`;
-    // }
-    // console.log(deleteUrl);
-    // // }
-
-
-    // console.log(deleteUrl);
 
 
 

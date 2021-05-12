@@ -1,3 +1,11 @@
+.showBlog{
+    border: 1px solid #111;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
 .showBlog header{
     text-align: center;
 }
@@ -5,10 +13,36 @@
 .showBlog h2{
     margin-bottom: 0;
 }
+.showBlog h4:nth-of-type(2){
+    margin-bottom: 20px;
+}
 
 .showBlog .img{
     width: 250px;
 }
 .showBlog .img img {
     width: 100%;
+}
+.gallery{
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    padding: 10px;
+}
+.gallery h4{
+    font-size: 1.2rem;
+}
+.gallery .img-grid{
+    margin-bottom: 10px;
+}
+.gallery .img{
+    border: 1px solid #111;
+    background: rgba(201, 201, 201, 0.1);
+    color: #111;
+}
+.gallery .img p{
+    text-align: center;
+    font-size: 1.2rem;
+}
+.synopsis{
+    padding: 5px;
 }

@@ -4,10 +4,13 @@ import { useAuth } from '../../Authentication/AuthContext/AuthContext';
 import { Link, useHistory } from "react-router-dom";
 import Error from '../../Authentication/Error/Error';
 import firebase, { storage } from '../../../firebase';
+import instance from '../../../axios-orders';
+
 
 export default function UpdateProfile() {
 
     const nameRef = useRef();
+    const locationRef = useRef();
     const imageRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -28,22 +31,33 @@ export default function UpdateProfile() {
         if (passwordRef.current.value !== passwordConfirmedRef.current.value) {
             return setError('Passwords do not match');
         }
+
+        const profile = {
+            name: nameRef.current.value,
+            location: locationRef.current.value
+        }
+
         try {
             setError('');
             setLoading(true);
-            await updateProfile(nameRef.current.value, emailRef.current.value, passwordRef.current.value
+            await updateProfile(emailRef.current.value, passwordRef.current.value
             )
+            await instance.post(`users/${currentUser.uid}/profile.json`, profile)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(err => console.log(err));
             history.push("/profile-blogs");
 
-            const storage = firebase.storage().ref(`${currentUser.uid}/profilePic/${image.name}`)
-            const uploadPic = storage.put(image);
-            uploadPic.on(firebase.storage.TaskEvent.STATE_CHANGED,
-                () => {
-                    let downloadURL = uploadPic.snapshot.downloadURL
-                    console.log('Picture has been uploaded');
-                })
+            // const storage = firebase.storage().ref(`${currentUser.uid}/profilePic/${image.name}`)
+            // const uploadPic = storage.put(image);
+            // uploadPic.on(firebase.storage.TaskEvent.STATE_CHANGED,
+            //     () => {
+            //         let downloadURL = uploadPic.snapshot.downloadURL
+            //         console.log('Picture has been uploaded');
+            //     })
 
-            console.log('Account updated...')
+            // console.log('Account updated...')
         } catch (e) {
             setError(`Failed to update account, ${e}`);
         }
@@ -86,6 +100,10 @@ export default function UpdateProfile() {
                     <div className='input-form'>
                         <label>Profile Name:</label>
                         <input type='text' ref={nameRef} />
+                    </div>
+                    <div className='input-form'>
+                        <label>Location:</label>
+                        <input type='text' ref={locationRef} />
                     </div>
                     {/* <div className='input-form'>
                         <label>Profile Picture:</label>
