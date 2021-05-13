@@ -153,3 +153,6 @@ form{
     color: #eee;
     border-radius: 10px;
 }
+.signUp .img button:hover{
+    cursor: pointer;
+}

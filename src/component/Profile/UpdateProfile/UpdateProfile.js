@@ -43,6 +43,7 @@ export default function UpdateProfile() {
 
         let nameValue = profileName;
         let locationValue = profileLocation;
+        let imageValue = profilePic;
 
         if (locationRef.current.value !== locationValue) {
             locationValue = locationRef.current.value;
@@ -50,9 +51,15 @@ export default function UpdateProfile() {
         if (nameRef.current.value !== nameValue) {
             nameValue = nameRef.current.value;
         }
+        if (!profilePic) {
+            imageValue = ''
+        }
+
+
 
 
         const profile = {
+            images: imageValue,
             location: locationValue,
             name: nameValue
         }
@@ -120,6 +127,15 @@ export default function UpdateProfile() {
     }
 
 
+
+    const [profileName, setProfileName] = useState('');
+    const [profileLocation, setProfileLocation] = useState('');
+    const [profileId, setProfileId] = useState('');
+    const [profilePic, setProfilePic] = useState([]);
+    const [dataChanged, setDataChanged] = useState(null);
+    const { datas } = GetData(docs, profileId, dataChanged);
+    console.log(datas);
+
     useEffect(async () => {
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
@@ -128,34 +144,29 @@ export default function UpdateProfile() {
                 let dataId = Object.keys(response.data);
                 console.log(dataValue);
                 console.log(dataId);
-                setProfileName(dataValue[0].name);
-                setProfileLocation(dataValue[0].location);
+                if (!profileName) {
+                    setProfileName(dataValue[0].name);
+                }
+                if (!profileLocation) {
+                    setProfileLocation(dataValue[0].location);
+                }
                 setProfileId(dataId[0]);
-
                 setProfilePic(dataValue[0].images)
                 setEmail(currentUser.email);
             })
             .catch(err => console.log(err));
-    }, [])
-
-    const [profileName, setProfileName] = useState('');
-    const [profileLocation, setProfileLocation] = useState('');
-    const [profileId, setProfileId] = useState('');
-    const [profilePic, setProfilePic] = useState([]);
-    const [dataChanged, setDataChanged] = useState(false);
-    const { datas } = GetData(docs, profileId, dataChanged);
-    console.log(datas);
-
+    }, [datas])
 
     const deleteImg = async (e) => {
         e.preventDefault();
         await instance.delete(`users/${currentUser.uid}/profile/${profileId}/images/${datas[0].id}.json`)
             .then(response => {
                 console.log(response.data)
-                setDataChanged(true);
+                setDataChanged('changed');
             })
             .catch(err => console.log(err));
         imageRef.current.value = null;
+
     }
 
 
@@ -184,14 +195,7 @@ export default function UpdateProfile() {
     console.log(profileName);
     console.log(profileId);
 
-    // let imageData = '';
-    // if (profilePic) {
-    //     console.log(profilePic);
-    //     let data = Object.values(profilePic);
-    //     console.log(data);
-    //     imageData = data[0].imageUrl;
-    // }
-    // console.log(imageData);
+    // TODO: fix form from clearing out when attaching a profile picture
 
     return (
         <div className='container'>
@@ -206,7 +210,8 @@ export default function UpdateProfile() {
                 {/* {currentUser && currentUser.email} */}
                 {/* {currentUser.email} */}
                 {error && <Error message={error} />}
-                <form onSubmit={submitHandler}>
+                {/* <form onSubmit={submitHandler}> */}
+                <form>
                     <div className='input-form'>
                         <label>Profile Name:</label>
                         <input type='text' ref={nameRef} value={profileName} onChange={event => setProfileName(event.target.value)} />
@@ -239,7 +244,7 @@ export default function UpdateProfile() {
                     </div>
 
                     <button disabled={loading} type='submit' className='button'
-                    // onClick={this.newPostHandler}
+                        onClick={submitHandler}
                     >Update
                     </button>
                 </form>

@@ -18,13 +18,13 @@ const useStorage = (file, id, state, imgId) => {
         const storageRef = storage.ref(file.name);
         const collectionRef = firestore.collection(userId)
         // const collectionRef = firestore.collection('images')
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
-        const date = new Date()
-        const month = monthNames[date.getMonth()];
-        const day = String(date.getDate()).padStart(2, '0');
-        const year = date.getFullYear();
-        const output = year + '/' + month + '/' + day;
+        // const monthNames = ["January", "February", "March", "April", "May", "June",
+        //     "July", "August", "September", "October", "November", "December"];
+        // const date = new Date()
+        // const month = monthNames[date.getMonth()];
+        // const day = String(date.getDate()).padStart(2, '0');
+        // const year = date.getFullYear();
+        // const output = year + '/' + month + '/' + day;
 
 
 
@@ -57,6 +57,8 @@ const useStorage = (file, id, state, imgId) => {
                     console.log('img uploaded to firebase DB')
                 })
                 .catch(err => console.log(err));
+
+
         })
 
 

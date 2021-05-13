@@ -35,12 +35,17 @@ export default function Profile() {
         <h2>(Location)</h2>
     )
     if (profile.length > 0) {
-        display = (
-            <h1>{profile[0].name}</h1>
-        )
-        location = (
-            <h2>{profile[0].location}</h2>
-        )
+        if (profile[0].name) {
+            display = (
+                <h1>{profile[0].name}</h1>
+            )
+        }
+        if (profile[0].location) {
+            location = (
+                <h2>{profile[0].location}</h2>
+            )
+        }
+
     }
 
     console.log(profile);
@@ -77,6 +82,19 @@ export default function Profile() {
 
     }, [])
 
+    let profilePic = img2;
+
+    if (profile) {
+        if (profile.length > 0) {
+            if (profile[0].images) {
+                const imageValue = Object.values(profile[0].images)
+                // console.log(imageValue);
+                profilePic = imageValue[0].imageUrl;
+            }
+        }
+    }
+    // console.log(profilePic)
+
     let postLength = ''
     if (blogData) {
         postLength = blogData.length;
@@ -89,7 +107,7 @@ export default function Profile() {
                 <div className='profilePic'>
                     {/* <img src={cloud} /> */}
                     <picture className='profile-pic'>
-                        <img src={img2} />
+                        <img src={profilePic} />
                     </picture>
                 </div>
                 {/* <div className='newPost'>
