@@ -1,8 +1,10 @@
 .search{
     background-color: #eee;
-    padding: 10px 10px;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     font-size: 1.5rem;
+    padding: 15px;
+    border-radius: 5px;
 }
 .search input{
     width: 100%;
@@ -10,9 +12,11 @@
     height: 30px;
     font-size: 1.2rem;
     padding-left: 20px;
+    border: 1px solid #111;
 }
 .search button{
     font-size: 1.5rem;
+    /* width: 100%; */
 }
 .browseForm{
     display: flex;
@@ -22,10 +26,31 @@
     display: flex;
     width: 100%;
 }
+.browseForm button:hover{
+    cursor: pointer;
+}
 .browseForm button{
     margin-bottom: 0;
     background: linear-gradient(35deg, #81d6f2, #4ab1f5 );
     color: #fff;
     border-radius: .5rem;
     outline: none;
+}
+.blog{
+    width: 100%;
+    border: 1px solid #111;
+}
+.blog img{
+    width: 100%;
+}
+.blog p {
+    padding: 10px;
+}
+
+.grids{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 20px;
+    /* grid-template-rows: repeat(2, 1fr); */
 }

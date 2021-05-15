@@ -138,7 +138,6 @@ export default function ProfileBlogs() {
             let imageKey = '';
             let imageUrl = '';
             console.log(el.images);
-            // TODO: fix rendering if there is more than 1 images saved.
 
             if (el.images) {
                 // imageObjectKey = el.images;
