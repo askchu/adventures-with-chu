@@ -1,4 +1,12 @@
+.browse{
+    display: flex;
+    justify-content: center;
+        position: absolute;
+    margin-top: 100px;
+    width: 100%;
+}
 .search{
+    position: fixed;
     background-color: #eee;
     width: 90%;
     margin: 0 auto;
@@ -16,7 +24,6 @@
 }
 .search button{
     font-size: 1.5rem;
-    /* width: 100%; */
 }
 .browseForm{
     display: flex;
@@ -38,6 +45,8 @@
 }
 .userProfile{
     width: 75%;
+    height: 100%;
+    max-height: 340px;
     margin: 0 auto;
     border: 1px solid #111;
 }
@@ -50,47 +59,79 @@
     margin: 0 auto;
     text-align: center;
 }
-.user{
+ .user {
     height: 100%;
-    max-height: 250px;
+    max-height: 500px;
+}
+.user h2 {
+    margin-bottom: 0;
+}
+.user img {
+    margin-top: 20px;
 }
 .user p{
+    margin-top: 0;
     margin-bottom: 10px;
 }
 .user button{
-    position: absolute;
     margin-bottom: 20px;
     margin-top: 0;
-    
+    border-radius: 20px;
+    padding: 7px;    
+    background: linear-gradient(35deg, #81d6f2, #4ab1f5 );
+    color: white;
+    font-size: 1.3rem;
 }
+    
+
+.user button:hover{
+    cursor: pointer;
+}
+
 .blog{
+    text-align: center;
     width: 100%;
     border: 1px solid #111;
+    margin: 0 auto;
 }
 .blog h2{
     padding: 10px;
 }
 .blog img{
-    width: 100%;
+    width: 90%;
 }
 .blog p {
     padding: 10px;
 }
 
 .grids{
+    margin-top: 70px;
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    /* grid-auto-flow: dense; */
     grid-gap: 20px;
     /* grid-template-rows: repeat(2, 1fr); */
 }
-@media screen and (max-width: 1000px){
+.user .following{
+    background: #eee;
+    color: #111;
+}
+
+@media screen and (max-width: 700px){
     .grids{
         grid-template-columns: repeat(1, 1fr);
     }
-    .user button{
-    font-size: 1.1rem;
+    .blog{
+        width: 80%;
     }
+    .blog img{
+        width: 60%;
+    }
+   .userProfile{
+    max-height: 450px;
+    }
+  
 }
 @media screen and (min-width: 1500px){
     .grids{

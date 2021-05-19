@@ -61,7 +61,9 @@ export default function UpdateProfile() {
         const profile = {
             images: imageValue,
             location: locationValue,
-            name: nameValue
+            name: nameValue,
+            following: '',
+            followers: ''
         }
 
         let emailAddress = email;

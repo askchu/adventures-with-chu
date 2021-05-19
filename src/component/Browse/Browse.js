@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import './Browse.css';
 import instance from '../../axios-orders';
+import { useAuth } from '../Authentication/AuthContext/AuthContext';
 
 
 export default function Browse() {
@@ -15,6 +16,7 @@ export default function Browse() {
     // if (process.env.NODE_ENV === 'development') {
     //     console.log(process.env.REACT_APP_DEV_MODE);
     // }
+    const { currentUser } = useAuth();
 
 
     const searchData = (e) => {
@@ -75,29 +77,137 @@ export default function Browse() {
     }
     console.log(foundUser);
 
+    const [profileId, setProfileId] = useState('');
+    const [followers, setFollowers] = useState([]);
+    const [following, setFollowing] = useState('')
+
+    console.log(profileId);
+    console.log(followers);
+
+
+
+
+    const followUser = async (user) => {
+        setFollowing(null);
+        // console.log(user);
+        const follower = {
+            name: user.name,
+            location: user.location,
+            image: user.images,
+            id: user.id
+        }
+        console.log(follower);
+
+
+
+        let followerId = [];
+        if (followers) {
+            // console.log(Object.keys(followers))
+            let numberOfObject = Object.keys(followers)
+            // console.log(numberOfObject);
+            // console.log(numberOfObject.length);
+            for (let i = 0; i < numberOfObject.length; i++) {
+                console.log(followers[numberOfObject[i]]);
+                console.log(followers[numberOfObject[i]].id);
+                followerId.push({ id: followers[numberOfObject[i]].id })
+            }
+            console.log(followerId);
+
+        }
+
+        let profileData = {
+            id: user.id
+        }
+        console.log(profileData.id);
+
+
+
+        let data = followerId.some(function (doc) {
+            return doc.id == user.id
+        })
+        console.log(data);
+        if (data == true) {
+            console.log('already following');
+        }
+
+        if (data == false || !followers) {
+            console.log('not following');
+            await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${currentUser.uid}/profile/${profileId}/followers.json`, follower)
+                .then(response => {
+                    console.log(response);
+                    setFollowing('changed');
+                })
+                .catch(err => console.log(err));
+        }
+    }
 
     let displayUsers = ''
     let userInfo = ''
     if (foundUser) {
         displayUsers = foundUser.map(doc => {
-            console.log(doc.name);
-            console.log(doc.images);
+            // console.log(doc.name);
+            // console.log(doc.images);
             let images = Object.values(doc.images);
-            console.log(images);
+            // console.log(images);
             let pic = ''
             if (doc.images) {
                 pic = images[0].imageUrl;
             }
-            if (foundUser.length > 0) {
+            if (currentUser.uid === doc.id) {
                 userInfo = (
                     <div className='user'>
-                        <h2>{doc.name}</h2>
                         <img src={pic} />
+                        <h2>{doc.name}</h2>
                         <p>{doc.location}</p>
-                        <button>Follow</button>
                     </div>
                 )
             }
+            if (currentUser.uid !== doc.id) {
+                userInfo = (
+                    <div className='user'>
+                        <img src={pic} />
+                        <h2>{doc.name}</h2>
+                        <p>{doc.location}</p>
+                        <button onClick={() => followUser(doc)}>Follow</button>
+                    </div>
+                )
+            }
+
+            if (followers) {
+                let numberOfObject = Object.keys(followers)
+                // console.log(numberOfObject);
+                // console.log(numberOfObject.length);
+                let followerId = [];
+
+                for (let i = 0; i < numberOfObject.length; i++) {
+                    console.log(followers[numberOfObject[i]]);
+                    console.log(followers[numberOfObject[i]].id);
+                    followerId.push({ id: followers[numberOfObject[i]].id })
+                }
+                console.log(followerId);
+
+
+                const data = followerId.some(function (res) {
+                    return res.id == doc.id
+                })
+                console.log(data);
+                if (data == true) {
+                    console.log('already following');
+                    userInfo = (
+                        <div className='user'>
+                            <img src={pic} />
+                            <h2>{doc.name}</h2>
+                            <p>{doc.location}</p>
+                            <button className='following'>Following</button>
+                        </div>
+                    )
+                }
+            }
+
+
+            // if (followers) {
+
+            // }
             return (
                 <div className='userProfile'>
                     {userInfo}
@@ -105,6 +215,11 @@ export default function Browse() {
             )
         })
     }
+
+
+
+    // console.log(currentUser.uid);
+
 
     useEffect(async () => {
         // browseData();
@@ -118,9 +233,12 @@ export default function Browse() {
 
                 for (let i = 0; i < object.length; i++) {
                     console.log(response.data[object[i]].profile);
+                    let object1 = Object.keys(response.data[object[i]].profile)
+                    console.log(object);
                     let object2 = Object.values(response.data[object[i]].profile);
                     console.log(object2);
                     results.push({
+                        id: object[i],
                         name: object2[0].name,
                         location: object2[0].location,
                         images: object2[0].images
@@ -131,7 +249,20 @@ export default function Browse() {
                 setUserData(results);
             })
             .catch(err => console.log(err));
-    }, []);
+
+
+        await instance.get(`users/${currentUser.uid}/profile.json`)
+            .then(response => {
+                console.log(response.data)
+                let dataValue = Object.values(response.data)
+                let dataId = Object.keys(response.data);
+                console.log(dataValue);
+                console.log(dataId);
+                setFollowers(dataValue[0].followers)
+                setProfileId(dataId[0]);
+            })
+            .catch(err => console.log(err));
+    }, [following]);
 
     // console.log(articles);
 
@@ -161,7 +292,7 @@ export default function Browse() {
 
 
     return (
-        <div className="home">
+        <div className="browse">
             <div className='search containers'>
                 <form onSubmit={searchData} className='browseForm'>
                     <div className='browseInput'>

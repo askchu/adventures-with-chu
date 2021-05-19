@@ -140,9 +140,9 @@ export default function Profile() {
                         <p>
                             <Link to='profile-gallery'><i className="far fa-image"></i>Gallery</Link>
                         </p>
-                        <p>
+                        {/* <p>
                             <Link to='profile-saved'><i className="far fa-bookmark"></i>Saved</Link>
-                        </p>
+                        </p> */}
                     </div>
                 </div>
             </main>
