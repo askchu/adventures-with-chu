@@ -289,7 +289,7 @@ export default function Browse() {
     })
 
 
-
+    // TODO: Make categories of just users, news, everything
 
     return (
         <div className="browse">
