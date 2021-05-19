@@ -47,7 +47,6 @@ export default function Profile() {
         }
 
     }
-
     console.log(profile);
 
     useEffect(async () => {
@@ -93,7 +92,7 @@ export default function Profile() {
             }
         }
     }
-    // console.log(profilePic)
+    console.log(profilePic)
 
     let postLength = ''
     if (blogData) {
