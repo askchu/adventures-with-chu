@@ -238,10 +238,10 @@ export default function Browse() {
                     let object2 = Object.values(response.data[object[i]].profile);
                     console.log(object2);
                     results.push({
-                        id: object[i],
-                        name: object2[0].name,
-                        location: object2[0].location,
-                        images: object2[0].images
+                        id: object[i]
+                        // name: object2[0].name,
+                        // location: object2[0].location,
+                        // images: object2[0].images
                     })
                 }
 

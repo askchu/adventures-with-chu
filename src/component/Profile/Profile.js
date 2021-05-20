@@ -113,14 +113,11 @@ export default function Profile() {
             <div className='profile-page'>
 
                 <div className='profilePic'>
-                    {/* <img src={cloud} /> */}
                     <picture className='profile-pic'>
                         <img src={profilePic} />
                     </picture>
                 </div>
-                {/* <div className='newPost'>
-                    <button>New Post <i class="fas fa-plus"></i></button>
-                </div> */}
+
                 <div className='user-details'>
                     <div className='display'>
                         {display}
