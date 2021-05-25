@@ -91,8 +91,8 @@ export default function Profile() {
                 // console.log(imageValue);
                 profilePic = imageValue[0].imageUrl;
             }
-            if (profile[0].followers) {
-                const following = Object.keys(profile[0].followers);
+            if (profile[0].following) {
+                const following = Object.keys(profile[0].following);
                 followingCount = following.length;
             }
         }

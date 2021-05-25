@@ -101,7 +101,8 @@ button a {
 }
 
 .featured h3 {
-    width: 50%;
+    width: 100%;
+    text-align: center;
     margin-top: 0;
     margin-bottom: 40px;
 }
@@ -141,6 +142,22 @@ button a {
     margin: 0 auto;
     background-color: rgb(201, 197, 197);
 }
+.blogs {
+    width: 50%;
+    height: 100%;
+    border: 1px solid #111;
+    padding: 20px;
+    margin: 20px auto
+}
+.blogs {
+    text-align: center;
+}
+.blogs .image{
+    width: 100%;
+}
+.blogs .image img {
+    width: 100%;
+}
 
 @media (min-width: 900px){
     .logo{
@@ -153,12 +170,7 @@ button a {
         margin: 0 auto;
         text-align: center;
     }
-    .featuredBlogs{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 1fr 1fr;
-        grid-gap: 10px;
-    }
+    
     .shadow{
         width: 75%;
     }

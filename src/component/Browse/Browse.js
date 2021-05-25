@@ -91,9 +91,9 @@ export default function Browse() {
         setFollowing(null);
         // console.log(user);
         const follower = {
-            name: user.name,
-            location: user.location,
-            image: user.images,
+            // name: user.name,
+            // location: user.location,
+            // image: user.images,
             id: user.id
         }
         console.log(follower);
@@ -132,7 +132,7 @@ export default function Browse() {
 
         if (data == false || !followers) {
             console.log('not following');
-            await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${currentUser.uid}/profile/${profileId}/followers.json`, follower)
+            await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${currentUser.uid}/profile/${profileId}/following.json`, follower)
                 .then(response => {
                     console.log(response);
                     setFollowing('changed');
@@ -238,10 +238,10 @@ export default function Browse() {
                     let object2 = Object.values(response.data[object[i]].profile);
                     console.log(object2);
                     results.push({
-                        id: object[i]
-                        // name: object2[0].name,
-                        // location: object2[0].location,
-                        // images: object2[0].images
+                        id: object[i],
+                        name: object2[0].name,
+                        location: object2[0].location,
+                        images: object2[0].images
                     })
                 }
 
@@ -258,7 +258,7 @@ export default function Browse() {
                 let dataId = Object.keys(response.data);
                 console.log(dataValue);
                 console.log(dataId);
-                setFollowers(dataValue[0].followers)
+                setFollowers(dataValue[0].following)
                 setProfileId(dataId[0]);
             })
             .catch(err => console.log(err));

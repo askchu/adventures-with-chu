@@ -1,117 +1,169 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Home.css';
-import img from '../../assets/images/logo1.png';
-import img2 from '../../assets/images/img2.svg';
-import img3 from '../../assets/images/img3.png';
 import News from './News/News';
 import instance from '../../axios-orders';
-import ShowPosts from '../../component/Blogging/ShowPosts/ShowPosts';
 import Footer from '../../component/Navigation/Footer/Footer';
 import { Link } from 'react-router-dom';
 import Auxilary from '../../hoc/Auxilary/Auxilary';
+import { useAuth } from '../../component/Authentication/AuthContext/AuthContext';
+import ProgressBar from '../../component/ProgressBar/ProgressBar';
 
-class Home extends Component {
-    constructor(props) {
-        super();
-        this.state = {
 
-            posts: [],
+function Home() {
+    const { currentUser } = useAuth();
+    const [profile, setProfile] = useState([]);
+    const [foundCurrentUser, setCurrentUser] = useState('');
+    const [followingData, setFollowingData] = useState([]);
+    console.log(profile);
+    console.log(followingData);
 
-        }
-        console.log('constructor');
-    }
-
-    componentDidMount() {
-        this.getData();
-        console.log('component did mount');
-    }
-
-    getData = () => {
-        instance.get('/posts.json')
-            .then(response => {
-                // console.log(response.data)
-                // console.log(response.data)
-
+    const grabUserProfile = async () => {
+        await instance.get(`/users/${currentUser.uid}.json`)
+            .then(res => {
                 const results = [];
+                results.push({
+                    ...res.data
+                })
+                setProfile(results);
+                setCurrentUser('logged in');
+            })
+            .catch(err => console.log(err));
+    }
 
-                for (let key in response.data) {
-                    results.push({
-                        ...response.data[key],
-                        id: key
+
+    const grabFollowingData = async () => {
+        if (profile) {
+            if (profile.length > 0) {
+                console.log(profile[0].profile);
+                const results = Object.values(profile[0].profile);
+                const following = Object.values(results[0].following);
+                console.log(following);
+                console.log(following.length);
+                let data = [];
+                for (let i = 0; i < following.length; i++) {
+                    await instance.get(`/users/${following[i].id}.json`)
+                        .then(res => {
+                            console.log(res);
+                            data.push({ ...res.data })
+                            console.log(data);
+                        })
+                        .catch(err => console.log(err));
+                }
+                if (data.length > 0) {
+                    setFollowingData(data);
+                }
+            }
+        }
+    }
+
+
+
+
+    useEffect((foundCurrentUser) => {
+        grabUserProfile();
+        if (profile) {
+            grabFollowingData()
+        }
+
+    }, [foundCurrentUser])
+
+    let followerBlogs = [];
+    let followingUsers = '';
+    let followingPosts = [];
+    if (followingData) {
+        if (followingData.length > 0) {
+            followingData.map((user) => {
+                console.log(user);
+                console.log(user.profile);
+                if (user.blogs) {
+                    // console.log(user.blogs)
+                    followerBlogs.push(user.blogs)
+                    console.log(followerBlogs[0]);
+                    console.log(Object.keys(followerBlogs[0]));
+                    console.log(Object.values(followerBlogs[0]));
+                    const followers = Object.keys(followerBlogs[0]);
+                    const results = Object.values(followerBlogs[0])
+                    const author = Object.values(user.profile)
+                    console.log(author);
+                    console.log(results);
+
+                    followingPosts = results.map(doc => {
+                        console.log(doc.content);
+                        const values = Object.values(doc.content);
+                        const images = Object.values(doc.images);
+                        console.log(values);
+                        return (
+                            <div key={values[0].id} className='blogs'>
+                                <h2>{values[0].title}</h2>
+                                <p>Author: {author[0].name}</p>
+                                <div className='image'>
+                                    <img src={images[0].imageUrl} />
+                                </div>
+                                <p>{values[0].content}</p>
+                            </div>
+                        )
                     })
                 }
-                this.setState({ posts: results })
-                console.log(this.state.posts);
+                console.log(followingPosts);
+                console.log(followerBlogs);
+
             })
+
+        }
     }
 
-    render() {
-
-        const post = (
-            this.state.posts.map(results => (
-                <ShowPosts key={results.id}
-                    title={results.title}
-                    author={results.author}
-                    date={results.date}
-                    content={results.content}
-                    id={results.id}
-                />
-            ))
-        )
-
-        return (
-            <div className='home'>
-                <div className='logo'>
-                    {/* <img src={img} alt={"logo that says - adventures with chu"} /> */}
-                    <div className='brief'>
-                        <h1>Welcome to Adventures with Chu</h1>
-                        <h3>Start blogging and share with everyone.</h3>
-                        {/* Your post might just be someone's next adventure!</h3> */}
-                    </div>
+    return (
+        <div className='home'>
+            <div className='logo'>
+                {/* <img src={img} alt={"logo that says - adventures with chu"} /> */}
+                <div className='brief'>
+                    <h1>Welcome to Adventures with Chu</h1>
+                    <h3>Start blogging and share with everyone.</h3>
+                    {/* Your post might just be someone's next adventure!</h3> */}
                 </div>
+            </div>
 
-                <main className='containers welcome'>
+            <main className='containers welcome'>
 
-                    <div className='intro'>
-                        <div className='featured'>
-                            <h3 className="featuredH3">Featured Blogs</h3>
-                            <div className='featuredBlogs'>
-                                {post}
-                            </div>
-                            {/* <picture>
+                <div className='intro'>
+                    <div className='featured'>
+                        <h3 className="featuredH3">Recent Posts from your followers</h3>
+                        <div className='featuredBlogs'>
+                            {followingPosts}
+                        </div>
+                        {/* <picture>
                                 <img src={img2} alt={"adventures with chu"} />
                             </picture> */}
-                        </div >
-                        <div className='underline'>
-                            <div className='shadow'></div>
-                        </div>
-                        {/* <div className='description'>
+                    </div >
+                    <div className='underline'>
+                        <div className='shadow'></div>
+                    </div>
+                    {/* <div className='description'>
                             <h3>Having troubles thinking of what to blog?</h3>
                             <p>No worries! Come browse other blogs for inspirations.</p>
                             <picture>
                                 <img src={img3} alt={"picture of 3 people and the world"} />
                             </picture>
                         </div> */}
+                </div>
+                <div className='logo2'>
+                    <div className='brief2'>
+                        <h1>Come check other blogs!</h1>
+                        <button><Link to='/browse'>Browse</Link></button>
                     </div>
-                    <div className='logo2'>
-                        <div className='brief2'>
-                            <h1>Come check other blogs!</h1>
-                            <button><Link to='/browse'>Browse</Link></button>
-                        </div>
-                    </div>
-                    <div className='underline'>
-                        <div className='shadow'></div>
-                    </div>
-                    <div className="new">
-                        <h3>What's Happening Around the World</h3>
-                        <News />
-                    </div>
-                </main >
+                </div>
+                <div className='underline'>
+                    <div className='shadow'></div>
+                </div>
+                <div className="new">
+                    <h3>What's Happening Around the World</h3>
+                    <News />
+                </div>
+            </main >
 
-                <Footer />
-            </div >
-        )
-    }
+            <Footer />
+        </div >
+    )
 }
 
-export default Home;
+export default Home
