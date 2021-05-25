@@ -17,6 +17,7 @@ import UpdateProfile from './component/Profile/UpdateProfile/UpdateProfile';
 import BrowseBlog from './containers/BrowseBlog/BrowseBlog';
 import ProfileGallery from './component/Profile/ProfileGallery/ProfileGallery';
 import SavedPosts from './component/Profile/SavedPosts/SavedPosts';
+import ShowUsersBlogs from './component/Blogging/ShowBlog/ShowUsersBlog/ShowUsersBlogs';
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
           <PrivateRoutes path="/profile-blogs-new" exact component={Add} />
           <PrivateRoutes path="/profile-blogs/:id/edit" exact component={Edit} />
           <PrivateRoutes path="/profile/blogs/:id" component={ShowBlog} />
+          <Route path="/:user/blogs/:id/" exact component={ShowUsersBlogs} />
+
 
           {/* NOTE: Links work in progress */}
           <Route path="/my-blogs/:id/" exact component={ShowBlog} />

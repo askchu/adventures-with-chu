@@ -37,7 +37,7 @@
     justify-content: center;
     position: absolute;
     min-width: 100%;
-    min-height: px;
+    /* min-height: px; */
     max-width: 100%;
     background: linear-gradient(35deg, #10b9f1, #4ab1f5 );
     /* margin-top: 92px; */

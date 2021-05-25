@@ -153,10 +153,31 @@ button a {
     text-align: center;
 }
 .blogs .image{
-    width: 100%;
+      overflow: hidden;
+     
+    height: 0;
+    padding: 50% 0; 
+    /* padding controls height, will always be perfectly square regardless of width */
+    position: relative;
+    /* opacity: 0.8; */
+    border: 1px solid #eee;
 }
 .blogs .image img {
-    width: 100%;
+     min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.blogs button {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    border-radius: 20px;
+    padding: 5px;
+    background: linear-gradient(35deg, #81d6f2, #4ab1f5 );
+    color: #fff;
 }
 
 @media (min-width: 900px){

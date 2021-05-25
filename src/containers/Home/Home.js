@@ -3,7 +3,7 @@ import './Home.css';
 import News from './News/News';
 import instance from '../../axios-orders';
 import Footer from '../../component/Navigation/Footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Auxilary from '../../hoc/Auxilary/Auxilary';
 import { useAuth } from '../../component/Authentication/AuthContext/AuthContext';
 import ProgressBar from '../../component/ProgressBar/ProgressBar';
@@ -14,6 +14,8 @@ function Home() {
     const [profile, setProfile] = useState([]);
     const [foundCurrentUser, setCurrentUser] = useState('');
     const [followingData, setFollowingData] = useState([]);
+    const { history } = useHistory();
+
     console.log(profile);
     console.log(followingData);
 
@@ -44,7 +46,7 @@ function Home() {
                     await instance.get(`/users/${following[i].id}.json`)
                         .then(res => {
                             console.log(res);
-                            data.push({ ...res.data })
+                            data.push({ ...res.data, id: following[i].id })
                             console.log(data);
                         })
                         .catch(err => console.log(err));
@@ -67,13 +69,23 @@ function Home() {
 
     }, [foundCurrentUser])
 
+
+    const id = (e) => {
+        console.log(e)
+    }
+
     let followerBlogs = [];
-    let followingUsers = '';
+    let followingUsers = (
+        <div>
+            <h2>Hello</h2>
+        </div>);
     let followingPosts = [];
     if (followingData) {
+
         if (followingData.length > 0) {
             followingData.map((user) => {
                 console.log(user);
+                console.log(user.id);
                 console.log(user.profile);
                 if (user.blogs) {
                     // console.log(user.blogs)
@@ -87,11 +99,13 @@ function Home() {
                     console.log(author);
                     console.log(results);
 
-                    followingPosts = results.map(doc => {
-                        console.log(doc.content);
-                        const values = Object.values(doc.content);
-                        const images = Object.values(doc.images);
+                    followingPosts = followers.map(doc => {
+                        console.log(followerBlogs[0][doc]);
+                        console.log(doc);
+                        const values = Object.values(followerBlogs[0][doc].content);
+                        const images = Object.values(followerBlogs[0][doc].images);
                         console.log(values);
+                        const link = `${user.id}/blogs/${doc}`;
                         return (
                             <div key={values[0].id} className='blogs'>
                                 <h2>{values[0].title}</h2>
@@ -99,14 +113,42 @@ function Home() {
                                 <div className='image'>
                                     <img src={images[0].imageUrl} />
                                 </div>
-                                <p>{values[0].content}</p>
+                                {/* <p>{values[0].content}</p> */}
+                                {/* TODO: Show blog when user click to read blog */}
+                                <Link to={link}><button>Read Blog</button></Link>
                             </div>
+
                         )
                     })
+                    // followingPosts = results.map(doc => {
+                    //     console.log(doc);
+                    //     const values = Object.values(doc.content);
+                    //     const images = Object.values(doc.images);
+                    //     console.log(values);
+                    //     return (
+                    //         <div key={values[0].id} className='blogs'>
+                    //             <h2>{values[0].title}</h2>
+                    //             <p>Author: {author[0].name}</p>
+                    //             <div className='image'>
+                    //                 <img src={images[0].imageUrl} />
+                    //             </div>
+                    //             {/* <p>{values[0].content}</p> */}
+                    //             <button onClick={() => id(doc.id)}>Read Blog</button>
+                    //         </div>
+                    //     )
+                    // })
                 }
                 console.log(followingPosts);
                 console.log(followerBlogs);
 
+                followingUsers = (
+                    <div className='featured'>
+                        <h3 className="featuredH3">Recent Posts from your followers</h3>
+                        <div className='featuredBlogs'>
+                            {followingPosts}
+                        </div>
+                    </div >
+                )
             })
 
         }
@@ -126,15 +168,7 @@ function Home() {
             <main className='containers welcome'>
 
                 <div className='intro'>
-                    <div className='featured'>
-                        <h3 className="featuredH3">Recent Posts from your followers</h3>
-                        <div className='featuredBlogs'>
-                            {followingPosts}
-                        </div>
-                        {/* <picture>
-                                <img src={img2} alt={"adventures with chu"} />
-                            </picture> */}
-                    </div >
+                    {followingUsers}
                     <div className='underline'>
                         <div className='shadow'></div>
                     </div>
