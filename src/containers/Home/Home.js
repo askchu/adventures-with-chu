@@ -62,7 +62,9 @@ function Home() {
 
 
     useEffect((foundCurrentUser) => {
-        grabUserProfile();
+        if (currentUser) {
+            grabUserProfile();
+        }
         if (profile) {
             grabFollowingData()
         }
@@ -77,7 +79,7 @@ function Home() {
     let followerBlogs = [];
     let followingUsers = (
         <div>
-            <h2>Hello</h2>
+
         </div>);
     let followingPosts = [];
     if (followingData) {
@@ -114,7 +116,6 @@ function Home() {
                                     <img src={images[0].imageUrl} />
                                 </div>
                                 {/* <p>{values[0].content}</p> */}
-                                {/* TODO: Show blog when user click to read blog */}
                                 <Link to={link}><button>Read Blog</button></Link>
                             </div>
 
@@ -143,7 +144,7 @@ function Home() {
 
                 followingUsers = (
                     <div className='featured'>
-                        <h3 className="featuredH3">Recent Posts from your followers</h3>
+                        <h3 className="featuredH3">Recent Posts</h3>
                         <div className='featuredBlogs'>
                             {followingPosts}
                         </div>

@@ -89,6 +89,16 @@ export default function Browse() {
 
     const followUser = async (user) => {
         setFollowing(null);
+
+        let userObjectKey = ''
+        await instance.get(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${user.id}/profile.json`)
+            .then(res => {
+                userObjectKey = Object.keys(res.data);
+            })
+            .catch(err => console.log(err));
+
+        console.log(userObjectKey);
+
         // console.log(user);
         const follower = {
             // name: user.name,
@@ -96,9 +106,12 @@ export default function Browse() {
             // image: user.images,
             id: user.id
         }
+        console.log(user);
         console.log(follower);
 
-
+        const loggedUser = {
+            id: currentUser.uid
+        }
 
         let followerId = [];
         if (followers) {
@@ -133,6 +146,13 @@ export default function Browse() {
         if (data == false || !followers) {
             console.log('not following');
             await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${currentUser.uid}/profile/${profileId}/following.json`, follower)
+                .then(response => {
+                    console.log(response);
+                    setFollowing('changed');
+                })
+                .catch(err => console.log(err));
+
+            await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${user.id}/profile/${userObjectKey[0]}/followers.json`, loggedUser)
                 .then(response => {
                     console.log(response);
                     setFollowing('changed');

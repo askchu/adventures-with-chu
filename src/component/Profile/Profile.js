@@ -83,6 +83,7 @@ export default function Profile() {
 
     let profilePic = img2;
     let followingCount = 0;
+    let followersCount = 0;
 
     if (profile) {
         if (profile.length > 0) {
@@ -94,6 +95,10 @@ export default function Profile() {
             if (profile[0].following) {
                 const following = Object.keys(profile[0].following);
                 followingCount = following.length;
+            }
+            if (profile[0].followers) {
+                const followers = Object.keys(profile[0].followers);
+                followersCount = followers.length;
             }
         }
 
@@ -125,7 +130,7 @@ export default function Profile() {
                     </div>
                     <div className='count'>
                         <p>Posts: {postLength}</p>
-                        <p className='followers'>Followers: 0</p>
+                        <p className='followers'>Followers: {followersCount}</p>
                         <p className='following'>Following: {followingCount}</p>
                     </div>
                 </div>
