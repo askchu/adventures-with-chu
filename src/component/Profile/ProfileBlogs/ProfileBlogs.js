@@ -320,7 +320,20 @@ export default function ProfileBlogs() {
         }
     }
 
-
+    const addProfile = async () => {
+        const profile = {
+            images: '',
+            location: '',
+            name: '',
+            following: '',
+            followers: ''
+        }
+        await instance.post(`users/${currentUser.uid}/profile.json`, profile)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err));
+    }
 
 
 
@@ -380,7 +393,7 @@ export default function ProfileBlogs() {
                 console.log(response.data)
                 const results = [];
                 for (let key in response.data) {
-                    results.push({
+                    results.unshift({
                         ...response.data[key],
                         id: key,
                         // name: response.data.name
@@ -389,6 +402,11 @@ export default function ProfileBlogs() {
                 console.log(results);
                 setBlogData(results);
             }).catch(err => console.log(err));
+
+
+
+
+
     }, [info])
 
     console.log(profile);

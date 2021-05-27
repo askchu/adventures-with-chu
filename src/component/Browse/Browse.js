@@ -176,7 +176,10 @@ export default function Browse() {
             if (currentUser.uid === doc.id) {
                 userInfo = (
                     <div className='user'>
-                        <img src={pic} />
+                        <div className='image'>
+                            <img src={pic} />
+
+                        </div>
                         <h2>{doc.name}</h2>
                         <p>{doc.location}</p>
                     </div>
@@ -185,7 +188,10 @@ export default function Browse() {
             if (currentUser.uid !== doc.id) {
                 userInfo = (
                     <div className='user'>
-                        <img src={pic} />
+                        <div className='image'>
+                            <img src={pic} />
+
+                        </div>
                         <h2>{doc.name}</h2>
                         <p>{doc.location}</p>
                         <button onClick={() => followUser(doc)}>Follow</button>
@@ -215,7 +221,10 @@ export default function Browse() {
                     console.log('already following');
                     userInfo = (
                         <div className='user'>
-                            <img src={pic} />
+                            <div className='image'>
+                                <img src={pic} />
+
+                            </div>
                             <h2>{doc.name}</h2>
                             <p>{doc.location}</p>
                             <button className='following'>Following</button>

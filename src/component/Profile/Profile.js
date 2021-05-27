@@ -14,7 +14,8 @@ export default function Profile() {
     const { currentUser, logout } = useAuth();
     const { history } = useHistory();
     const [blogData, setBlogData] = useState([]);
-    const [profile, setProfile] = useState([]);
+    const [profile, setProfile] = useState('');
+    const [profileStats, setProfileStats] = useState(false);
     async function handleLogout() {
         setError('');
         try {
@@ -49,7 +50,24 @@ export default function Profile() {
     }
     console.log(profile);
 
+    const addProfile = async () => {
+        const profile = {
+            images: '',
+            location: '',
+            name: '',
+            following: '',
+            followers: ''
+        }
+        await instance.post(`users/${currentUser.uid}/profile.json`, profile)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err));
+    }
+
+
     useEffect(async () => {
+
         await instance.get(`users/${currentUser.uid}/blogs.json`)
             .then(response => {
                 console.log(response.data)
@@ -76,10 +94,18 @@ export default function Profile() {
                     })
                 }
                 setProfile(results);
+
             })
             .catch(err => console.log(err));
 
+        console.log(profile);
+        console.log(profile[0])
+
+
+
     }, [])
+
+
 
     let profilePic = img2;
     let followingCount = 0;

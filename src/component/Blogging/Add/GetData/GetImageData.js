@@ -17,7 +17,19 @@ export default function GetData(file, id, dataChanged) {
     const year = date.getFullYear();
     const output = year + '/' + month + '/' + day;
 
+    const getProfile = async () => {
+        let data = ''
+        await instance.get(`users/${currentUser.uid}/profile.json`)
+            .then(response => {
+                console.log(response.data)
+                const obj = Object.keys(response.data);
+                console.log(obj[0]);
+                data = obj[0]
+            })
+            .catch(err => console.log(err));
 
+        return await data;
+    }
 
 
     useEffect(async () => {
@@ -25,22 +37,48 @@ export default function GetData(file, id, dataChanged) {
         console.log('grabs data from GetData page')
 
 
-        await instance.get(`users/${currentUser.uid}/profile/${id}/images.json`)
-            .then(response => {
-                console.log(response);
-                const results = [];
-                for (let key in response.data) {
-                    console.log(key);
-                    results.unshift({
-                        ...response.data[key],
-                        id: key,
-                    })
-                }
-                setData(results);
-                // setChanged('grabbed image')
-            })
-            .catch(err => console.log(err));
 
+
+
+        if (id) {
+            await instance.get(`users/${currentUser.uid}/profile/${id}/images.json`)
+                .then(response => {
+                    console.log(response);
+                    const results = [];
+                    for (let key in response.data) {
+                        console.log(key);
+                        results.unshift({
+                            ...response.data[key],
+                            id: key,
+                        })
+                    }
+                    setData(results);
+                    // setChanged('grabbed image')
+                })
+                .catch(err => console.log(err));
+        }
+
+
+
+        if (!id) {
+            const results = getProfile();
+            results.then(async (res) => {
+                await instance.get(`users/${currentUser.uid}/profile/${res}/images.json`)
+                    .then(response => {
+                        console.log(response)
+                        const results = [];
+                        for (let key in response.data) {
+                            console.log(key);
+                            results.unshift({
+                                ...response.data[key],
+                                id: key,
+                            })
+                        }
+                        setData(results);
+                    })
+                    .catch(err => console.log(err));
+            })
+        }
 
         // setData(allImages);
 

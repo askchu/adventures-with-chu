@@ -8,7 +8,7 @@ export default function ShowBlog() {
     const { id } = useParams();
     console.log(id);
     const { currentUser } = useAuth();
-
+    const history = useHistory();
 
     const [content, setContent] = useState([]);
     const [image, setImages] = useState([]);
@@ -97,7 +97,30 @@ export default function ShowBlog() {
         //     )
         // })
 
+        // pictures = eachImg.map(el => (
+        //     <div className='img'>
+        //         <img src={el.imageUrl} />
+        //         <p>{el.description}</p>
+        //     </div>
+        // ))
 
+        pictures = eachImg.map(el => {
+            if (el.description) {
+                return (
+                    <div className='img'>
+                        <img src={el.imageUrl} />
+                        <p>{el.description}</p>
+                    </div>
+                )
+            }
+            if (!el.description) {
+                return (
+                    <div className='noDesc'>
+                        <img src={el.imageUrl} />
+                    </div>
+                )
+            }
+        })
 
     }
 
@@ -113,18 +136,22 @@ export default function ShowBlog() {
                 <div className='gallery'>
                     <h4>Gallery</h4>
                     <div className='img-grid'>
-                        {eachImg.map(el => (
+                        {/* {eachImg.map(el => (
                             <div className='img'>
                                 <img src={el.imageUrl} />
                                 <p>{el.description}</p>
                             </div>
-                        ))}
+                        ))} */}
+                        {pictures}
                     </div>
                 </div>
 
                 <div className='synopsis'>
                     <p>{details}</p>
                 </div>
+            </div>
+            <div className='backButton' >
+                <button onClick={() => history.goBack()}>Back</button>
             </div>
 
         </div>

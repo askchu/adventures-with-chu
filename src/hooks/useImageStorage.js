@@ -8,7 +8,7 @@ const useStorage = (file, id, state, imgId) => {
     const [error, setError] = useState(null);
     const [url, setUrl] = useState(null);
     const { currentUser } = useAuth();
-
+    const [profile, setProfile] = useState('');
 
     const userId = currentUser.uid;
     // useEffect is going to run everytime the [file] changes
@@ -28,6 +28,20 @@ const useStorage = (file, id, state, imgId) => {
 
 
 
+        const getProfile = async () => {
+            let data = ''
+            await instance.get(`users/${currentUser.uid}/profile.json`)
+                .then(response => {
+                    console.log(response.data)
+                    const obj = Object.keys(response.data);
+                    console.log(obj[0]);
+                    data = obj[0]
+                })
+                .catch(err => console.log(err));
+
+            return await data;
+
+        }
 
         storageRef.put(file).on('state_changed', (snap) => {
             let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
@@ -45,18 +59,40 @@ const useStorage = (file, id, state, imgId) => {
                 description: ''
             }
 
+
             await instance.delete(`users/${currentUser.uid}/profile/${id}/images/${imgId}.json`)
                 .then(response => {
                     console.log(response)
                 })
                 .catch(err => console.log(err));
 
-            await instance.post(`users/${currentUser.uid}/profile/${id}/images.json`, info)
-                .then(response => {
-                    console.log(response)
-                    console.log('img uploaded to firebase DB')
+
+
+            if (id) {
+
+
+                await instance.post(`users/${currentUser.uid}/profile/${id}/images.json`, info)
+                    .then(response => {
+                        console.log(response)
+                        console.log('img uploaded to firebase DB')
+                    })
+                    .catch(err => console.log(err));
+            }
+
+            if (!id) {
+                const results = getProfile();
+                results.then(async (res) => {
+                    await instance.post(`users/${currentUser.uid}/profile/${res}/images.json`, info)
+                        .then(response => {
+                            console.log(response)
+                            console.log('img uploaded to firebase DB')
+                        })
+                        .catch(err => console.log(err));
                 })
-                .catch(err => console.log(err));
+
+
+
+            }
 
 
         })

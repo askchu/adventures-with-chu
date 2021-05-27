@@ -35,7 +35,10 @@ function Home() {
 
     const grabFollowingData = async () => {
         if (profile) {
-            if (profile.length > 0) {
+            let object = Object.keys(profile);
+            console.log(object)
+            console.log(object.length)
+            if (object.length > 0) {
                 console.log(profile[0].profile);
                 const results = Object.values(profile[0].profile);
                 const following = Object.values(results[0].following);
@@ -62,6 +65,8 @@ function Home() {
 
 
     useEffect((foundCurrentUser) => {
+        window.scrollTo(0, 0)
+
         if (currentUser) {
             grabUserProfile();
         }
@@ -105,39 +110,39 @@ function Home() {
                         console.log(followerBlogs[0][doc]);
                         console.log(doc);
                         const values = Object.values(followerBlogs[0][doc].content);
-                        const images = Object.values(followerBlogs[0][doc].images);
+                        let images = ''
+
                         console.log(values);
                         const link = `${user.id}/blogs/${doc}`;
+                        if (followerBlogs[0][doc].images) {
+                            images = Object.values(followerBlogs[0][doc].images);
+
+                            return (
+                                <div key={values[0].id} className='blogs'>
+                                    <h2>{values[0].title}</h2>
+                                    <p>Author: {author[0].name}</p>
+                                    <div className='image'>
+                                        <img src={images[0].imageUrl} />
+                                    </div>
+                                    {/* <p>{values[0].content}</p> */}
+                                    <Link to={link}><button>Read Blog</button></Link>
+                                </div>
+                            )
+                        }
                         return (
                             <div key={values[0].id} className='blogs'>
                                 <h2>{values[0].title}</h2>
                                 <p>Author: {author[0].name}</p>
-                                <div className='image'>
+                                {/* <div className='image'>
                                     <img src={images[0].imageUrl} />
-                                </div>
+                                </div> */}
                                 {/* <p>{values[0].content}</p> */}
                                 <Link to={link}><button>Read Blog</button></Link>
                             </div>
 
                         )
                     })
-                    // followingPosts = results.map(doc => {
-                    //     console.log(doc);
-                    //     const values = Object.values(doc.content);
-                    //     const images = Object.values(doc.images);
-                    //     console.log(values);
-                    //     return (
-                    //         <div key={values[0].id} className='blogs'>
-                    //             <h2>{values[0].title}</h2>
-                    //             <p>Author: {author[0].name}</p>
-                    //             <div className='image'>
-                    //                 <img src={images[0].imageUrl} />
-                    //             </div>
-                    //             {/* <p>{values[0].content}</p> */}
-                    //             <button onClick={() => id(doc.id)}>Read Blog</button>
-                    //         </div>
-                    //     )
-                    // })
+
                 }
                 console.log(followingPosts);
                 console.log(followerBlogs);

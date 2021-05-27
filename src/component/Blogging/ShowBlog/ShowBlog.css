@@ -35,9 +35,18 @@
     margin-bottom: 10px;
 }
 .gallery .img{
-    border: 1px solid #111;
-    background: rgba(201, 201, 201, 0.1);
+    width: 100%;
+    border: 1px solid rgb(189, 189, 189);
+    background: rgba(235, 233, 233, 0.1);
     color: #111;
+}
+.gallery .noDesc{
+    width: 100%;
+    /* background: rgba(201, 201, 201, 0.1); */
+    color: #111;
+}
+.gallery .noDesc img{
+    width: 100%;
 }
 .gallery .img p{
     text-align: center;
@@ -45,4 +54,27 @@
 }
 .synopsis{
     padding: 5px;
+}
+.backButton{
+    width: 25%;
+    max-width: 200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+.backButton button{
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 20px;
+    padding: 10px;
+    background: linear-gradient(35deg, #81d6f2, #4ab1f5 );
+    color: #fff;
+}
+.backButton button:hover{
+    cursor: pointer;
+}
+@media (max-width: 650px){
+    .gallery .img-grid{
+        grid-template-columns: 1fr
+    }
+
 }

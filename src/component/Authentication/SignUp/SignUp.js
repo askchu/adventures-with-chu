@@ -4,6 +4,7 @@ import './SignUp.css';
 import { useAuth } from '../AuthContext/AuthContext';
 import Error from '../Error/Error';
 import { Link, useHistory } from "react-router-dom";
+import instance from '../../../axios-orders';
 
 export default function SignUp() {
 
@@ -25,6 +26,7 @@ export default function SignUp() {
             return setError('Passwords do not match');
         }
         try {
+
             setError('');
             setLoading(true);
             await register(emailRef.current.value, passwordRef.current.value)

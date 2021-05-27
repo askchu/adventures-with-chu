@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import instance from '../../../../axios-orders';
+import '../ShowBlog.css';
 
 export default function ShowUsersBlogs() {
     const { id, user } = useParams();
     console.log(user);
     console.log(id);
-
+    const history = useHistory();
     const [content, setContent] = useState([]);
     const [image, setImages] = useState([]);
     const [profileName, setProfileName] = useState('');
@@ -98,6 +99,8 @@ export default function ShowUsersBlogs() {
 
     }
 
+
+
     return (
         <div className='container'>
             <div className='showBlog'>
@@ -122,6 +125,9 @@ export default function ShowUsersBlogs() {
                 <div className='synopsis'>
                     <p>{details}</p>
                 </div>
+            </div>
+            <div className='backButton' >
+                <button onClick={() => history.goBack()}>Back</button>
             </div>
 
         </div>

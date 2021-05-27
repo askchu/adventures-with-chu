@@ -28,7 +28,6 @@ export default function UpdateProfile() {
     const [email, setEmail] = useState('');
     const { docs } = useFirestore(currentUser.uid);
 
-
     async function submitHandler(e) {
         e.preventDefault();
 
@@ -114,22 +113,46 @@ export default function UpdateProfile() {
         setLoading(false);
     }
 
+    const addProfile = async () => {
+        const profile = {
+            images: '',
+            location: '',
+            name: '',
+            following: '',
+            followers: ''
+        }
+        await instance.post(`users/${currentUser.uid}/profile.json`, profile)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err));
+    }
+
+
+    console.log(currentUser.uid)
 
     const handleChange = (e) => {
+        if (ifProfile == false) {
+            addProfile();
+        }
+
+
         const types = ['image/png', 'image/jpeg'];
         let selected = e.target.files[0];
+
 
         if (selected && types.includes(selected.type)) {
             setImage(selected);
             setError('');
+
         } else {
             setImage(null);
             setError('Please select an image file (png or jpeg)');
         }
+
     }
 
-
-
+    const [ifProfile, setIfProfile] = useState(false);
     const [profileName, setProfileName] = useState('');
     const [profileLocation, setProfileLocation] = useState('');
     const [profileId, setProfileId] = useState('');
@@ -137,27 +160,50 @@ export default function UpdateProfile() {
     const [dataChanged, setDataChanged] = useState(null);
     const { datas } = GetData(docs, profileId, dataChanged);
     console.log(datas);
+    console.log(ifProfile);
+
+    // TODO: FIX THIS
+
 
     useEffect(async () => {
+
+
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
                 console.log(response.data)
-                let dataValue = Object.values(response.data)
-                let dataId = Object.keys(response.data);
-                console.log(dataValue);
-                console.log(dataId);
+                let dataValue = '';
+                let dataId = '';
+                if (!response.data) {
+                    console.log("There is no data");
+                }
+                if (response.data) {
+                    dataValue = Object.values(response.data)
+                    dataId = Object.keys(response.data);
+                    console.log(dataValue);
+                    console.log(dataId);
+                    setIfProfile(true);
+                }
                 if (!profileName) {
-                    setProfileName(dataValue[0].name);
+                    if (dataValue) {
+                        setProfileName(dataValue[0].name);
+                    }
                 }
                 if (!profileLocation) {
-                    setProfileLocation(dataValue[0].location);
+                    if (dataValue) {
+                        setProfileLocation(dataValue[0].location);
+                    }
                 }
                 setProfileId(dataId[0]);
                 setProfilePic(dataValue[0].images)
                 setEmail(currentUser.email);
             })
             .catch(err => console.log(err));
+
+
+
     }, [datas])
+
+
 
     const deleteImg = async (e) => {
         e.preventDefault();
@@ -171,6 +217,7 @@ export default function UpdateProfile() {
 
     }
 
+    console.log(datas);
 
     let showImg = ''
     if (!datas) {
@@ -189,15 +236,15 @@ export default function UpdateProfile() {
                 </div>
             )
         }
-
     }
+
 
 
     console.log(profilePic);
     console.log(profileName);
     console.log(profileId);
 
-    // TODO: fix form from clearing out when attaching a profile picture
+
 
     return (
         <div className='container'>
