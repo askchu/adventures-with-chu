@@ -16,11 +16,15 @@ export default function Profile() {
     const [blogData, setBlogData] = useState([]);
     const [profile, setProfile] = useState('');
     const [profileStats, setProfileStats] = useState(false);
+
+
     async function handleLogout() {
         setError('');
         try {
             await logout()
             // history.pushState('/sign-in')
+            window.location.reload();
+
             history.push('/');
         } catch {
             setError('Failed to log out')

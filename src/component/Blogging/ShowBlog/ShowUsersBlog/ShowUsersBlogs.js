@@ -68,12 +68,40 @@ export default function ShowUsersBlogs() {
         date = contentObjectKey[contentKey].date
     }
 
-    let pictures = '';
+    // let pictures = '';
+    // let eachImg = [];
+    // let description = '';
+    // let imageObjectKey = '';
+    // let imageKey = '';
+    // let imageUrl = ''
+    // if (image.length > 0) {
+
+    //     imageObjectKey = Object.values(image[0].images)
+    //     console.log(imageObjectKey);
+    //     console.log(imageObjectKey.length);
+    //     for (let i = 0; i < imageObjectKey.length; i++) {
+    //         console.log(imageObjectKey[i].id);
+    //         eachImg.push({
+    //             id: imageObjectKey[i].id,
+    //             imageUrl: imageObjectKey[i].imageUrl,
+    //             description: imageObjectKey[i].description
+    //         })
+    //     }
+    //     console.log(eachImg);
+    //     // imageObjectKey.map(el => {
+    //     //     console.log(el.id);
+    //     //     eachImg = (
+    //     //         <p>{el.id}</p>
+    //     //     )
+    //     // })
+
+
+
+    // }
+    let pictures = <div></div>
+    let userGallery = <div></div>
     let eachImg = [];
-    let description = '';
     let imageObjectKey = '';
-    let imageKey = '';
-    let imageUrl = ''
     if (image.length > 0) {
 
         imageObjectKey = Object.values(image[0].images)
@@ -88,15 +116,37 @@ export default function ShowUsersBlogs() {
             })
         }
         console.log(eachImg);
-        // imageObjectKey.map(el => {
-        //     console.log(el.id);
-        //     eachImg = (
-        //         <p>{el.id}</p>
-        //     )
-        // })
 
 
-
+        pictures = eachImg.map(el => {
+            if (el.description) {
+                return (
+                    <div className='img'>
+                        <img src={el.imageUrl} />
+                        <p>{el.description}</p>
+                    </div>
+                )
+            }
+            if (!el.description) {
+                return (
+                    <div className='noDesc'>
+                        <img src={el.imageUrl} />
+                    </div>
+                )
+            }
+        })
+        userGallery = <div className='gallery'>
+            <h4>Gallery</h4>
+            <div className='img-grid'>
+                {pictures}
+                {/* {eachImg.map(el => (
+                            <div className='img'>
+                                <img src={el.imageUrl} />
+                                <p>{el.description}</p>
+                            </div>
+                        ))} */}
+            </div>
+        </div>
     }
 
 
@@ -110,17 +160,7 @@ export default function ShowUsersBlogs() {
                     <h4>Posted: {date}</h4>
                 </header>
 
-                <div className='gallery'>
-                    <h4>Gallery</h4>
-                    <div className='img-grid'>
-                        {eachImg.map(el => (
-                            <div className='img'>
-                                <img src={el.imageUrl} />
-                                <p>{el.description}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                {userGallery}
 
                 <div className='synopsis'>
                     <p>{details}</p>

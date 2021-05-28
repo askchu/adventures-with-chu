@@ -30,23 +30,28 @@
 }
 .gallery h4{
     font-size: 1.2rem;
+    text-align: center;
 }
 .gallery .img-grid{
     margin-bottom: 10px;
 }
 .gallery .img{
     width: 100%;
+    height: max-content;
     border: 1px solid rgb(189, 189, 189);
     background: rgba(235, 233, 233, 0.1);
     color: #111;
 }
 .gallery .noDesc{
     width: 100%;
+    max-width: 15em;
+    margin: 0 auto;
     /* background: rgba(201, 201, 201, 0.1); */
     color: #111;
 }
 .gallery .noDesc img{
     width: 100%;
+    margin: 0 auto;
 }
 .gallery .img p{
     text-align: center;
@@ -54,6 +59,7 @@
 }
 .synopsis{
     padding: 5px;
+    text-align: center;
 }
 .backButton{
     width: 25%;
@@ -63,6 +69,7 @@
 }
 .backButton button{
     width: 100%;
+    min-width: min-content;
     font-size: 1.2rem;
     border-radius: 20px;
     padding: 10px;

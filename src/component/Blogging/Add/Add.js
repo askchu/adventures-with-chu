@@ -301,17 +301,7 @@ export default function Add() {
                 </div>
 
                 <ShowCurrentImages data={datas} setSelectedImg={setSelectedImg} setSelectedId={setSelectedId} setSelectedDescription={setSelectedDescription} />
-                {selectedImg &&
-                    <ModalDescription
-                        selectedImg={selectedImg} setSelectedImg={setSelectedImg}
-                        selectedId={selectedId}
-                        setSelectedId={setSelectedId}
-                        selectedDescription={selectedDescription} setSelectedDescription={setSelectedDescription}
-                        count={count.id}
-                        savedDescription={setSavedDescription}
-                        deletedImage={setDeletedImage}
-                        deletedImageUrl={deleteUrl}
-                    />}
+
                 {/* <h4>Add a description to any images by clicking on the image</h4> */}
                 <div className='newBlog-input'>
                     <label>Content </label>
@@ -327,6 +317,17 @@ export default function Add() {
                 </div>
             </form>
             {options}
+            {selectedImg &&
+                <ModalDescription
+                    selectedImg={selectedImg} setSelectedImg={setSelectedImg}
+                    selectedId={selectedId}
+                    setSelectedId={setSelectedId}
+                    selectedDescription={selectedDescription} setSelectedDescription={setSelectedDescription}
+                    count={count.id}
+                    savedDescription={setSavedDescription}
+                    deletedImage={setDeletedImage}
+                    deletedImageUrl={deleteUrl}
+                />}
         </div>
     )
 }

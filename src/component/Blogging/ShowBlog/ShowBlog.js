@@ -70,12 +70,11 @@ export default function ShowBlog() {
         date = contentObjectKey[contentKey].date
     }
 
-    let pictures = '';
+
+    let pictures = <div></div>
+    let userGallery = <div></div>
     let eachImg = [];
-    let description = '';
     let imageObjectKey = '';
-    let imageKey = '';
-    let imageUrl = ''
     if (image.length > 0) {
 
         imageObjectKey = Object.values(image[0].images)
@@ -104,6 +103,7 @@ export default function ShowBlog() {
         //     </div>
         // ))
 
+
         pictures = eachImg.map(el => {
             if (el.description) {
                 return (
@@ -121,8 +121,21 @@ export default function ShowBlog() {
                 )
             }
         })
-
+        userGallery = <div className='gallery'>
+            <h4>Gallery</h4>
+            <div className='img-grid'>
+                {pictures}
+                {/* {eachImg.map(el => (
+                            <div className='img'>
+                                <img src={el.imageUrl} />
+                                <p>{el.description}</p>
+                            </div>
+                        ))} */}
+            </div>
+        </div>
     }
+
+
 
     return (
         <div className='container'>
@@ -132,19 +145,14 @@ export default function ShowBlog() {
                     <h4>Author: {profileName} </h4>
                     <h4>Posted: {date}</h4>
                 </header>
-
-                <div className='gallery'>
+                {/* <div className='gallery'>
                     <h4>Gallery</h4>
                     <div className='img-grid'>
-                        {/* {eachImg.map(el => (
-                            <div className='img'>
-                                <img src={el.imageUrl} />
-                                <p>{el.description}</p>
-                            </div>
-                        ))} */}
                         {pictures}
+                       
                     </div>
-                </div>
+                </div> */}
+                {userGallery}
 
                 <div className='synopsis'>
                     <p>{details}</p>

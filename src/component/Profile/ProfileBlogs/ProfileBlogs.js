@@ -309,7 +309,7 @@ export default function ProfileBlogs() {
         const length = indexOfCounts.length - 1;
         console.log(length);
         for (let i = 0; i < length; i++) {
-            console.log(indexOfCounts[i]);
+            // console.log(indexOfCounts[i]);
             instance.request({
                 method: 'delete',
                 url: `users/${currentUser.uid}/count/${indexOfCounts[i]}.json`

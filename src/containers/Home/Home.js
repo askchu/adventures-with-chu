@@ -67,6 +67,9 @@ function Home() {
     useEffect((foundCurrentUser) => {
         window.scrollTo(0, 0)
 
+        if (!currentUser) {
+            console.log('not logged in')
+        }
         if (currentUser) {
             grabUserProfile();
         }
@@ -87,6 +90,9 @@ function Home() {
 
         </div>);
     let followingPosts = [];
+    let finalResults = <div></div>
+
+    console.log(followingData);
     if (followingData) {
 
         if (followingData.length > 0) {
@@ -94,63 +100,234 @@ function Home() {
                 console.log(user);
                 console.log(user.id);
                 console.log(user.profile);
-                if (user.blogs) {
-                    // console.log(user.blogs)
-                    followerBlogs.push(user.blogs)
-                    console.log(followerBlogs[0]);
-                    console.log(Object.keys(followerBlogs[0]));
-                    console.log(Object.values(followerBlogs[0]));
-                    const followers = Object.keys(followerBlogs[0]);
-                    const results = Object.values(followerBlogs[0])
-                    const author = Object.values(user.profile)
-                    console.log(author);
-                    console.log(results);
+                // console.log(user.blogs)
+                followerBlogs.push({
+                    blogs: user.blogs,
+                    id: user.id
+                })
 
-                    followingPosts = followers.map(doc => {
-                        console.log(followerBlogs[0][doc]);
-                        console.log(doc);
-                        const values = Object.values(followerBlogs[0][doc].content);
-                        let images = ''
 
-                        console.log(values);
-                        const link = `${user.id}/blogs/${doc}`;
-                        if (followerBlogs[0][doc].images) {
-                            images = Object.values(followerBlogs[0][doc].images);
+                console.log(followerBlogs);
+                // console.log(followerBlogs[0]);
+                // console.log(followerBlogs[1]);
+                console.log(Object.values(followerBlogs));
+                const followers = Object.values(followerBlogs);
+                console.log(followers);
+                const results = Object.values(followerBlogs[0])
+                console.log(results);
 
-                            return (
-                                <div key={values[0].id} className='blogs'>
-                                    <h2>{values[0].title}</h2>
-                                    <p>Author: {author[0].name}</p>
-                                    <div className='image'>
-                                        <img src={images[0].imageUrl} />
-                                    </div>
-                                    {/* <p>{values[0].content}</p> */}
-                                    <Link to={link}><button>Read Blog</button></Link>
-                                </div>
-                            )
+                console.log(followers);
+
+                followers.map(doc => {
+
+                    console.log(doc);
+                    const obj = Object.keys(doc);
+                    console.log(obj[0]);
+                    const values = doc[obj[0]];
+                    const id = doc[obj[1]]
+                    console.log(id);
+                    console.log(values);
+                    let name = '';
+                    let images = ''
+                    let content = ''
+                    console.log(user);
+                    let link = ''
+
+
+                    // const link = `${id}/blogs/${blogObj}`;
+                    console.log(link);
+
+
+                    if (id === user.id) {
+                        const profileName = Object.values(user.profile);
+                        console.log(profileName);
+                        name = profileName[0].name;
+                        console.log(name);
+                        const overallResults = [];
+                        let total = [];
+                        const blogObj = Object.keys(values);
+                        const results = Object.values(values);
+                        const eachObj = Object.keys(user.blogs);
+                        console.log(eachObj);
+                        console.log(results);
+                        console.log(blogObj);
+                        console.log(blogObj[0]);
+                        console.log(Object.values(values));
+                        for (let i = 0; i < blogObj.length; i++) {
+                            content = Object.values(results[i].content)
+                            console.log(content);
+                            console.log(results[i].images);
+                            if (results[i].images) {
+                                images = Object.values(results[i].images)
+                                console.log(images);
+                                total = {
+                                    content,
+                                    images,
+                                    value: eachObj[i]
+                                }
+                            }
+                            if (!results[i].images) {
+                                total = {
+                                    content,
+                                    value: eachObj[i]
+
+                                }
+                            }
+                            console.log(total);
+                            overallResults.push(total);
                         }
-                        return (
-                            <div key={values[0].id} className='blogs'>
-                                <h2>{values[0].title}</h2>
-                                <p>Author: {author[0].name}</p>
-                                {/* <div className='image'>
+                        console.log(overallResults);
+                        // console.log(results);
+                        followingPosts = overallResults.map(res => {
+                            console.log(res);
+                            if (res.images) {
+                                images = Object.values(res.images);
+                                content = Object.values(res.content);
+                                console.log(images)
+                                console.log(content);
+                                link = `${id}/blogs/${res.value}`;
+                                console.log(link);
+                                return (
+                                    <div key={content[0].id} className='blogs'>
+                                        <h2>{content[0].title}</h2>
+                                        {/* <p>Author: {author[0].name}</p> */}
+                                        <p>Author: {name}</p>
+                                        <div className='image'>
+                                            <img src={images[0].imageUrl} />
+                                        </div>
+                                        <Link to={link}><button>Read Blog</button></Link>
+                                    </div>
+                                )
+                            }
+
+                            if (!res.images) {
+                                content = Object.values(res.content);
+                                console.log(content);
+                                link = `${id}/blogs/${res.value}`;
+                                console.log(link);
+                                return (
+                                    <div key={content[0].id} className='blogs'>
+                                        <h2>{content[0].title}</h2>
+                                        <p>Author: {name}</p>
+                                        {/* <div className='image'>
                                     <img src={images[0].imageUrl} />
                                 </div> */}
-                                {/* <p>{values[0].content}</p> */}
-                                <Link to={link}><button>Read Blog</button></Link>
-                            </div>
+                                        {/* <p>{values[0].content}</p> */}
+                                        <Link to={link}><button>Read Blog</button></Link>
+                                    </div>
+                                )
+                            }
+                        })
+                    }
 
-                        )
-                    })
+                    if (id !== user.id) {
+                        console.log("not the same id")
+                        const user = followingData.filter(function (follower) {
+                            return follower.id.indexOf(id) > -1;
+                        });
+                        console.log(user);
+                        console.log(user[0].profile);
+                        const profileName = Object.values(user[0].profile);
+                        name = profileName[0].name
+                        console.log(name);
+                        console.log(user[0].blogs);
+                        const blogs = Object.keys(user[0].blogs);
+                        console.log(blogs);
+                        const eachObj = Object.keys(user[0].blogs);
+                        console.log(eachObj);
+                        const blogValues = Object.values(user[0].blogs);
+                        console.log(blogValues);
+                        console.log(blogs.length);
+                        let blogsObj = ''
+                        let content = ''
+                        let image = '';
+                        let total = [];
+                        const userBlogs = []
+
+                        if (blogs.length > 0) {
+                            for (let i = 0; i < blogs.length; i++) {
+                                content = Object.values(blogValues[i].content)
+                                if (blogValues[i].images) {
+                                    image = Object.values(blogValues[i].images)
+                                    console.log(image);
+                                    // userBlogs.push(content)
+                                    total = {
+                                        content,
+                                        image,
+                                        value: eachObj[i]
+                                    }
+                                }
+                                if (!blogValues[i].images) {
+                                    total = {
+                                        content,
+                                        value: eachObj[i]
+
+                                    }
+                                }
+                                console.log(total);
+                                userBlogs.push(total);
+                            }
+                            console.log(userBlogs);
+                            finalResults = userBlogs.map(post => {
+                                console.log(post);
+                                console.log(post.value);
+                                if (post.image) {
+                                    images = Object.values(post.image);
+                                    content = Object.values(post.content);
+                                    console.log(images)
+                                    console.log(content);
+                                    link = `${id}/blogs/${post.value}`;
+                                    console.log(link);
+                                    return (
+                                        <div key={content[0].id} className='blogs'>
+                                            <h2>{content[0].title}</h2>
+                                            {/* <p>Author: {author[0].name}</p> */}
+                                            <p>Author: {name}</p>
+                                            <div className='image'>
+                                                <img src={images[0].imageUrl} />
+                                            </div>
+                                            <Link to={link}><button>Read Blog</button></Link>
+                                        </div>
+                                    )
+                                }
+
+                                if (!post.images) {
+                                    content = Object.values(post.content);
+                                    link = `${id}/blogs/${post.value}`;
+                                    console.log(link);
+                                    console.log(content);
+                                    return (
+                                        <div key={content[0].id} className='blogs'>
+                                            <h2>{content[0].title}</h2>
+                                            <p>Author: {name}</p>
+                                            <Link to={link}><button>Read Blog</button></Link>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+
+
+                    }
+
+
+
+
+
+
+
 
                 }
-                console.log(followingPosts);
-                console.log(followerBlogs);
+                )
+
+                // console.log(followingPosts);
+                // console.log(followerBlogs);
 
                 followingUsers = (
                     <div className='featured'>
                         <h3 className="featuredH3">Recent Posts</h3>
                         <div className='featuredBlogs'>
+                            {finalResults}
                             {followingPosts}
                         </div>
                     </div >
