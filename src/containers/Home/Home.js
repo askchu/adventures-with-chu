@@ -93,8 +93,8 @@ function Home() {
     let finalResults = <div></div>
 
     console.log(followingData);
-    if (followingData) {
 
+    if (followingData) {
         if (followingData.length > 0) {
             followingData.map((user) => {
                 console.log(user);
@@ -142,6 +142,11 @@ function Home() {
                         const profileName = Object.values(user.profile);
                         console.log(profileName);
                         name = profileName[0].name;
+
+                        let profileImg = ''
+                        let profileImg1 = ''
+
+
                         console.log(name);
                         const overallResults = [];
                         let total = [];
@@ -187,11 +192,23 @@ function Home() {
                                 console.log(content);
                                 link = `${id}/blogs/${res.value}`;
                                 console.log(link);
+                                if (profileName[0].images) {
+                                    profileImg = profileName[0].images;
+                                    profileImg1 = Object.values(profileName[0].images);
+                                    console.log(profileImg)
+                                    console.log(profileImg1[0].imageUrl)
+                                }
                                 return (
                                     <div key={content[0].id} className='blogs'>
-                                        <h2>{content[0].title}</h2>
-                                        {/* <p>Author: {author[0].name}</p> */}
-                                        <p>Author: {name}</p>
+                                        <div className='following'>
+                                            <div className='profilePic'>
+                                                <img src={profileImg1[0].imageUrl} />
+                                            </div>
+                                            <div className='profileContent'>
+                                                <h2>{name}</h2>
+                                                <p>{content[0].date}</p>
+                                            </div>
+                                        </div>
                                         <div className='image'>
                                             <img src={images[0].imageUrl} />
                                         </div>
@@ -205,14 +222,28 @@ function Home() {
                                 console.log(content);
                                 link = `${id}/blogs/${res.value}`;
                                 console.log(link);
+                                if (profileName[0].images) {
+                                    profileImg = profileName[0].images;
+                                    profileImg1 = Object.values(profileName[0].images);
+                                    console.log(profileImg)
+                                    console.log(profileImg1[0].imageUrl)
+                                }
                                 return (
                                     <div key={content[0].id} className='blogs'>
-                                        <h2>{content[0].title}</h2>
-                                        <p>Author: {name}</p>
+                                        <div className='following'>
+                                            <div className='profilePic'>
+                                                <img src={profileImg1[0].imageUrl} />
+                                            </div>
+                                            <div className='profileContent'>
+                                                <h2>{name}</h2>
+                                                <p>{content[0].date}</p>
+                                            </div>
+                                        </div>
                                         {/* <div className='image'>
                                     <img src={images[0].imageUrl} />
                                 </div> */}
                                         {/* <p>{values[0].content}</p> */}
+                                        <h4>{content[0].title}</h4>
                                         <Link to={link}><button>Read Blog</button></Link>
                                     </div>
                                 )
@@ -228,7 +259,10 @@ function Home() {
                         console.log(user);
                         console.log(user[0].profile);
                         const profileName = Object.values(user[0].profile);
-                        name = profileName[0].name
+                        name = profileName[0].name;
+
+                        let profileImg = '';
+                        let profileImg1 = '';
                         console.log(name);
                         console.log(user[0].blogs);
                         const blogs = Object.keys(user[0].blogs);
@@ -278,11 +312,26 @@ function Home() {
                                     console.log(content);
                                     link = `${id}/blogs/${post.value}`;
                                     console.log(link);
+                                    if (profileName[0].images) {
+                                        profileImg = profileName[0].images;
+                                        profileImg1 = Object.values(profileName[0].images);
+                                        console.log(profileImg)
+                                        console.log(profileImg1[0].imageUrl)
+                                    }
                                     return (
                                         <div key={content[0].id} className='blogs'>
-                                            <h2>{content[0].title}</h2>
+                                            <div className='following'>
+                                                <div className='profilePic'>
+                                                    <img src={profileImg1[0].imageUrl} />
+                                                </div>
+                                                <div className='profileContent'>
+                                                    <h2>{name}</h2>
+                                                    <p>{content[0].date}</p>
+                                                </div>
+                                            </div>
+
+                                            <h4>{content[0].title}</h4>
                                             {/* <p>Author: {author[0].name}</p> */}
-                                            <p>Author: {name}</p>
                                             <div className='image'>
                                                 <img src={images[0].imageUrl} />
                                             </div>
@@ -296,10 +345,23 @@ function Home() {
                                     link = `${id}/blogs/${post.value}`;
                                     console.log(link);
                                     console.log(content);
+                                    if (profileName[0].images) {
+                                        profileImg = profileName[0].images;
+                                        profileImg1 = Object.values(profileName[0].images);
+                                        console.log(profileImg)
+                                        console.log(profileImg1[0].imageUrl)
+                                    }
                                     return (
                                         <div key={content[0].id} className='blogs'>
-                                            <h2>{content[0].title}</h2>
-                                            <p>Author: {name}</p>
+                                            <div className='following'>
+                                                <div className='profilePic'>
+                                                    <img src={profileImg1[0].imageUrl} />
+                                                </div>
+                                                <div className='profileContent'>
+                                                    <h2>{name}</h2>
+                                                    <p>{content[0].date}</p>
+                                                </div>
+                                            </div>
                                             <Link to={link}><button>Read Blog</button></Link>
                                         </div>
                                     )
@@ -337,16 +399,32 @@ function Home() {
         }
     }
 
-    return (
-        <div className='home'>
+
+    let loggedIn = (<div></div>)
+    if (currentUser) {
+        console.log("someone logged in")
+    }
+    if (!currentUser) {
+        console.log("not logged in")
+        loggedIn = (
             <div className='logo'>
-                {/* <img src={img} alt={"logo that says - adventures with chu"} /> */}
                 <div className='brief'>
                     <h1>Welcome to Adventures with Chu</h1>
                     <h3>Start blogging and share with everyone.</h3>
-                    {/* Your post might just be someone's next adventure!</h3> */}
                 </div>
             </div>
+        )
+    }
+
+    return (
+        <div className='home'>
+            {/* <div className='logo'>
+                <div className='brief'>
+                    <h1>Welcome to Adventures with Chu</h1>
+                    <h3>Start blogging and share with everyone.</h3>
+                </div>
+            </div> */}
+            {loggedIn}
 
             <main className='containers welcome'>
 
@@ -382,5 +460,4 @@ function Home() {
         </div >
     )
 }
-
 export default Home

@@ -123,6 +123,10 @@ button a {
     margin-bottom: 0px;
     border-bottom: 1px solid #111;
 }
+.featured h4{
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
 .description {
     background-image: url(../../assets/images/back2.jpg);
     background-repeat: no-repeat;
@@ -168,10 +172,34 @@ button a {
     margin: 20px auto;
     text-align: center;
 }
+.blogs .following{
+    width: 100%;
+    max-width: max-content;
+    display: flex;
+    font-size: 15px;
+}
+.blogs .following .profilePic{
+    width: 25%;
+    height: 25%;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin-right: 10px;
+    background: none;
+}
+.blogs .following .profilePic img{
+    width: 100%;
+    border-radius: 50%;
+    height: 100%;
+    margin: 0 auto;
+}
+.blogs .following .profileContent{
+    text-align: left;
+}
 .blogs:hover{
     box-shadow: 1px 2px 2px rgb(102, 102, 102);
 }
 .blogs h2{
+    margin-top: 0;
     margin-bottom: 0;
 }
 .blogs p{

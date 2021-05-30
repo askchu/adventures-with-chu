@@ -60,7 +60,7 @@
 
 // export default SignIn
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import img from '../../../assets/images/logo3.png';
 import './SignIn.css';
 import { useAuth } from '../AuthContext/AuthContext';
@@ -90,6 +90,10 @@ export default function SignIn() {
         setLoading(false);
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+
+    }, [])
 
     return (
         <div className='container'>
