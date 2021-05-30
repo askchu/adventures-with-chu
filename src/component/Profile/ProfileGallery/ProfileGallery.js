@@ -28,19 +28,24 @@ export default function ProfileGallery() {
     }, [])
 
     let image = [];
+    console.log(blogData);
     if (blogData) {
-        if (blogData.length > 0) {
+        const blogLength = Object.keys(blogData);
+        if (blogLength.length > 0) {
             blogData.map(doc => {
-                console.log(doc.images);
-                let imageValues = Object.values(doc.images);
-                console.log(imageValues);
-                imageValues.map(img => {
-                    image.push({
-                        id: img.id,
-                        url: img.imageUrl
-                    });
-                })
-                console.log(image);
+                if (doc.images) {
+                    console.log(doc.images);
+                    let imageValues = Object.values(doc.images);
+                    console.log(imageValues);
+                    imageValues.map(img => {
+                        image.push({
+                            id: img.id,
+                            url: img.imageUrl
+                        });
+                    })
+                    console.log(image);
+                }
+
             })
             // image = blogData.map(doc => (
             //     <div className='img-wrap' key={doc.id}>
