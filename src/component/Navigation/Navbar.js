@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown/Dropdown';
 import Aux from '../../hoc/Auxilary/Auxilary';
@@ -11,11 +11,12 @@ import { render } from '@testing-library/react';
 function Navbar() {
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
-
+  const [error, setError] = useState('');
+  const { currentUser, logout } = useAuth();
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  const { currentUser } = useAuth();
+  const { history } = useHistory();
 
 
   const onMouseEnter = () => {
@@ -34,6 +35,20 @@ function Navbar() {
     }
   };
 
+  const logOut = async () => {
+    try {
+      setError('');
+      await logout()
+      // history.pushState('/sign-in')
+      window.location.reload();
+
+      history.push('/');
+    } catch {
+      setError('Failed to log out');
+    }
+    closeMobileMenu()
+  }
+
   let navlinks = (
     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
       <li className='nav-item'>
@@ -50,7 +65,7 @@ function Navbar() {
           Browse
             </Link>
       </li>
-
+      {/* 
       <li className='nav-item'>
         <Link
           to='/contact-us'
@@ -59,7 +74,7 @@ function Navbar() {
         >
           Contact Us
             </Link>
-      </li>
+      </li> */}
       <li className='nav-item'>
         <Link
           to='/sign-in'
@@ -105,7 +120,7 @@ function Navbar() {
             </Link>
         </li>
 
-        <li className='nav-item'>
+        {/* <li className='nav-item'>
           <Link
             to='/contact-us'
             className='nav-links'
@@ -113,16 +128,16 @@ function Navbar() {
           >
             Contact Us
             </Link>
-        </li>
-        {/* <li className='nav-item'>
+        </li> */}
+        <li className='nav-item'>
           <Link
-            to='/profile'
+            to='/'
             className='nav-links'
-            onClick={closeMobileMenu}
+            onClick={logOut}
           >
             Log Out
             </Link>
-        </li> */}
+        </li>
       </ul>
     )
   }

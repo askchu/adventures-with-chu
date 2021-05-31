@@ -130,7 +130,7 @@ button {
 }
 .tags{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     /* border-bottom: 1px solid #111; */
 }
 
@@ -138,6 +138,69 @@ button {
     max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 20px;
+}
+.count > * {
+    font-weight: 700;
+    font-size: 200px;
+    color: #111;
+}
+.count a:hover {
+    color: rgb(4, 106, 189);
+}
+.profileName{
+    height: 50%;
+    margin: auto 0;
+}
+.followingUsers{
+        width: 50%;
+    max-width: 20em;
+    height: max-content;
+    border: 1px solid #111;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 20px auto;
+    text-align: center;
+}
+.followingUsers .following{
+    width: 100%;
+    /* max-width: max-content; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 15px;
+}
+.followingUsers .following .profilePic {
+    width: 100%;
+    max-width: 75px;
+    height: 25%;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin-right: 10px;
+    background: none;
+}
+.followingUsers .following .profilePic img{
+        width: 100%;
+    border-radius: 50%;
+    height: 100%;
+    margin: 0 auto;
+}
+.followingUsers button{
+    /* margin-top: 20px; */
+    font-size: 1.2rem;
+    border-radius: 20px;
+    padding: 5px;
+    background: linear-gradient(35deg
+, #81d6f2, #4ab1f5 );
+    color: #fff;
+}
+
+.profile{
+    height: 100%;
+    min-height: 100vh;
+}
+.followers h1{
+    text-align: center;
 }
 
 @media (min-width: 900px){

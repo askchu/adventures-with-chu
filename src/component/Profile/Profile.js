@@ -159,9 +159,11 @@ export default function Profile() {
                         {location}
                     </div>
                     <div className='count'>
-                        <p>Posts: {postLength}</p>
-                        <p className='followers'>Followers: {followersCount}</p>
-                        <p className='following'>Following: {followingCount}</p>
+                        <Link to='/profile-blogs'>
+                            <p>Posts: {postLength}</p>
+                        </Link>
+                        <Link to='/profile-followers'><p className='followers'>Followers: {followersCount}</p></Link>
+                        <Link to='/profile-following'><p className='following'>Following: {followingCount}</p></Link>
                     </div>
                 </div>
                 <div className='links'>
@@ -172,21 +174,7 @@ export default function Profile() {
             <div className='underline2'>
                 <div className='shadow2'></div>
             </div>
-            <main>
-                <div className='userContent'>
-                    <div className='tags'>
-                        <p>
-                            <Link to='profile-blogs'><i className="fas fa-scroll"></i>Blogs</Link>
-                        </p>
-                        <p>
-                            <Link to='profile-gallery'><i className="far fa-image"></i>Gallery</Link>
-                        </p>
-                        {/* <p>
-                            <Link to='profile-saved'><i className="far fa-bookmark"></i>Saved</Link>
-                        </p> */}
-                    </div>
-                </div>
-            </main>
+
         </div>
     )
 }

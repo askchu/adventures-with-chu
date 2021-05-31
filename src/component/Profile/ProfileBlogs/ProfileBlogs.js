@@ -411,6 +411,18 @@ export default function ProfileBlogs() {
     return (
         <div className='profile'>
             <Profile />
+            <main>
+                <div className='userContent'>
+                    <div className='tags'>
+                        <p>
+                            <Link to='profile-blogs'><i className="fas fa-scroll"></i>Blogs</Link>
+                        </p>
+                        <p>
+                            <Link to='profile-gallery'><i className="far fa-image"></i>Gallery</Link>
+                        </p>
+                    </div>
+                </div>
+            </main>
             <div className='containers'>
                 {createBlog}
             </div>

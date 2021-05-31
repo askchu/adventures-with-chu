@@ -6,6 +6,8 @@ import Modal from '../../Blogging/ImageGrid/Modal/Modal';
 import Profile from '../Profile';
 import { motion } from 'framer-motion';
 import Footer from '../../Navigation/Footer/Footer';
+import { Link } from 'react-router-dom';
+
 
 export default function ProfileGallery() {
     const { currentUser } = useAuth();
@@ -67,6 +69,18 @@ export default function ProfileGallery() {
 
             <div className='profile'>
                 <Profile />
+                <main>
+                    <div className='userContent'>
+                        <div className='tags'>
+                            <p>
+                                <Link to='profile-blogs'><i className="fas fa-scroll"></i>Blogs</Link>
+                            </p>
+                            <p>
+                                <Link to='profile-gallery'><i className="far fa-image"></i>Gallery</Link>
+                            </p>
+                        </div>
+                    </div>
+                </main>
                 <div className='profile-content'>
                     <div className='img-grid'>
                         {image.map(doc => (

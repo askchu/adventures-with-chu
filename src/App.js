@@ -16,6 +16,8 @@ import ForgotPw from './component/Authentication/ForgotPw/ForgotPw';
 import UpdateProfile from './component/Profile/UpdateProfile/UpdateProfile';
 import BrowseBlog from './containers/BrowseBlog/BrowseBlog';
 import ProfileGallery from './component/Profile/ProfileGallery/ProfileGallery';
+import ProfileFollowing from './component/Profile/ProfileFollowing/ProfileFollowing';
+import ProfileFollowers from './component/Profile/ProfileFollowers/ProfileFollowers';
 import SavedPosts from './component/Profile/SavedPosts/SavedPosts';
 import ShowUsersBlogs from './component/Blogging/ShowBlog/ShowUsersBlog/ShowUsersBlogs';
 import Footer from './component/Navigation/Footer/Footer';
@@ -34,6 +36,8 @@ function App() {
           <Route path='/edit-profile' component={UpdateProfile} />
           <PrivateRoutes path="/profile-blogs" exact component={Dashboard} />
           <PrivateRoutes path="/profile-gallery" exact component={ProfileGallery} />
+          <PrivateRoutes path="/profile-following" exact component={ProfileFollowing} />
+          <PrivateRoutes path="/profile-followers" exact component={ProfileFollowers} />
           <PrivateRoutes path="/profile-saved" exact component={SavedPosts} />
           <PrivateRoutes path="/profile-blogs-new" exact component={Add} />
           <PrivateRoutes path="/profile-blogs/:id/edit" exact component={Edit} />
