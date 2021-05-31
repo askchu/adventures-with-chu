@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/https//askchu.github.io/adventures-with-chu/static/css/main.c5cf4ee7.chunk.css",
-    "main.js": "/https//askchu.github.io/adventures-with-chu/static/js/main.c0a66f3c.chunk.js",
-    "main.js.map": "/https//askchu.github.io/adventures-with-chu/static/js/main.c0a66f3c.chunk.js.map",
-    "runtime-main.js": "/https//askchu.github.io/adventures-with-chu/static/js/runtime-main.07fbdb77.js",
-    "runtime-main.js.map": "/https//askchu.github.io/adventures-with-chu/static/js/runtime-main.07fbdb77.js.map",
-    "static/js/2.8ce761ef.chunk.js": "/https//askchu.github.io/adventures-with-chu/static/js/2.8ce761ef.chunk.js",
-    "static/js/2.8ce761ef.chunk.js.map": "/https//askchu.github.io/adventures-with-chu/static/js/2.8ce761ef.chunk.js.map",
-    "static/js/3.9b140ca4.chunk.js": "/https//askchu.github.io/adventures-with-chu/static/js/3.9b140ca4.chunk.js",
-    "static/js/3.9b140ca4.chunk.js.map": "/https//askchu.github.io/adventures-with-chu/static/js/3.9b140ca4.chunk.js.map",
-    "index.html": "/https//askchu.github.io/adventures-with-chu/index.html",
-    "static/css/main.c5cf4ee7.chunk.css.map": "/https//askchu.github.io/adventures-with-chu/static/css/main.c5cf4ee7.chunk.css.map",
-    "static/js/2.8ce761ef.chunk.js.LICENSE.txt": "/https//askchu.github.io/adventures-with-chu/static/js/2.8ce761ef.chunk.js.LICENSE.txt",
-    "static/media/Profile.css": "/https//askchu.github.io/adventures-with-chu/static/media/back1.22a64558.jpg",
-    "static/media/Home.css": "/https//askchu.github.io/adventures-with-chu/static/media/back2.49c433e1.jpg",
-    "static/media/clouds.9205ae1a.jpg": "/https//askchu.github.io/adventures-with-chu/static/media/clouds.9205ae1a.jpg",
-    "static/media/img1.03faf828.jpg": "/https//askchu.github.io/adventures-with-chu/static/media/img1.03faf828.jpg",
-    "static/media/img2.cca8c7c5.jpg": "/https//askchu.github.io/adventures-with-chu/static/media/img2.cca8c7c5.jpg",
-    "static/media/logo1.24b6b22e.png": "/https//askchu.github.io/adventures-with-chu/static/media/logo1.24b6b22e.png",
-    "static/media/logo3.7c17e91f.png": "/https//askchu.github.io/adventures-with-chu/static/media/logo3.7c17e91f.png"
+    "main.css": "/adventures-with-chu/static/css/main.cb16790e.chunk.css",
+    "main.js": "/adventures-with-chu/static/js/main.23083a33.chunk.js",
+    "main.js.map": "/adventures-with-chu/static/js/main.23083a33.chunk.js.map",
+    "runtime-main.js": "/adventures-with-chu/static/js/runtime-main.4454ed0e.js",
+    "runtime-main.js.map": "/adventures-with-chu/static/js/runtime-main.4454ed0e.js.map",
+    "static/js/2.81f1ca85.chunk.js": "/adventures-with-chu/static/js/2.81f1ca85.chunk.js",
+    "static/js/2.81f1ca85.chunk.js.map": "/adventures-with-chu/static/js/2.81f1ca85.chunk.js.map",
+    "static/js/3.9b140ca4.chunk.js": "/adventures-with-chu/static/js/3.9b140ca4.chunk.js",
+    "static/js/3.9b140ca4.chunk.js.map": "/adventures-with-chu/static/js/3.9b140ca4.chunk.js.map",
+    "index.html": "/adventures-with-chu/index.html",
+    "static/css/main.cb16790e.chunk.css.map": "/adventures-with-chu/static/css/main.cb16790e.chunk.css.map",
+    "static/js/2.81f1ca85.chunk.js.LICENSE.txt": "/adventures-with-chu/static/js/2.81f1ca85.chunk.js.LICENSE.txt",
+    "static/media/Profile.css": "/adventures-with-chu/static/media/back1.22a64558.jpg",
+    "static/media/Home.css": "/adventures-with-chu/static/media/back2.49c433e1.jpg",
+    "static/media/clouds.9205ae1a.jpg": "/adventures-with-chu/static/media/clouds.9205ae1a.jpg",
+    "static/media/img1.03faf828.jpg": "/adventures-with-chu/static/media/img1.03faf828.jpg",
+    "static/media/img2.cca8c7c5.jpg": "/adventures-with-chu/static/media/img2.cca8c7c5.jpg",
+    "static/media/logo1.24b6b22e.png": "/adventures-with-chu/static/media/logo1.24b6b22e.png",
+    "static/media/logo3.7c17e91f.png": "/adventures-with-chu/static/media/logo3.7c17e91f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.07fbdb77.js",
-    "static/js/2.8ce761ef.chunk.js",
-    "static/css/main.c5cf4ee7.chunk.css",
-    "static/js/main.c0a66f3c.chunk.js"
+    "static/js/runtime-main.4454ed0e.js",
+    "static/js/2.81f1ca85.chunk.js",
+    "static/css/main.cb16790e.chunk.css",
+    "static/js/main.23083a33.chunk.js"
   ]
 }
