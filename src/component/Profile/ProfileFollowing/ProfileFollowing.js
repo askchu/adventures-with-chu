@@ -101,7 +101,7 @@ export default function ProfileGallery() {
     console.log(followingData);
     console.log(userProfile);
 
-    let test = <div></div>
+    let displayUsers = <div></div>
 
 
 
@@ -109,7 +109,7 @@ export default function ProfileGallery() {
     if (followingData) {
 
         if (followingData.length > 0) {
-            test = followingData.map(doc => {
+            displayUsers = followingData.map(doc => {
                 console.log(currentUser.uid)
                 console.log(doc);
                 console.log(doc.id);
@@ -169,7 +169,7 @@ export default function ProfileGallery() {
                 <Profile />
                 <div className='followers'>
                     <h1>Following</h1>
-                    {test}
+                    {displayUsers}
                 </div>
             </div>
             <Footer />

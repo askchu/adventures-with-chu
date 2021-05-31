@@ -330,21 +330,23 @@ export default function Browse() {
 
     return (
 
-        <div className="browse">
-            <div className='search containers'>
-                <form onSubmit={searchData} className='browseForm'>
-                    <div className='browseInput'>
-                        <label>Browse</label>
-                        <input type='text' ref={inputRef} />
-                    </div>
-                    <button type='submit'>Search</button>
-                </form>
+        <div className="home">
+            <div className='browse'>
+                <div className='search'>
+                    <form onSubmit={searchData} className='browseForm'>
+                        <div className='browseInput'>
+                            <label>Browse</label>
+                            <input type='text' ref={inputRef} />
+                        </div>
+                        <button type='submit'>Search</button>
+                    </form>
+                </div>
+                <div className='grids'>
+                    {displayUsers}
+                    {content}
+                </div>
             </div>
-            <div className='grids'>
-                {displayUsers}
-                {content}
-            </div>
-            {/* <Footer /> */}
+            <Footer />
         </div >
     )
 }
