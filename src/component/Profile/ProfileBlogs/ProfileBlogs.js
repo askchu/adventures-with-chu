@@ -7,6 +7,7 @@ import { useAuth } from '../../Authentication/AuthContext/AuthContext';
 import Aux from '../../../hoc/Auxilary/Auxilary';
 import './ProfileBlogs.css';
 import ShowNews from '../../../containers/Home/News/ShowNews/ShowNews';
+import Footer from '../../Navigation/Footer/Footer';
 
 export default function ProfileBlogs() {
 
@@ -181,10 +182,8 @@ export default function ProfileBlogs() {
                             <img src={imageUrl} />
                         </div> */}
                             <div className='info'>
-                                <strong>
-                                    <p>By: {profile[0].name}</p>
-                                    <p>{contentObjectKey[contentKey].date}</p>
-                                </strong>
+                                {/* <p>By: {profile[0].name}</p> */}
+                                <p>{contentObjectKey[contentKey].date}</p>
                             </div>
                             <p>{contentObjectKey[contentKey].content}</p>
                         </div>
@@ -203,15 +202,13 @@ export default function ProfileBlogs() {
                             description={contentObjectKey[contentKey].content}
                             author={profile[0].name} /> */}
                             <h2>{contentObjectKey[contentKey].title}</h2>
+                            {/* <p>By: {profile[0].name}</p> */}
+                            <p>{contentObjectKey[contentKey].date}</p>
                             <div className='details'>
                                 <div className='img'>
                                     <img src={imageUrl} />
                                 </div>
                                 <div className='info'>
-                                    <strong>
-                                        <p>By: {profile[0].name}</p>
-                                        <p>{contentObjectKey[contentKey].date}</p>
-                                    </strong>
                                     <p>{contentObjectKey[contentKey].content}</p>
                                 </div>
                             </div>
@@ -412,7 +409,7 @@ export default function ProfileBlogs() {
     console.log(profile);
 
     return (
-        <div>
+        <div className='profile'>
             <Profile />
             <div className='containers'>
                 {createBlog}

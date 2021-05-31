@@ -18,6 +18,7 @@ import BrowseBlog from './containers/BrowseBlog/BrowseBlog';
 import ProfileGallery from './component/Profile/ProfileGallery/ProfileGallery';
 import SavedPosts from './component/Profile/SavedPosts/SavedPosts';
 import ShowUsersBlogs from './component/Blogging/ShowBlog/ShowUsersBlog/ShowUsersBlogs';
+import Footer from './component/Navigation/Footer/Footer';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/my-blogs/:id/" exact component={ShowBlog} />
           <Route path="/profile/my-blogs" component={Blog} />
         </Switch>
+        {/* <Footer /> */}
       </AuthProvider>
     </Router>
   );

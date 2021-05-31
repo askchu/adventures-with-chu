@@ -3,7 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import './Browse.css';
 import instance from '../../axios-orders';
 import { useAuth } from '../Authentication/AuthContext/AuthContext';
-
+import Footer from '../Navigation/Footer/Footer';
+import Aux from '../../hoc/Auxilary/Auxilary';
+import img1 from '../../assets/images/img1.jpg';
 
 export default function Browse() {
     const [articles, setArticles] = useState([]);
@@ -34,7 +36,7 @@ export default function Browse() {
     const browseData = async (searchValue) => {
         // max articles = 10
         // lang = language is english
-        await axios.get(`https://gnews.io/api/v4/search?q=${searchValue}&max=5&lang=en&token=${token}`)
+        await axios.get(`https://gnews.io/api/v4/search?q=${searchValue}&max=10&lang=en&token=${token}`)
             .then(response => {
                 console.log(response.data);
                 let results = [];
@@ -163,15 +165,21 @@ export default function Browse() {
 
     let displayUsers = ''
     let userInfo = ''
+    let images = '';
     if (foundUser) {
         displayUsers = foundUser.map(doc => {
             // console.log(doc.name);
             // console.log(doc.images);
-            let images = Object.values(doc.images);
+
+
             // console.log(images);
             let pic = ''
             if (doc.images) {
+                images = Object.values(doc.images);
                 pic = images[0].imageUrl;
+            }
+            if (!doc.images) {
+                pic = img1
             }
             if (currentUser.uid === doc.id) {
                 userInfo = (
@@ -321,6 +329,7 @@ export default function Browse() {
     // TODO: Make categories of just users, news, everything
 
     return (
+
         <div className="browse">
             <div className='search containers'>
                 <form onSubmit={searchData} className='browseForm'>
@@ -335,6 +344,7 @@ export default function Browse() {
                 {displayUsers}
                 {content}
             </div>
+            {/* <Footer /> */}
         </div >
     )
 }
