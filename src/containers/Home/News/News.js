@@ -14,11 +14,11 @@ class News extends Component {
 
     componentDidMount() {
         const token = process.env.REACT_APP_NEWSAPI;
-        axios.get('http://newsapi.org/v2/everything?' +
+        axios.get('https://newsapi.org/v2/everything?' +
             'qInTitle=vacation&' +
             // 'from=2021-02-22&' +
             'sortBy=popularity&' +
-            'apiKey=1b2cf9f17cb94f8fbb7fd0f5fd2ff074')
+            `apiKey=${token}`)
             .then(response => {
                 const articles = [];
                 // console.log(response.data);
