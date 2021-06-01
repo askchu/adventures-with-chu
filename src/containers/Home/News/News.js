@@ -13,6 +13,7 @@ class News extends Component {
     }
 
     componentDidMount() {
+        const token = process.env.REACT_APP_NEWSAPI;
         axios.get('http://newsapi.org/v2/everything?' +
             'qInTitle=vacation&' +
             // 'from=2021-02-22&' +

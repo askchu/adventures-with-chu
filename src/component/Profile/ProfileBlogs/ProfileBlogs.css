@@ -51,6 +51,7 @@
 }
 .perBlog .card{
     min-width: 100px;
+    padding: 10px;
 }
 .perBlog .card h2{
     margin-bottom: 0;

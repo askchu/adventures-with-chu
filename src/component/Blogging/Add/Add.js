@@ -8,6 +8,7 @@ import instance from '../../../axios-orders';
 import GetData from './GetData/GetData';
 import ShowCurrentImages from './ShowCurrentImages/ShowCurrentImages';
 import ModalDescription from './ModalDescription/ModalDescription';
+import Footer from '../../Navigation/Footer/Footer';
 
 
 
@@ -274,6 +275,7 @@ export default function Add() {
     console.log(deleteUrl);
 
     return (
+
         <div className='container-add'>
             <div className='title'>
                 <h1>New Blog</h1>

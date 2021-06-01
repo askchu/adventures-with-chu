@@ -66,6 +66,7 @@ import './SignIn.css';
 import { useAuth } from '../AuthContext/AuthContext';
 import Error from '../Error/Error';
 import { Link, useHistory } from 'react-router-dom';
+import Footer from '../../Navigation/Footer/Footer';
 
 export default function SignIn() {
 
@@ -96,55 +97,61 @@ export default function SignIn() {
     }, [])
 
     return (
-        <div className='container'>
 
-            <div className='signUp'>
-                <figure>
-                    <img src={img} alt={"adventures with chu"} />
-                </figure>
-                {/* {JSON.stringify(currentUser.email)} */}
-                {/* {JSON.stringify(currentUser.email)} */}
-                {/* {currentUser && currentUser.email} */}
-                {/* {currentUser.email} */}
-                {error && <Error message={error} />}
-                <form onSubmit={submitHandler}>
-                    {/* <div className='input-form'>
+        <div className='general'>
+
+            <div className='container'>
+
+                <div className='signUp'>
+                    <figure>
+                        <img src={img} alt={"adventures with chu"} />
+                    </figure>
+                    <h1>Login</h1>
+                    {/* {JSON.stringify(currentUser.email)} */}
+                    {/* {JSON.stringify(currentUser.email)} */}
+                    {/* {currentUser && currentUser.email} */}
+                    {/* {currentUser.email} */}
+                    {error && <Error message={error} />}
+                    <form onSubmit={submitHandler}>
+                        {/* <div className='input-form'>
                         <label>Full Name:</label>
                         <input type='text' required ref={nameRef} />
                     </div> */}
-                    <div className='input-form'>
-                        <label>Email Address</label>
-                        <input type='email' required ref={emailRef} />
-                    </div>
-                    {/* <div className='input-form'>
+                        <div className='input-form'>
+                            <label>Email Address</label>
+                            <input type='email' required ref={emailRef} />
+                        </div>
+                        {/* <div className='input-form'>
                         <label>Username:</label>
                         <input type='text' required ref={usernameRef} autoComplete='off' />
                     </div> */}
-                    <div className='input-form'>
-                        <label>Password</label>
-                        <input type='password' required ref={passwordRef} minLength="6" autoComplete='off' />
-                    </div>
-                    {/* <div className='input-form'>
+                        <div className='input-form'>
+                            <label>Password</label>
+                            <input type='password' required ref={passwordRef} minLength="6" autoComplete='off' />
+                        </div>
+                        {/* <div className='input-form'>
                         <label>Confirm Password</label>
                         <input type='password' required ref={passwordConfirmedRef} minLength="6" autoComplete='off' />
                     </div> */}
 
-                    <button disabled={loading} type='submit' className='button'
-                    // onClick={this.newPostHandler}
-                    >Log In
+                        <button disabled={loading} type='submit' className='button'
+                        // onClick={this.newPostHandler}
+                        >Log In
                     </button>
-                </form>
-                <div className='login'>
-                    <p>Don't have an account? <span>
-                        <a href='/sign-up'>Sign Up</a>
-                    </span></p>
-                </div>
-                <div className='login'>
-                    <p>Forgot password? <span>
-                        <a href='/forgot-password'>Reset Password</a>
-                    </span></p>
+                    </form>
+                    <div className='login'>
+                        <p>Don't have an account? <span>
+                            <a href='/sign-up'>Sign Up</a>
+                        </span></p>
+                    </div>
+                    <div className='login'>
+                        <p>Forgot password? <span>
+                            <a href='/forgot-password'>Reset Password</a>
+                        </span></p>
+                    </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }
