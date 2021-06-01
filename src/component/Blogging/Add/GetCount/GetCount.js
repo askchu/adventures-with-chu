@@ -29,8 +29,8 @@ export default function GetCount() {
         };
         instance.post(`users/${currentUser.uid}/count.json`, number)
             .then(response => {
-                console.log(response)
-                console.log(response.data)
+                // console.log(response)
+                // console.log(response.data)
                 // console.log(`count is ${number.count}`)
                 const results = [];
                 for (let key in response.data) {

@@ -14,7 +14,7 @@ const useStorage = (file, id, state, imgId) => {
     // useEffect is going to run everytime the [file] changes
     useEffect(async () => {
         // references
-        console.log(id + ' from useStorage.js')
+        // console.log(id + ' from useStorage.js')
         const storageRef = storage.ref(file.name);
         const collectionRef = firestore.collection(userId)
         // const collectionRef = firestore.collection('images')
@@ -34,7 +34,7 @@ const useStorage = (file, id, state, imgId) => {
                 .then(response => {
                     console.log(response.data)
                     const obj = Object.keys(response.data);
-                    console.log(obj[0]);
+                    // console.log(obj[0]);
                     data = obj[0]
                 })
                 .catch(err => console.log(err));
@@ -74,7 +74,7 @@ const useStorage = (file, id, state, imgId) => {
                 await instance.post(`users/${currentUser.uid}/profile/${id}/images.json`, info)
                     .then(response => {
                         console.log(response)
-                        console.log('img uploaded to firebase DB')
+                        // console.log('img uploaded to firebase DB')
                     })
                     .catch(err => console.log(err));
             }
@@ -85,7 +85,7 @@ const useStorage = (file, id, state, imgId) => {
                     await instance.post(`users/${currentUser.uid}/profile/${res}/images.json`, info)
                         .then(response => {
                             console.log(response)
-                            console.log('img uploaded to firebase DB')
+                            // console.log('img uploaded to firebase DB')
                         })
                         .catch(err => console.log(err));
                 })

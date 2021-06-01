@@ -36,7 +36,9 @@ export function AuthProvider({ children }) {
             // photoURL: photoName,
             email: email,
             password: password
-        }).then(console.log('update successful'))
+        }).then(res => {
+            // console.log('update successful')
+        })
             .catch(e => {
                 console.log(e);
             })

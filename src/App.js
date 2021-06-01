@@ -4,7 +4,7 @@ import Home from './containers/Home/Home';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Navbar from './component/Navigation/Navbar';
 import './App.css';
-// import Add from './component/Blogging/Add/Add';
+import Add from './component/Blogging/Add/Add';
 // import Edit from './component/Blogging/Add/Edit';
 import ShowBlog from './component/Blogging/ShowBlog/ShowBlog';
 import { AuthProvider } from './component/Authentication/AuthContext/AuthContext';
@@ -15,7 +15,7 @@ import PrivateRoutes from './component/Authentication/PrivateRoutes/PrivateRoute
 import ForgotPw from './component/Authentication/ForgotPw/ForgotPw';
 // import UpdateProfile from './component/Profile/UpdateProfile/UpdateProfile';
 import BrowseBlog from './containers/BrowseBlog/BrowseBlog';
-// import ProfileGallery from './component/Profile/ProfileGallery/ProfileGallery';
+import ProfileGallery from './component/Profile/ProfileGallery/ProfileGallery';
 // import ProfileFollowing from './component/Profile/ProfileFollowing/ProfileFollowing';
 // import ProfileFollowers from './component/Profile/ProfileFollowers/ProfileFollowers';
 // const SignUp = React.lazy(() => import('./component/Authentication/SignUp/SignUp'));
@@ -25,9 +25,9 @@ import ShowUsersBlogs from './component/Blogging/ShowBlog/ShowUsersBlog/ShowUser
 const SignIn = React.lazy(() => import('./component/Authentication/SignIn/SignIn'));
 const ProfileFollowing = React.lazy(() => import('./component/Profile/ProfileFollowing/ProfileFollowing'));
 const ProfileFollowers = React.lazy(() => import('./component/Profile/ProfileFollowers/ProfileFollowers'));
-const Add = React.lazy(() => import('./component/Blogging/Add/Add'));
+// const Add = React.lazy(() => import('./component/Blogging/Add/Add'));
 const Edit = React.lazy(() => import('./component/Blogging/Add/Edit'));
-const ProfileGallery = React.lazy(() => import('./component/Profile/ProfileGallery/ProfileGallery'));
+// const ProfileGallery = React.lazy(() => import('./component/Profile/ProfileGallery/ProfileGallery'));
 const UpdateProfile = React.lazy(() => import('./component/Profile/UpdateProfile/UpdateProfile'))
 
 

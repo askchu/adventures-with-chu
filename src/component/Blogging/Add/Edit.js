@@ -34,7 +34,7 @@ export default function Edit() {
     const [deletedImage, setDeletedImage] = useState(null);
     const [saveDrafts, setSaveDrafts] = useState(false);
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
     const [draftData, setDraftData] = useState([]);
 
 
@@ -43,7 +43,7 @@ export default function Edit() {
     // Grabs images from /userId/images database
     const { datas } = GetData(docs, id, savedDescription, deletedImage);
 
-    console.log(datas);
+    // console.log(datas);
 
 
 
@@ -55,7 +55,7 @@ export default function Edit() {
         if (count.length > 1) {
             countArrayNumber = count.length - 1;
         }
-        console.log(countArrayNumber);
+        // console.log(countArrayNumber);
         if (selected && types.includes(selected.type)) {
             setFile(selected);
             setCountId(id);
@@ -81,7 +81,7 @@ export default function Edit() {
     const output = `${month} ${day}/${year}`;
 
 
-    console.log(count.id);
+    // console.log(count.id);
 
 
     const saveDraft = () => {
@@ -119,8 +119,8 @@ export default function Edit() {
 
         let contentObjectKey = '';
         let contentKey = '';
-        console.log(contentObjectKey);
-        console.log(contentKey)
+        // console.log(contentObjectKey);
+        // console.log(contentKey)
         if (draftData.length > 0) {
             contentObjectKey = draftData[0].content;
             contentKey = Object.keys(contentObjectKey);
@@ -128,7 +128,7 @@ export default function Edit() {
             setContentPlaceholder(contentObjectKey[contentKey].content)
         }
 
-        console.log(contentValue);
+        // console.log(contentValue);
 
         let post = {
             title: titleValue,
@@ -139,7 +139,7 @@ export default function Edit() {
 
         instance.put(`users/${currentUser.uid}/drafts/${id}/content/${contentKey}.json`, post)
             .then(response => {
-                console.log(response)
+                // console.log(response)
             })
             .catch(error => console.log(error));
 
@@ -148,13 +148,13 @@ export default function Edit() {
             method: 'delete',
             url: `users/${currentUser.uid}/count/${count.id}.json`
         }).then(response => {
-            console.log(response);
-            console.log(`${count.id} count file is deleted`);
+            // console.log(response);
+            // console.log(`${count.id} count file is deleted`);
 
         })
             .catch(err => console.log(err));
 
-        console.log('saved to drafts');
+        // console.log('saved to drafts');
         history.push('/profile-blogs');
     }
 
@@ -164,8 +164,8 @@ export default function Edit() {
             method: 'delete',
             url: `users/${currentUser.uid}/drafts/${id}.json`
         }).then(response => {
-            console.log(response);
-            console.log(`draft ${id} deleted`)
+            // console.log(response);
+            // console.log(`draft ${id} deleted`)
 
         })
             .catch(err => console.log(err));
@@ -176,8 +176,8 @@ export default function Edit() {
             url: `users/${currentUser.uid}/count/${count.id}.json`
             // data: data
         }).then(response => {
-            console.log(response);
-            console.log(`${count.id} count file is deleted`);
+            // console.log(response);
+            // console.log(`${count.id} count file is deleted`);
 
         })
             .catch(err => console.log(err));
@@ -243,11 +243,11 @@ export default function Edit() {
     }
 
     const grabCountData = async () => {
-        console.log(count);
+        // console.log(count);
         await instance.get(`users/${currentUser.uid}/count.json`)
             .then(response => {
-                console.log(response.data)
-                console.log(response.data.length)
+                // console.log(response.data)
+                // console.log(response.data.length)
                 let res = []
                 for (let key in response.data) {
                     res.push({
@@ -255,7 +255,7 @@ export default function Edit() {
                         id: key
                     })
                 }
-                console.log(res.length);
+                // console.log(res.length);
                 let arrayNum = 0;
 
                 if (res.length > 1) {
@@ -270,13 +270,13 @@ export default function Edit() {
     const [contentPlaceholder, setContentPlaceholder] = useState('');
     const [imageData, setImageData] = useState([])
     const [countData, setCountData] = useState([]);
-    console.log(contentPlaceholder);
+    // console.log(contentPlaceholder);
 
 
     const grabDraftData = async () => {
         await instance.get(`users/${currentUser.uid}/drafts/${id}.json`)
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 let res = []
                 res.push({
                     content: response.data.content,
@@ -296,8 +296,8 @@ export default function Edit() {
             }).catch(err => console.log(err));
 
     }
-    console.log(imageData);
-    console.log(titlePlaceholder)
+    // console.log(imageData);
+    // console.log(titlePlaceholder)
 
     let draftImages = [];
 
@@ -313,16 +313,16 @@ export default function Edit() {
 
         instance.post(`users/${currentUser.uid}/blogs/${id}/content.json`, post)
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 // console.log(response.data)
             })
             .catch(error => console.log(error));
 
         for (let img of datas) {
-            console.log(img);
+            // console.log(img);
             instance.post(`users/${currentUser.uid}/blogs/${id}/images.json`, img)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                     // console.log(response.data)
                 })
                 .catch(error => console.log(error));
@@ -332,8 +332,8 @@ export default function Edit() {
             method: 'delete',
             url: `users/${currentUser.uid}/drafts/${id}.json`
         }).then(response => {
-            console.log(response);
-            console.log(`draft ${id} deleted`)
+            // console.log(response);
+            // console.log(`draft ${id} deleted`)
 
         })
             .catch(err => console.log(err));
@@ -351,14 +351,14 @@ export default function Edit() {
 
     }, [deletedImage])
 
-    console.log(titlePlaceholder);
+    // console.log(titlePlaceholder);
 
     const submitPostHandler = (event) => {
         event.preventDefault();
-        console.log('post submitted')
+        // console.log('post submitted')
         // history.push('/profile-blogs');
     }
-    console.log(datas);
+    // console.log(datas);
 
 
     // Delete Image URL

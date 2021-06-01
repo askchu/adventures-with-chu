@@ -21,17 +21,17 @@ export default function GetData(file, id, savedDescription, deletedImage, draftI
 
 
     useEffect(async () => {
-        console.log(`id is: ${id}` + ' from GetData page')
-        console.log('grabs data from GetData page')
+        // console.log(`id is: ${id}` + ' from GetData page')
+        // console.log('grabs data from GetData page')
         let allImages = [];
 
 
         await instance.get(`users/${currentUser.uid}/drafts/${id}/images.json`)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 const results = [];
                 for (let key in response.data) {
-                    console.log(key);
+                    // console.log(key);
                     results.unshift({
                         ...response.data[key],
                         id: key,

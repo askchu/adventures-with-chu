@@ -31,7 +31,7 @@ export default function UpdateProfile() {
     async function submitHandler(e) {
         e.preventDefault();
 
-        console.log(nameRef.current.value);
+        // console.log(nameRef.current.value);
         // console.log(emailRef.current.value);
         // console.log(passwordRef.current.value);
         // console.log(image);
@@ -75,9 +75,9 @@ export default function UpdateProfile() {
             setLoading(true);
             await instance.put(`users/${currentUser.uid}/profile/${profileId}.json`, profile)
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                 })
-                .catch(err => console.log(err));
+            // .catch(err => console.log(err));
             await updateProfile(emailAddress, passwordRef.current.value
             )
             history.push("/profile-blogs");
@@ -91,7 +91,7 @@ export default function UpdateProfile() {
                 )
                 await instance.post(`users/${currentUser.uid}/profile.json`, profile)
                     .then(response => {
-                        console.log(response.data)
+                        // console.log(response.data)
                     })
                     .catch(err => console.log(err));
                 history.push("/profile-blogs");
@@ -123,13 +123,13 @@ export default function UpdateProfile() {
         }
         await instance.post(`users/${currentUser.uid}/profile.json`, profile)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
             })
             .catch(err => console.log(err));
     }
 
 
-    console.log(currentUser.uid)
+    // console.log(currentUser.uid)
 
     const handleChange = (e) => {
         if (ifProfile == false) {
@@ -159,8 +159,8 @@ export default function UpdateProfile() {
     const [profilePic, setProfilePic] = useState([]);
     const [dataChanged, setDataChanged] = useState(null);
     const { datas } = GetData(docs, profileId, dataChanged);
-    console.log(datas);
-    console.log(ifProfile);
+    // console.log(datas);
+    // console.log(ifProfile);
 
     // TODO: FIX THIS
 
@@ -170,17 +170,17 @@ export default function UpdateProfile() {
 
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 let dataValue = '';
                 let dataId = '';
                 if (!response.data) {
-                    console.log("There is no data");
+                    // console.log("There is no data");
                 }
                 if (response.data) {
                     dataValue = Object.values(response.data)
                     dataId = Object.keys(response.data);
-                    console.log(dataValue);
-                    console.log(dataId);
+                    // console.log(dataValue);
+                    // console.log(dataId);
                     setIfProfile(true);
                 }
                 if (!profileName) {
@@ -209,7 +209,7 @@ export default function UpdateProfile() {
         e.preventDefault();
         await instance.delete(`users/${currentUser.uid}/profile/${profileId}/images/${datas[0].id}.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 setDataChanged('changed');
             })
             .catch(err => console.log(err));
@@ -217,7 +217,7 @@ export default function UpdateProfile() {
 
     }
 
-    console.log(datas);
+    // console.log(datas);
 
     let showImg = ''
     if (!datas) {
@@ -228,7 +228,7 @@ export default function UpdateProfile() {
     if (datas !== null) {
         if (datas.length > 0) {
             const images = Object.values(datas[0]);
-            console.log(images);
+            // console.log(images);
             showImg = (
                 <div className='img'>
                     <img key={datas[0].id} src={images[1]} />
@@ -240,9 +240,9 @@ export default function UpdateProfile() {
 
 
 
-    console.log(profilePic);
-    console.log(profileName);
-    console.log(profileId);
+    // console.log(profilePic);
+    // console.log(profileName);
+    // console.log(profileId);
 
 
 

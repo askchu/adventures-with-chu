@@ -4,8 +4,8 @@ import './Progress.css';
 
 export default function ProgressBar({ file, setFile, id, setId }) {
     const { url, progress } = useStorage(file, id);
-    console.log(id + ' from progressBar.js');
-    console.log(progress, url);
+    // console.log(id + ' from progressBar.js');
+    // console.log(progress, url);
 
     useEffect(() => {
         if (url) {

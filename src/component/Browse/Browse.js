@@ -5,7 +5,7 @@ import instance from '../../axios-orders';
 import { useAuth } from '../Authentication/AuthContext/AuthContext';
 import Footer from '../Navigation/Footer/Footer';
 import Aux from '../../hoc/Auxilary/Auxilary';
-import img1 from '../../assets/images/img1.jpg';
+import img1 from '../../assets/images/default-profile-picture1.jpg';
 
 export default function Browse() {
     const [articles, setArticles] = useState([]);
@@ -23,7 +23,7 @@ export default function Browse() {
 
     const searchData = (e) => {
         e.preventDefault();
-        console.log(inputRef.current.value);
+        // console.log(inputRef.current.value);
         browseData(inputRef.current.value);
 
         if (userData) {
@@ -38,7 +38,7 @@ export default function Browse() {
         // lang = language is english
         await axios.get(`https://gnews.io/api/v4/search?q=${searchValue}&max=10&lang=en&token=${token}`)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 let results = [];
                 for (let key of response.data.articles) {
                     results.push({
@@ -58,7 +58,7 @@ export default function Browse() {
 
 
     }
-    console.log(userData);
+    // console.log(userData);
 
 
 
@@ -72,19 +72,19 @@ export default function Browse() {
             return employee.name.indexOf(userName) > -1;
         });
 
-        console.log(user);
+        // console.log(user);
 
         // console.log(user);
         setFoundUser(user);
     }
-    console.log(foundUser);
+    // console.log(foundUser);
 
     const [profileId, setProfileId] = useState('');
     const [followers, setFollowers] = useState([]);
     const [following, setFollowing] = useState('')
 
-    console.log(profileId);
-    console.log(followers);
+    // console.log(profileId);
+    // console.log(followers);
 
 
 
@@ -99,7 +99,7 @@ export default function Browse() {
             })
             .catch(err => console.log(err));
 
-        console.log(userObjectKey);
+        // console.log(userObjectKey);
 
         // console.log(user);
         const follower = {
@@ -108,8 +108,8 @@ export default function Browse() {
             // image: user.images,
             id: user.id
         }
-        console.log(user);
-        console.log(follower);
+        // console.log(user);
+        // console.log(follower);
 
         const loggedUser = {
             id: currentUser.uid
@@ -122,41 +122,41 @@ export default function Browse() {
             // console.log(numberOfObject);
             // console.log(numberOfObject.length);
             for (let i = 0; i < numberOfObject.length; i++) {
-                console.log(followers[numberOfObject[i]]);
-                console.log(followers[numberOfObject[i]].id);
+                // console.log(followers[numberOfObject[i]]);
+                // console.log(followers[numberOfObject[i]].id);
                 followerId.push({ id: followers[numberOfObject[i]].id })
             }
-            console.log(followerId);
+            // console.log(followerId);
 
         }
 
         let profileData = {
             id: user.id
         }
-        console.log(profileData.id);
+        // console.log(profileData.id);
 
 
 
         let data = followerId.some(function (doc) {
             return doc.id == user.id
         })
-        console.log(data);
+        // console.log(data);
         if (data == true) {
-            console.log('already following');
+            // console.log('already following');
         }
 
         if (data == false || !followers) {
-            console.log('not following');
+            // console.log('not following');
             await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${currentUser.uid}/profile/${profileId}/following.json`, follower)
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
                     setFollowing('changed');
                 })
                 .catch(err => console.log(err));
 
             await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${user.id}/profile/${userObjectKey[0]}/followers.json`, loggedUser)
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
                     setFollowing('changed');
                 })
                 .catch(err => console.log(err));
@@ -214,19 +214,19 @@ export default function Browse() {
                 let followerId = [];
 
                 for (let i = 0; i < numberOfObject.length; i++) {
-                    console.log(followers[numberOfObject[i]]);
-                    console.log(followers[numberOfObject[i]].id);
+                    // console.log(followers[numberOfObject[i]]);
+                    // console.log(followers[numberOfObject[i]].id);
                     followerId.push({ id: followers[numberOfObject[i]].id })
                 }
-                console.log(followerId);
+                // console.log(followerId);
 
 
                 const data = followerId.some(function (res) {
                     return res.id == doc.id
                 })
-                console.log(data);
+                // console.log(data);
                 if (data == true) {
-                    console.log('already following');
+                    // console.log('already following');
                     userInfo = (
                         <div className='user'>
                             <div className='image'>
@@ -262,18 +262,18 @@ export default function Browse() {
         // browseData();
         await instance.get(`https://auth-production-90d68-default-rtdb.firebaseio.com/users.json`)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 let results = []
-                console.log(Object.keys(response.data));
+                // console.log(Object.keys(response.data));
                 let object = Object.keys(response.data);
-                console.log(object.length);
+                // console.log(object.length);
 
                 for (let i = 0; i < object.length; i++) {
-                    console.log(response.data[object[i]].profile);
+                    // console.log(response.data[object[i]].profile);
                     let object1 = Object.keys(response.data[object[i]].profile)
-                    console.log(object);
+                    // console.log(object);
                     let object2 = Object.values(response.data[object[i]].profile);
-                    console.log(object2);
+                    // console.log(object2);
                     results.push({
                         id: object[i],
                         name: object2[0].name,
@@ -282,7 +282,7 @@ export default function Browse() {
                     })
                 }
 
-                console.log(results);
+                // console.log(results);
                 setUserData(results);
             })
             .catch(err => console.log(err));
@@ -290,11 +290,11 @@ export default function Browse() {
 
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 let dataValue = Object.values(response.data)
                 let dataId = Object.keys(response.data);
-                console.log(dataValue);
-                console.log(dataId);
+                // console.log(dataValue);
+                // console.log(dataId);
                 setFollowers(dataValue[0].following)
                 setProfileId(dataId[0]);
             })
@@ -326,7 +326,6 @@ export default function Browse() {
     })
 
 
-    // TODO: Make categories of just users, news, everything
 
     return (
 

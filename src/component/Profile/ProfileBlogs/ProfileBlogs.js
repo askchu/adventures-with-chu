@@ -17,17 +17,17 @@ export default function ProfileBlogs() {
     const [posts, setPosts] = useState([]);
     const [profile, setProfile] = useState([]);
 
-    console.log(dropdown);
+    // console.log(dropdown);
     const onMouseClick = () => {
         if (dropdown == true) {
             setDropdown(false);
         } else {
             setDropdown(true);
         }
-        console.log(dropdown);
+        // console.log(dropdown);
     }
 
-    console.log(drafts);
+    // console.log(drafts);
     // console.log(drafts.indexOf(2))
 
 
@@ -42,7 +42,7 @@ export default function ProfileBlogs() {
 
     // console.log(count);
 
-    console.log(drafts.length);
+    // console.log(drafts.length);
 
     let draftList = '';
     let draftTitle = '';
@@ -66,7 +66,7 @@ export default function ProfileBlogs() {
 
 
     const [blogData, setBlogData] = useState([]);
-    console.log(blogData);
+    // console.log(blogData);
 
     draftList = (
         drafts.map((savedDraft) => {
@@ -79,11 +79,10 @@ export default function ProfileBlogs() {
             if (savedDraft.content) {
                 contentKey = Object.keys(contentObjectKey);
             }
-            console.log(contentKey)
+            // console.log(contentKey)
 
             // Grabs the title value in the key object
             // console.log(contentObjectKey[contentKey].title)
-
 
 
 
@@ -95,32 +94,34 @@ export default function ProfileBlogs() {
                     // grabs the index in the array
                     const count = indexOfDrafts.indexOf(savedDraft.id) + 1;
                     draftTitle = (
-                        <Link to={link}>
-                            {/* prints out the number in the index */}
+                        <li key={savedDraft.id}>
+                            <Link to={link}>
+                                {/* prints out the number in the index */}
                         Draft #{count}
-                        </Link>
+                            </Link>
+                        </li>
                     )
                 } else {
                     draftTitle = (
-                        <Link to={link}>
-                            {contentObjectKey[contentKey].title}
-                        </Link>
+                        <li key={savedDraft.id}>
+                            <Link to={link} >
+                                {contentObjectKey[contentKey].title}
+                            </Link>
+                        </li >
                     )
                 }
             }
 
             return (
                 <ul>
-                    <li key={savedDraft.id}>
-                        {draftTitle}
-                    </li>
+                    {draftTitle}
                 </ul>
 
             )
         }
         ))
 
-    console.log(blogData);
+    // console.log(blogData);
 
     const eachBlog = (
         blogData.map((el) => {
@@ -133,12 +134,12 @@ export default function ProfileBlogs() {
             }
             // console.log(contentKey)
             // console.log(el);
-            console.log(contentObjectKey[contentKey].title)
+            // console.log(contentObjectKey[contentKey].title)
 
             let imageObjectKey = '';
             let imageKey = '';
             let imageUrl = '';
-            console.log(el.images);
+            // console.log(el.images);
 
             if (el.images) {
                 // imageObjectKey = el.images;
@@ -148,28 +149,28 @@ export default function ProfileBlogs() {
                 // imageUrl = imageObjectKey[imageKey].imageUrl;
                 for (let i = 0; i < 1; i++) {
                     imageObjectKey = el.images;
-                    console.log(imageObjectKey);
+                    // console.log(imageObjectKey);
                     imageKey = Object.keys(imageObjectKey);
-                    console.log(imageKey);
-                    console.log(imageKey[i]);
+                    // console.log(imageKey);
+                    // console.log(imageKey[i]);
                     // imageUrl = imageObjectKey[imageKey].imageUrl;
-                    console.log(imageObjectKey[imageKey[i]].imageUrl);
+                    // console.log(imageObjectKey[imageKey[i]].imageUrl);
                     imageUrl = imageObjectKey[imageKey[i]].imageUrl;
                 }
 
             }
 
 
-            console.log(imageKey);
+            // console.log(imageKey);
 
             let blogPost = ''
 
             let link = `/profile/blogs/${el.id}`;
-
+            // console.log(el.id);
             if (!el.images) {
                 blogPost = (
 
-                    <Link to={link}>
+                    <Link to={link} key={el.id}>
                         <div className='card'>
                             {/* <ShowNews
                             key={el.id}
@@ -193,7 +194,7 @@ export default function ProfileBlogs() {
             if (el.images) {
                 blogPost = (
 
-                    <Link to={link}>
+                    <Link to={link} key={el.id}>
                         <div className='cardWithImg'>
                             {/* <ShowNews
                             key={el.id}
@@ -218,16 +219,16 @@ export default function ProfileBlogs() {
             }
 
             return (
-                <div className='perBlog'>
-                    { blogPost}
+                <div className='perBlog' key={el.id}>
+                    {blogPost}
                 </div>
             )
 
         }))
 
 
-    console.log(blogData.length);
-    console.log(drafts.length);
+    // console.log(blogData.length);
+    // console.log(drafts.length);
 
     let createBlog = [];
     if (drafts.length === 0 && blogData.length === 0) {
@@ -267,10 +268,7 @@ export default function ProfileBlogs() {
                             <h3 onClick={onMouseClick}>Drafts ({drafts.length})</h3>
                             {dropdown && draftList}
                         </div>
-                        {/* <div>
-                            <h3>Blogs ({blogData.length})</h3>
-                            {eachBlog}
-                        </div> */}
+
                     </div>
 
                 </div>
@@ -286,12 +284,12 @@ export default function ProfileBlogs() {
         )
     }
 
-    console.log(profile);
+    // console.log(profile);
 
 
 
     const [countArray, setCountArray] = useState([]);
-    console.log(countArray);
+    // console.log(countArray);
 
     const indexOfCounts = [];
 
@@ -301,17 +299,17 @@ export default function ProfileBlogs() {
         for (let x of countArray) {
             indexOfCounts.push(x.id)
         }
-        console.log(indexOfCounts);
-        console.log(indexOfCounts.length);
+        // console.log(indexOfCounts);
+        // console.log(indexOfCounts.length);
         const length = indexOfCounts.length - 1;
-        console.log(length);
+        // console.log(length);
         for (let i = 0; i < length; i++) {
             // console.log(indexOfCounts[i]);
             instance.request({
                 method: 'delete',
                 url: `users/${currentUser.uid}/count/${indexOfCounts[i]}.json`
             }).then(response => {
-                console.log(response);
+                // console.log(response);
             })
                 .catch(err => console.log(err));
         }
@@ -327,7 +325,7 @@ export default function ProfileBlogs() {
         }
         await instance.post(`users/${currentUser.uid}/profile.json`, profile)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
             })
             .catch(err => console.log(err));
     }
@@ -341,7 +339,7 @@ export default function ProfileBlogs() {
         // Grabs Drafts Data
         await instance.get(`users/${currentUser.uid}/drafts.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 const results = [];
                 for (let key in response.data) {
                     results.unshift({
@@ -356,7 +354,7 @@ export default function ProfileBlogs() {
         //  Grabs Profile Data
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 const results = [];
                 for (let key in response.data) {
                     results.unshift({
@@ -371,7 +369,7 @@ export default function ProfileBlogs() {
         // Grabs Count Data
         await instance.get(`users/${currentUser.uid}/count.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 const results = [];
                 for (let key in response.data) {
                     results.push({
@@ -380,14 +378,14 @@ export default function ProfileBlogs() {
                         // name: response.data.name
                     })
                 }
-                console.log(results);
+                // console.log(results);
                 setCountArray(results);
             }).catch(err => console.log(err));
 
         // Grabs Blog Data
         await instance.get(`users/${currentUser.uid}/blogs.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 const results = [];
                 for (let key in response.data) {
                     results.unshift({
@@ -396,7 +394,7 @@ export default function ProfileBlogs() {
                         // name: response.data.name
                     })
                 }
-                console.log(results);
+                // console.log(results);
                 setBlogData(results);
             }).catch(err => console.log(err));
 
@@ -406,7 +404,7 @@ export default function ProfileBlogs() {
 
     }, [info])
 
-    console.log(profile);
+    // console.log(profile);
 
     return (
         <div className='profile'>

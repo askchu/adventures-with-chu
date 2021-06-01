@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "auth-production-90d68"
+    "default": "adventures-with-chu",
+    "production": "adventures-with-chu"
   }
 }

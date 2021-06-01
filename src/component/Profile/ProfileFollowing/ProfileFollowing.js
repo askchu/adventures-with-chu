@@ -6,7 +6,7 @@ import Profile from '../Profile';
 import { motion } from 'framer-motion';
 import Footer from '../../Navigation/Footer/Footer';
 import { Link } from 'react-router-dom';
-import img1 from '../../../assets/images/img1.jpg';
+import img1 from '../../../assets/images/default-profile-picture1.jpg';
 
 export default function ProfileGallery() {
     const { currentUser } = useAuth();
@@ -26,7 +26,7 @@ export default function ProfileGallery() {
                 // console.log(userProfile[0].userProfile);
                 const profileObj = Object.keys(userProfile[0].profile);
                 const results = Object.values(userProfile[0].profile);
-                console.log(results);
+                // console.log(results);
                 const followingId = Object.keys(results[0].following);
                 const following = Object.values(results[0].following);
                 // console.log(following);
@@ -35,7 +35,7 @@ export default function ProfileGallery() {
                 for (let i = 0; i < following.length; i++) {
                     await instance.get(`/users/${following[i].id}.json`)
                         .then(res => {
-                            console.log(res);
+                            // console.log(res);
                             data.push({ ...res.data, userId: following[i].id, userObjectId: followingId[i], profileObjectValue: profileObj[0] })
                             // console.log(data);
                         })
@@ -51,7 +51,7 @@ export default function ProfileGallery() {
     const grabUserProfile = async () => {
         await instance.get(`/users/${currentUser.uid}.json`)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 const results = [];
                 results.push({
                     ...res.data
@@ -64,21 +64,21 @@ export default function ProfileGallery() {
     }
 
     const unfollowUser = async (currentUser, followingUser, followingUserObjectId, currentUserProfileObjectValue) => {
-        console.log(currentUser);
-        console.log(followingUser);
-        console.log(followingUserObjectId);
+        // console.log(currentUser);
+        // console.log(followingUser);
+        // console.log(followingUserObjectId);
         await instance.delete(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${currentUser}/profile/${currentUserProfileObjectValue}/following/${followingUserObjectId}.json`)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 setFollowers(true);
             })
             .catch(err => console.log(err));
 
-        console.log(userProfile[0].profile);
+        // console.log(userProfile[0].profile);
         const followingStats = Object.values(userProfile[0].profile);
         const followingValues = Object.values(followingStats[0].following);
-        console.log(followingValues);
-        console.log(followingValues.length);
+        // console.log(followingValues);
+        // console.log(followingValues.length);
 
 
         // await instance.delete(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${user.id}/profile/${userObjectKey[0]}/followers.json`, loggedUser)
@@ -98,8 +98,8 @@ export default function ProfileGallery() {
         }
     }, [foundCurrentUser, followers])
 
-    console.log(followingData);
-    console.log(userProfile);
+    // console.log(followingData);
+    // console.log(userProfile);
 
     let displayUsers = <div></div>
 
@@ -110,14 +110,14 @@ export default function ProfileGallery() {
 
         if (followingData.length > 0) {
             displayUsers = followingData.map(doc => {
-                console.log(currentUser.uid)
-                console.log(doc);
-                console.log(doc.id);
+                // console.log(currentUser.uid)
+                // console.log(doc);
+                // console.log(doc.id);
                 const profileObj = Object.keys(doc.profile);
-                console.log(profileObj[0])
+                // console.log(profileObj[0])
                 const profileValues = Object.values(doc.profile);
-                console.log(profileValues[0]);
-                console.log(profileValues[0].following);
+                // console.log(profileValues[0]);
+                // console.log(profileValues[0].following);
 
                 let profilePic = <img src={img1} />
                 if (profileValues[0].images) {
@@ -125,7 +125,7 @@ export default function ProfileGallery() {
                     profilePic = <img src={imgValue[0].imageUrl} />
 
                     return (
-                        <div className='followingUsers'>
+                        <div className='followingUsers' key={doc.id}>
                             <div className='following'>
                                 <div className='profilePic'>
                                     {profilePic}
@@ -143,7 +143,7 @@ export default function ProfileGallery() {
                 }
                 if (!profileValues[0].images) {
                     return (
-                        <div className='followingUsers'>
+                        <div className='followingUsers' key={doc.id}>
                             <div className='following'>
                                 <div className='profilePic'>
                                     {profilePic}

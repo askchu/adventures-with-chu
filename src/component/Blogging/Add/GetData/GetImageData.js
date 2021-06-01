@@ -21,9 +21,9 @@ export default function GetData(file, id, dataChanged) {
         let data = ''
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 const obj = Object.keys(response.data);
-                console.log(obj[0]);
+                // console.log(obj[0]);
                 data = obj[0]
             })
             .catch(err => console.log(err));
@@ -33,8 +33,8 @@ export default function GetData(file, id, dataChanged) {
 
 
     useEffect(async () => {
-        console.log(`id is: ${id}` + ' from GetData page')
-        console.log('grabs data from GetData page')
+        // console.log(`id is: ${id}` + ' from GetData page')
+        // console.log('grabs data from GetData page')
 
 
 
@@ -43,10 +43,10 @@ export default function GetData(file, id, dataChanged) {
         if (id) {
             await instance.get(`users/${currentUser.uid}/profile/${id}/images.json`)
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
                     const results = [];
                     for (let key in response.data) {
-                        console.log(key);
+                        // console.log(key);
                         results.unshift({
                             ...response.data[key],
                             id: key,
@@ -65,10 +65,10 @@ export default function GetData(file, id, dataChanged) {
             results.then(async (res) => {
                 await instance.get(`users/${currentUser.uid}/profile/${res}/images.json`)
                     .then(response => {
-                        console.log(response)
+                        // console.log(response)
                         const results = [];
                         for (let key in response.data) {
-                            console.log(key);
+                            // console.log(key);
                             results.unshift({
                                 ...response.data[key],
                                 id: key,

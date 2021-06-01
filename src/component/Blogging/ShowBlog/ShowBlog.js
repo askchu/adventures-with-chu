@@ -6,7 +6,7 @@ import './ShowBlog.css';
 
 export default function ShowBlog() {
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
     const { currentUser } = useAuth();
     const history = useHistory();
 
@@ -14,14 +14,13 @@ export default function ShowBlog() {
     const [image, setImages] = useState([]);
     const [profileName, setProfileName] = useState('');
 
-    // console.log(content);
-    console.log(image);
+    // console.log(image);
 
     useEffect(async () => {
         window.scrollTo(0, 0)
         await instance.get(`users/${currentUser.uid}/blogs/${id}.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 let content = []
                 let images = []
                 content.push({
@@ -39,9 +38,9 @@ export default function ShowBlog() {
 
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 let dataValue = Object.values(response.data)
-                console.log(dataValue);
+                // console.log(dataValue);
                 setProfileName(dataValue[0].name);
                 // let content = []
                 // let images = []
@@ -78,17 +77,17 @@ export default function ShowBlog() {
     if (image.length > 0) {
 
         imageObjectKey = Object.values(image[0].images)
-        console.log(imageObjectKey);
-        console.log(imageObjectKey.length);
+        // console.log(imageObjectKey);
+        // console.log(imageObjectKey.length);
         for (let i = 0; i < imageObjectKey.length; i++) {
-            console.log(imageObjectKey[i].id);
+            // console.log(imageObjectKey[i].id);
             eachImg.push({
                 id: imageObjectKey[i].id,
                 imageUrl: imageObjectKey[i].imageUrl,
                 description: imageObjectKey[i].description
             })
         }
-        console.log(eachImg);
+        // console.log(eachImg);
         // imageObjectKey.map(el => {
         //     console.log(el.id);
         //     eachImg = (

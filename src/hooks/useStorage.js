@@ -14,7 +14,7 @@ const useStorage = (file, id) => {
     // useEffect is going to run everytime the [file] changes
     useEffect(() => {
         // references
-        console.log(id + ' from useStorage.js')
+        // console.log(id + ' from useStorage.js')
         const storageRef = storage.ref(file.name);
         const collectionRef = firestore.collection(userId)
         // const collectionRef = firestore.collection('images')
@@ -45,8 +45,8 @@ const useStorage = (file, id) => {
             // await instance.post(`/${currentUser.uid}/drafts/${id}/images/${id}.json`, info)
             await instance.post(`users/${currentUser.uid}/drafts/${id}/images.json`, info)
                 .then(response => {
-                    console.log(response)
-                    console.log('img uploaded to firebase DB')
+                    // console.log(response)
+                    // console.log('img uploaded to firebase DB')
                 })
                 .catch(err => console.log(err));
         })

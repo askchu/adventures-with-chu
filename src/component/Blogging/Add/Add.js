@@ -38,8 +38,8 @@ export default function Add() {
 
     // Grabs images from /userId/images database
     const { datas } = GetData(docs, count.id, savedDescription, deletedImage);
-    console.log(datas);
-    console.log(count.id);
+    // console.log(datas);
+    // console.log(count.id);
 
 
     const handleChange = async (e) => {
@@ -47,19 +47,14 @@ export default function Add() {
         let selected = e.target.files[0];
         let countArrayNumber = 0
 
-        // await instance.get(`/${currentUser.uid}/drafts/${count.id}.json`)
-        //     .then(response => {
-        //         console.log(response.data)
-        //     }).catch(err => {
-        //         console.log(err);
-        //     })
+
 
 
 
         if (count.length > 1) {
             countArrayNumber = count.length - 1;
         }
-        console.log(countArrayNumber);
+        // console.log(countArrayNumber);
         if (selected && types.includes(selected.type)) {
             setFile(selected);
             setCountId(count.id);
@@ -74,7 +69,7 @@ export default function Add() {
 
 
     const images = datas;
-    console.log(images);
+    // console.log(images);
 
 
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -100,19 +95,19 @@ export default function Add() {
 
         save(count.id, post);
 
-        console.log('saved to drafts');
+        // console.log('saved to drafts');
         history.push('/profile-blogs');
     }
 
     const noSave = () => {
-        console.log('not saved to drafts');
+        // console.log('not saved to drafts');
         instance.request({
             method: 'delete',
             url: `users/${currentUser.uid}/images/${output}/${count.id}.json`
             // data: data
         }).then(response => {
-            console.log(response);
-            console.log(`${count.id} image file is deleted`);
+            // console.log(response);
+            // console.log(`${count.id} image file is deleted`);
 
         })
             .catch(err => console.log(err));
@@ -123,8 +118,8 @@ export default function Add() {
             url: `users/${currentUser.uid}/count/${count.id}.json`
             // data: data
         }).then(response => {
-            console.log(response);
-            console.log(`${count.id} count file is deleted`);
+            // console.log(response);
+            // console.log(`${count.id} count file is deleted`);
 
         })
             .catch(err => console.log(err));
@@ -163,11 +158,11 @@ export default function Add() {
 
 
     const grabCount = async () => {
-        console.log(count);
+        // console.log(count);
         await instance.get(`users/${currentUser.uid}/count.json`)
             .then(response => {
-                console.log(response.data)
-                console.log(response.data.length)
+                // console.log(response.data)
+                // console.log(response.data.length)
                 let res = []
                 for (let key in response.data) {
                     res.push({
@@ -175,7 +170,7 @@ export default function Add() {
                         id: key
                     })
                 }
-                console.log(res.length);
+                // console.log(res.length);
                 let arrayNum = 0;
 
                 if (res.length > 1) {
@@ -190,7 +185,7 @@ export default function Add() {
 
         instance.post(`users/${currentUser.uid}/drafts/${countId}/content.json`, post)
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 // console.log(response.data)
             })
             .catch(error => console.log(error));
@@ -199,8 +194,8 @@ export default function Add() {
             method: 'delete',
             url: `users/${currentUser.uid}/count/${count.id}.json`
         }).then(response => {
-            console.log(response);
-            console.log(`${count.id} count file is deleted`);
+            // console.log(response);
+            // console.log(`${count.id} count file is deleted`);
 
         })
             .catch(err => console.log(err));
@@ -217,16 +212,16 @@ export default function Add() {
 
         instance.post(`users/${currentUser.uid}/blogs/${count.id}/content.json`, post)
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 // console.log(response.data)
             })
             .catch(error => console.log(error));
 
         for (let img of datas) {
-            console.log(img);
+            // console.log(img);
             instance.post(`users/${currentUser.uid}/blogs/${count.id}/images.json`, img)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                     // console.log(response.data)
                 })
                 .catch(error => console.log(error));
@@ -236,8 +231,8 @@ export default function Add() {
             method: 'delete',
             url: `users/${currentUser.uid}/drafts/${count.id}.json`
         }).then(response => {
-            console.log(response);
-            console.log(`draft ${count.id} deleted`)
+            // console.log(response);
+            // console.log(`draft ${count.id} deleted`)
 
         })
             .catch(err => console.log(err));
@@ -248,12 +243,12 @@ export default function Add() {
 
     useEffect(async () => {
         window.scrollTo(0, 0)
-        console.log(count);
+        // console.log(count);
         grabCount();
     }, [])
 
 
-    console.log(count);
+    // console.log(count);
     // const key = dataId[0]
     // console.log(key.id);
 
@@ -262,17 +257,17 @@ export default function Add() {
 
 
 
-    console.log(selectedImg);
-    console.log(selectedId);
-    console.log(`this is savedDescription from Add Page ${savedDescription}`)
+    // console.log(selectedImg);
+    // console.log(selectedId);
+    // console.log(`this is savedDescription from Add Page ${savedDescription}`)
 
 
-    console.log(saveDrafts);
+    // console.log(saveDrafts);
 
 
     // deleted image URL
     const deleteUrl = `/${currentUser.uid}/images/${output}/${count.id}/${selectedId}.json`;
-    console.log(deleteUrl);
+    // console.log(deleteUrl);
 
     return (
 

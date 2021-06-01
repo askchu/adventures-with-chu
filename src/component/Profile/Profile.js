@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Profile.css';
 import { useAuth } from '../../component/Authentication/AuthContext/AuthContext';
-import img2 from '../../assets/images/img2.jpg';
+import img2 from '../../assets/images/default-profile-picture1.jpg';
 import cloud from '../../assets/images/clouds.jpg';
 import { useHistory, Link } from 'react-router-dom';
 import firebase, { storage } from '../../firebase';
@@ -52,7 +52,7 @@ export default function Profile() {
         }
 
     }
-    console.log(profile);
+    // console.log(profile);
 
     const addProfile = async () => {
         const profile = {
@@ -64,7 +64,7 @@ export default function Profile() {
         }
         await instance.post(`users/${currentUser.uid}/profile.json`, profile)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
             })
             .catch(err => console.log(err));
     }
@@ -74,7 +74,7 @@ export default function Profile() {
 
         await instance.get(`users/${currentUser.uid}/blogs.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 const results = [];
                 for (let key in response.data) {
                     results.push({
@@ -83,13 +83,13 @@ export default function Profile() {
                         // name: response.data.name
                     })
                 }
-                console.log(results);
+                // console.log(results);
                 setBlogData(results);
             }).catch(err => console.log(err));
 
         await instance.get(`users/${currentUser.uid}/profile.json`)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 const results = [];
                 for (let key in response.data) {
                     results.unshift({
@@ -102,8 +102,8 @@ export default function Profile() {
             })
             .catch(err => console.log(err));
 
-        console.log(profile);
-        console.log(profile[0])
+        // console.log(profile);
+        // console.log(profile[0])
 
 
 
@@ -133,8 +133,8 @@ export default function Profile() {
         }
 
     }
-    console.log(profilePic)
-    console.log(followingCount);
+    // console.log(profilePic)
+    // console.log(followingCount);
 
     let postLength = ''
     if (blogData) {

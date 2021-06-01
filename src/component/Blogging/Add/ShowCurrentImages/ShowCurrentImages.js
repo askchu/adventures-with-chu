@@ -12,10 +12,10 @@ export default function ShowCurrentImages({ data, setSelectedImg, setSelectedId,
         setSelectedImg(url);
         setSelectedId(id);
         setSelectedDescription(content)
-        console.log(id);
+        // console.log(id);
     }
 
-    console.log(imageDraft)
+    // console.log(imageDraft)
     let draftImages = []
 
 

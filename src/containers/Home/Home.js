@@ -7,7 +7,8 @@ import { Link, useHistory } from 'react-router-dom';
 import Auxilary from '../../hoc/Auxilary/Auxilary';
 import { useAuth } from '../../component/Authentication/AuthContext/AuthContext';
 import ProgressBar from '../../component/ProgressBar/ProgressBar';
-import img1 from '../../assets/images/img1.jpg'
+import img1 from '../../assets/images/default-profile-picture1.jpg'
+import Featured from './Featured/Featured';
 
 function Home() {
     const { currentUser } = useAuth();
@@ -48,7 +49,7 @@ function Home() {
                 for (let i = 0; i < following.length; i++) {
                     await instance.get(`/users/${following[i].id}.json`)
                         .then(res => {
-                            console.log(res);
+                            // console.log(res);
                             data.push({ ...res.data, id: following[i].id })
                             // console.log(data);
                         })
@@ -68,7 +69,7 @@ function Home() {
         window.scrollTo(0, 0)
 
         if (!currentUser) {
-            console.log('not logged in')
+            // console.log('not logged in')
         }
         if (currentUser) {
             grabUserProfile();
@@ -84,7 +85,7 @@ function Home() {
         console.log(e)
     }
 
-    let test = <div></div>;
+    let displayFollowers = <div></div>;
     let followerBlogs = [];
     let followingUsers = (
         <div>
@@ -93,7 +94,7 @@ function Home() {
     let followingPosts = <div></div>;
     let finalResults = <div></div>
 
-    console.log(followingData);
+    // console.log(followingData);
 
     const totalUsers = [];
     const totalBlogs = [];
@@ -151,7 +152,7 @@ function Home() {
                 })
             })
             // console.log(totalBlogs);
-            test = totalBlogs.map(blog => {
+            displayFollowers = totalBlogs.map(blog => {
                 // console.log(blog);
                 const alpha = blog.profileName;
                 const blogObj = Object.keys(blog.content)
@@ -202,14 +203,26 @@ function Home() {
     let loggedIn = (<div></div>)
     if (currentUser) {
         // console.log("someone logged in")
-        followingUsers = (
-            <div className='featured'>
-                <h3 className="featuredH3">Recent Posts</h3>
-                <div className='featuredBlogs'>
-                    {test}
+        if (followingData.length > 0) {
+            followingUsers = (
+                <div className='featured'>
+                    <h3 className="featuredH3">Recent Posts</h3>
+                    <div className='featuredBlogs'>
+                        {displayFollowers}
+                    </div>
+                </div >
+            )
+        }
+        if (followingData.length < 1) {
+            loggedIn = (
+                <div className='logo'>
+                    <div className='brief'>
+                        <h1>Welcome to Adventures with Chu</h1>
+                        <h3>Start blogging and share with everyone.</h3>
+                    </div>
                 </div>
-            </div >
-        )
+            )
+        }
     }
     if (!currentUser) {
         // console.log("not logged in")
@@ -232,6 +245,8 @@ function Home() {
                 </div>
             </div> */}
             {loggedIn}
+
+            {/* <Featured /> */}
 
             <main className='containers welcome'>
 

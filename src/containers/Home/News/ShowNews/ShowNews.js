@@ -37,7 +37,7 @@ export default function ShowNews(props) {
                 </div>
                 <div className='summary'>
                     {/* <h5>By: {props.author}</h5> */}
-                    {author}
+                    {/* {author} */}
                     <h4>{props.title}</h4>
                     {content}
                 </div>
@@ -48,7 +48,7 @@ export default function ShowNews(props) {
         image = (<div className='summary'>
             {/* <h5>By: {props.author}</h5> */}
             <h4>{props.title}</h4>
-            {author}
+            {/* {author} */}
             {content}
         </div>
         )

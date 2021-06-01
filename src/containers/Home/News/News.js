@@ -9,37 +9,28 @@ class News extends Component {
         this.state = {
             news: [],
         }
-        console.log('constructor');
+        // console.log('constructor');
     }
 
     componentDidMount() {
-        const token = process.env.REACT_APP_NEWSAPI;
-        axios.get('https://newsapi.org/v2/everything?' +
-            'qInTitle=vacation&' +
-            // 'from=2021-02-22&' +
-            'sortBy=popularity&' +
-            `apiKey=${token}`)
+        const token = process.env.REACT_APP_GNEWS;
+
+        axios.get(`https://gnews.io/api/v4/search?q=news&max=3&lang=en&token=${token}`)
             .then(response => {
-                const articles = [];
                 // console.log(response.data);
-                for (let i = 0; i < 3; i++) {
-                    // console.log(response.data.articles[i]);
-                    articles.push({
-                        // ...response.data[i],
-                        id: i,
-                        author: response.data.articles[i].author,
-                        title: response.data.articles[i].title,
-                        // content: response.data.articles[i].content,
-                        description: response.data.articles[i].description,
-                        url: response.data.articles[i].url,
-                        urlImg: response.data.articles[i].urlToImage
+                let results = [];
+                for (let key of response.data.articles) {
+                    results.push({
+                        content: key.content,
+                        description: key.description,
+                        image: key.image,
+                        date: key.publishedAt,
+                        source: key.source,
+                        title: key.title,
+                        url: key.url
                     })
                 }
-                this.setState({ news: articles })
-                console.log(this.state.news)
-            })
-            .catch(err => {
-                console.log(err);
+                this.setState({ news: results })
             })
     }
 
@@ -47,16 +38,19 @@ class News extends Component {
 
     render() {
         const news = (
-            this.state.news.map(results => (
-                <ShowNews key={results.id}
-                    title={results.title}
-                    author={results.author}
-                    // content={results.content}
-                    description={results.description}
-                    url={results.url}
-                    img={results.urlImg}
-                />
-            ))
+            this.state.news.map(results => {
+                // console.log(results);
+                return (
+                    <ShowNews key={results.date}
+                        title={results.title}
+                        // author={results.author}
+                        // content={results.content}
+                        description={results.content}
+                        url={results.url}
+                        img={results.image}
+                    />
+                )
+            })
         )
         return (
             <div className='worldNews'>
