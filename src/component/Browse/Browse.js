@@ -36,7 +36,7 @@ export default function Browse() {
     const browseData = async (searchValue) => {
         // max articles = 10
         // lang = language is english
-        await axios.get(`https://gnews.io/api/v4/search?q=${searchValue}&max=10&lang=en&token=${token}`)
+        await axios.get(`https://gnews.io/api/v4/search?q=${searchValue}&max=5  &lang=en&token=${token}`)
             .then(response => {
                 // console.log(response.data);
                 let results = [];
@@ -93,7 +93,7 @@ export default function Browse() {
         setFollowing(null);
 
         let userObjectKey = ''
-        await instance.get(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${user.id}/profile.json`)
+        await instance.get(`https://adventures-with-chu-default-rtdb.firebaseio.com/users/${user.id}/profile.json`)
             .then(res => {
                 userObjectKey = Object.keys(res.data);
             })
@@ -147,14 +147,14 @@ export default function Browse() {
 
         if (data == false || !followers) {
             // console.log('not following');
-            await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${currentUser.uid}/profile/${profileId}/following.json`, follower)
+            await instance.post(`https://adventures-with-chu-default-rtdb.firebaseio.com//users/${currentUser.uid}/profile/${profileId}/following.json`, follower)
                 .then(response => {
                     // console.log(response);
                     setFollowing('changed');
                 })
                 .catch(err => console.log(err));
 
-            await instance.post(`https://auth-production-90d68-default-rtdb.firebaseio.com/users/${user.id}/profile/${userObjectKey[0]}/followers.json`, loggedUser)
+            await instance.post(`https://adventures-with-chu-default-rtdb.firebaseio.com//users/${user.id}/profile/${userObjectKey[0]}/followers.json`, loggedUser)
                 .then(response => {
                     // console.log(response);
                     setFollowing('changed');
@@ -183,7 +183,7 @@ export default function Browse() {
             }
             if (currentUser.uid === doc.id) {
                 userInfo = (
-                    <div className='user'>
+                    <div className='user' key={doc.id}>
                         <div className='image'>
                             <img src={pic} />
 
@@ -195,7 +195,7 @@ export default function Browse() {
             }
             if (currentUser.uid !== doc.id) {
                 userInfo = (
-                    <div className='user'>
+                    <div className='user' key={doc.id}>
                         <div className='image'>
                             <img src={pic} />
 
@@ -260,7 +260,7 @@ export default function Browse() {
 
     useEffect(async () => {
         // browseData();
-        await instance.get(`https://auth-production-90d68-default-rtdb.firebaseio.com/users.json`)
+        await instance.get(`https://adventures-with-chu-default-rtdb.firebaseio.com/users.json`)
             .then(response => {
                 // console.log(response.data);
                 let results = []
@@ -270,16 +270,27 @@ export default function Browse() {
 
                 for (let i = 0; i < object.length; i++) {
                     // console.log(response.data[object[i]].profile);
-                    let object1 = Object.keys(response.data[object[i]].profile)
+
                     // console.log(object);
-                    let object2 = Object.values(response.data[object[i]].profile);
-                    // console.log(object2);
+                    let id = "";
+                    let name = "";
+                    let location = "";
+                    let images = "";
+                    if (response.data[object[i]].profile) {
+                        // let object1 = Object.keys(response.data[object[i]].profile);
+                        let object2 = Object.values(response.data[object[i]].profile);
+                        id = object[i];
+                        name = object2[0].name;
+                        location = object2[0].location;
+                        images = object2[0].images;
+                    }
                     results.push({
                         id: object[i],
-                        name: object2[0].name,
-                        location: object2[0].location,
-                        images: object2[0].images
+                        name,
+                        location,
+                        images
                     })
+
                 }
 
                 // console.log(results);
@@ -335,7 +346,7 @@ export default function Browse() {
                     <form onSubmit={searchData} className='browseForm'>
                         <div className='browseInput'>
                             <label>Browse</label>
-                            <input type='text' ref={inputRef} />
+                            <input type='text' ref={inputRef} placeholder="Case-sensitive when looking for users" />
                         </div>
                         <button type='submit'>Search</button>
                     </form>
