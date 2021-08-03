@@ -17,6 +17,7 @@ export default function Profile() {
     const [profile, setProfile] = useState('');
     const [profileStats, setProfileStats] = useState(false);
 
+    const [postLength, setPostLength] = useState('');
 
     async function handleLogout() {
         setError('');
@@ -83,7 +84,8 @@ export default function Profile() {
                         // name: response.data.name
                     })
                 }
-                // console.log(results);
+                // console.log(results.length);
+                setPostLength(results.length);
                 setBlogData(results);
             }).catch(err => console.log(err));
 
@@ -107,7 +109,7 @@ export default function Profile() {
 
 
 
-    }, [])
+    }, [postLength]);
 
 
 
@@ -136,10 +138,12 @@ export default function Profile() {
     // console.log(profilePic)
     // console.log(followingCount);
 
-    let postLength = ''
-    if (blogData) {
-        postLength = blogData.length;
-    }
+    // console.log(blogData);
+
+
+    // if (blogData) {
+    //     postLength = blogData.length;
+    // }
 
 
 

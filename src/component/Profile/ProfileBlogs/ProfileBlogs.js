@@ -97,7 +97,7 @@ export default function ProfileBlogs() {
                         <li key={savedDraft.id}>
                             <Link to={link}>
                                 {/* prints out the number in the index */}
-                        Draft #{count}
+                                Draft #{count}
                             </Link>
                         </li>
                     )
@@ -405,6 +405,8 @@ export default function ProfileBlogs() {
     }, [info])
 
     // console.log(profile);
+
+    // console.log(blogData);
 
     return (
         <div className='profile'>
