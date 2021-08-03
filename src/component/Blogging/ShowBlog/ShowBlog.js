@@ -69,6 +69,22 @@ export default function ShowBlog() {
         date = contentObjectKey[contentKey].date
     }
 
+    let deleteButton = <div></div>;
+
+
+    const deletePost = () => {
+        // console.log("delete post");
+        instance.request({
+            method: 'delete',
+            url: `users/${currentUser.uid}/blogs/${id}.json`
+        }).then(response => {
+            // console.log(response);
+            // console.log(`${count.id} count file is deleted`);
+
+        })
+            .catch(err => console.log(err));
+        history.goBack();
+    }
 
     let pictures = <div></div>
     let userGallery = <div></div>
@@ -135,7 +151,6 @@ export default function ShowBlog() {
     }
 
 
-
     return (
         <div className='container'>
             <div className='showBlog'>
@@ -159,6 +174,7 @@ export default function ShowBlog() {
             </div>
             <div className='backButton' >
                 <button onClick={() => history.goBack()}>Back</button>
+                <button onClick={() => deletePost()}>Delete</button>
             </div>
 
         </div>

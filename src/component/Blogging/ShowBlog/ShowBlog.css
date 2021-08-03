@@ -75,6 +75,11 @@
     padding: 10px;
     background: linear-gradient(35deg, #81d6f2, #4ab1f5 );
     color: #fff;
+    margin-bottom: 10px;
+}
+.backButton button:nth-of-type(2){
+    background: linear-gradient(35deg, rgb(237, 135, 135), red );
+    
 }
 .backButton button:hover{
     cursor: pointer;

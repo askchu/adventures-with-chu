@@ -62,7 +62,7 @@ const useStorage = (file, id, state, imgId) => {
 
             await instance.delete(`users/${currentUser.uid}/profile/${id}/images/${imgId}.json`)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                 })
                 .catch(err => console.log(err));
 
@@ -73,7 +73,7 @@ const useStorage = (file, id, state, imgId) => {
 
                 await instance.post(`users/${currentUser.uid}/profile/${id}/images.json`, info)
                     .then(response => {
-                        console.log(response)
+                        // console.log(response)
                         // console.log('img uploaded to firebase DB')
                     })
                     .catch(err => console.log(err));
