@@ -286,7 +286,7 @@ export default function Add() {
                 <div className='newBlog-input'>
                     <label>Images </label>
                     <div className='inputFile'>
-                        <input type='file' onChange={handleChange} ref={inputRef} />
+                        <input class="add" type='file' onChange={handleChange} ref={inputRef} />
                         <span><i className="fas fa-plus"></i></span>
                     </div>
                     <h4>Click on any image to edit and add a description</h4>
@@ -310,7 +310,7 @@ export default function Add() {
                         type='submit'
                         onClick={postBlog}
                     >Post
-                </button>
+                    </button>
                 </div>
             </form>
             {options}
